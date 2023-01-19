@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class DKCR {
 	
+	
 	String DKCRTitle;	// The title for the Digital Key Comparison Report (DKCR) 
 	String DKCRID;		// BIPM allocated ID for DKCR
 	Integer NTotalContributions;			// The total number of contributions to the DKCR
