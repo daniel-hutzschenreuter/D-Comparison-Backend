@@ -18,11 +18,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-public class TestXPath {
+public class TestDCCXML {
    
    public static void main(String[] args) {
 	   
-	   String XMLTestFile = "TestInput.xml";	
+	   String XMLTestFile = "TestDCCFile.xml";	
 	   String pathname = "TestFiles";
 
 	   // https://www.tutorialspoint.com/java_xml/java_xpath_parse_document.htm#
@@ -39,7 +39,7 @@ public class TestXPath {
 
          XPath xPath =  XPathFactory.newInstance().newXPath();
 
-         String expression = "/class/student";	        
+         String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result/data/quantity[@refType=\"measurementValue\"]/real";	        
          NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(
             doc, XPathConstants.NODESET);
 
@@ -49,27 +49,37 @@ public class TestXPath {
             
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                Element eElement = (Element) nNode;
-               System.out.println("Student roll no :" + eElement.getAttribute("rollno"));
-               System.out.println("First Name : " 
+               // System.out.println("Student roll no :" + eElement.getAttribute("rollno"));
+               System.out.println("Value : " 
                   + eElement
-                  .getElementsByTagName("firstname")
+                  .getElementsByTagName("si:value")
                   .item(0)
                   .getTextContent());
-               System.out.println("Last Name : " 
+               System.out.println("Unit : " 
                   + eElement
-                  .getElementsByTagName("lastname")
+                  .getElementsByTagName("si:unit")
                   .item(0)
                   .getTextContent());
-               System.out.println("Nick Name : " 
+               System.out.println("Date Time : " 
                   + eElement
-                  .getElementsByTagName("nickname")
+                  .getElementsByTagName("si:dateTime")
                   .item(0)
                   .getTextContent());
-               System.out.println("Marks : " 
+               System.out.println("Uncertainty : " 
                   + eElement
-                  .getElementsByTagName("marks")
+                  .getElementsByTagName("si:uncertainty")
                   .item(0)
                   .getTextContent());
+               System.out.println("Coverage Factor : " 
+                       + eElement
+                       .getElementsByTagName("si:coverageFactor")
+                       .item(0)
+                       .getTextContent());
+               System.out.println("Coverage Probability : " 
+                       + eElement
+                       .getElementsByTagName("si:coverageProbability")
+                       .item(0)
+                       .getTextContent());
             }
          }
       } catch (ParserConfigurationException e) {
