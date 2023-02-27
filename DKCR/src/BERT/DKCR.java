@@ -366,7 +366,7 @@ public class DKCR {
 		objDKCR.ProcessDKCR();
 		
 		// Present Results
-		objDKCR.PresentResults();
+		objDKCR.PresentResults();	// Basic output to console window
 		
 	    System.out.println("DKCR Completed!");
 		
