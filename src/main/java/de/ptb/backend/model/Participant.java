@@ -18,4 +18,9 @@ public class Participant implements Serializable {
         instanceCounter++;
         id=instanceCounter;
     }
+
+    public Participant(String name, String dccPid) {
+        this.name = name;
+        this.dccPid = dccPid;
+    }
 }

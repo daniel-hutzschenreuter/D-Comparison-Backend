@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dcc:digitalCalibrationCertificate
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.0.0/dcc.xsd"
+        xmlns:dcc="https://ptb.de/dcc"
+        xmlns:si="https://ptb.de/si" schemaVersion="3.0.0">
+
+    <!--Dies ist ein Beispiel für ein einzelnes Gewichtsstück. Das Beispiel wurde im DKD-FA Masse und Waagen erstellt.
+    Version des Beispiels: V1.3 , Datum: 19.04.2022   -->
+
+    <dcc:administrativeData>
+        <dcc:dccSoftware>
+            <dcc:software>
+                <dcc:name>
+                    <dcc:content>CIPM key comparison of mass measurements of a silicon sphere</dcc:content>
+                </dcc:name>
+                <dcc:release>2019.1.3</dcc:release>
+            </dcc:software>
+        </dcc:dccSoftware>
+
+        <dcc:coreData>
+            <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>
+            <dcc:usedLangCodeISO639_1>de</dcc:usedLangCodeISO639_1>
+            <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
+            <dcc:mandatoryLangCodeISO639_1>de</dcc:mandatoryLangCodeISO639_1>
+            <dcc:uniqueIdentifier>CCM-K1-M</dcc:uniqueIdentifier>
+            <dcc:identifications>
+                <dcc:identification>
+                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
+                    <dcc:value>437000111</dcc:value>
+                    <dcc:name>
+                        <dcc:content lang="de">SAP-Nummer</dcc:content>
+                        <dcc:content lang="en">SAP-Number</dcc:content>
+                    </dcc:name>
+                </dcc:identification>
+                <dcc:identification>
+                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
+                    <dcc:value>06.02.03#0001</dcc:value>
+                    <dcc:name>
+                        <dcc:content lang="de">Aktennummer</dcc:content>
+                        <dcc:content lang="en">File number</dcc:content>
+                    </dcc:name>
+                </dcc:identification>
+            </dcc:identifications>
+            <dcc:beginPerformanceDate>2021-06-01</dcc:beginPerformanceDate>
+            <dcc:endPerformanceDate>2021-06-02</dcc:endPerformanceDate>
+            <dcc:performanceLocation>NPL</dcc:performanceLocation>
+        </dcc:coreData>
+
+        <dcc:items>
+            <dcc:item id="weightABC1234">
+                <dcc:name>
+                    <dcc:content lang="de">2 kg</dcc:content>
+                    <dcc:content lang="en">2 kg</dcc:content>
+                </dcc:name>
+                <dcc:equipmentClass>
+                    <dcc:reference>OIML R111-1:2004</dcc:reference>
+                    <dcc:classID>E2</dcc:classID>
+                </dcc:equipmentClass>
+                <dcc:description>
+                    <dcc:content lang="de">Beschreibung der Verpackung (optional)</dcc:content>
+                    <dcc:content lang="en">Description of box/case (optional)</dcc:content>
+                </dcc:description>
+                <dcc:manufacturer>
+                    <dcc:name>
+                        <dcc:content>Weights Co Ltd.</dcc:content>
+                    </dcc:name>
+                </dcc:manufacturer>
+                <dcc:identifications>
+                    <dcc:identification refType="manufactoringDate">
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>UTC 2020-01-01 19:35:50</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Herstellungsdatum</dcc:content>
+                            <dcc:content lang="en">Manufacturing Date</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="setPosition">
+                        <dcc:issuer>owner</dcc:issuer>
+                        <dcc:value>ABC1234</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Interne Nummer der Elementposition</dcc:content>
+                            <dcc:content lang="en">Internal number of the element position</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="objectId">
+                        <dcc:issuer>owner</dcc:issuer>
+                        <dcc:value>XYZ4567</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Datenbanknummer des Gewichts</dcc:content>
+                            <dcc:content lang="en">Database number of the weight</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="shape">
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>Knob weight</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Form</dcc:content>
+                            <dcc:content lang="en">Form</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="material">
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>Stainless Steel</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Material</dcc:content>
+                            <dcc:content lang="en">Material</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="differentiator">
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>*</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Zusatzindentifikation</dcc:content>
+                            <dcc:content lang="en">Additional identification</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="userMarking1">
+                        <dcc:issuer>owner</dcc:issuer>
+                        <dcc:value>321</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Nutzermarkierung 1</dcc:content>
+                            <dcc:content lang="en">User marking 1</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification refType="userMarking2">
+                        <dcc:issuer>owner</dcc:issuer>
+                        <dcc:value>CBA</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="de">Nutzermarkierung 2</dcc:content>
+                            <dcc:content lang="en">User marking 2</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                </dcc:identifications>
+            </dcc:item>
+        </dcc:items>
+
+        <dcc:calibrationLaboratory>
+            <dcc:contact>
+                <dcc:name>
+                    <dcc:content>Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
+                </dcc:name>
+                <dcc:eMail>info@ptb.de</dcc:eMail>
+                <dcc:location>
+                    <dcc:further id="zusatz">
+                        <dcc:content lang="de">Abteilung 1 Mechanik und Akustik</dcc:content>
+                        <dcc:content lang="en">Division 1 Mechanics and Acoustics</dcc:content>
+                    </dcc:further>
+                    <dcc:street>Bundesallee</dcc:street>
+                    <dcc:streetNo>100</dcc:streetNo>
+                    <dcc:postCode>38116</dcc:postCode>
+                    <dcc:city>Braunschweig</dcc:city>
+                    <dcc:countryCode>DE</dcc:countryCode>
+                </dcc:location>
+            </dcc:contact>
+        </dcc:calibrationLaboratory>
+
+        <dcc:respPersons>
+            <dcc:respPerson>
+                <dcc:person>
+                    <dcc:name>
+                        <dcc:content>Michael</dcc:content>
+                    </dcc:name>
+                    <dcc:eMail>info@ptb.de</dcc:eMail>
+                </dcc:person>
+                <dcc:role>authorisation of certificatetrue</dcc:role>
+            </dcc:respPerson>
+            <dcc:respPerson>
+                <dcc:person>
+                    <dcc:name>
+                        <dcc:content>Alexander</dcc:content>
+                    </dcc:name>
+                    <dcc:eMail>info@ptb.de</dcc:eMail>
+                </dcc:person>
+            </dcc:respPerson>
+        </dcc:respPersons>
+
+        <dcc:customer>
+            <dcc:name>
+                <dcc:content>Customer</dcc:content>
+            </dcc:name>
+            <dcc:eMail>info@ptb.de</dcc:eMail>
+            <dcc:location>
+                <dcc:streetNo>6</dcc:streetNo>
+                <dcc:street>Hello Street</dcc:street>
+                <dcc:postCode>10</dcc:postCode>
+                <dcc:city>Braunschweig</dcc:city>
+                <dcc:countryCode>DE</dcc:countryCode>
+            </dcc:location>
+        </dcc:customer>
+
+        <dcc:statements>
+
+            <dcc:statement>
+                <dcc:norm>DIN EN ISO/IEC 17025:2018-03</dcc:norm>
+                <dcc:reference>7.8.2.1 l)</dcc:reference>
+                <dcc:declaration>
+                    <dcc:content lang="de">Die Ergebnisse beziehen sich nur auf den in diesem DCC beschriebenen Gegenstand.</dcc:content>
+                    <dcc:content lang="en">The results refer only to the object calibrated in this DCC.</dcc:content>
+                </dcc:declaration>
+            </dcc:statement>
+
+            <dcc:statement refType="isInCMC">
+                <dcc:reference>D-K-xxxxx-yy-zz</dcc:reference>
+                <dcc:declaration>
+                    <dcc:content lang="de">Dieser Wert ist innerhalb der Kalibrier- und Messmöglichkeiten.</dcc:content>
+                    <dcc:content lang="en">This result is within the calibration and measurement capabilities.</dcc:content>
+                </dcc:declaration>
+                <dcc:valid>true</dcc:valid>
+                <dcc:respAuthority>
+                    <dcc:name>
+                        <dcc:content>DAkkS</dcc:content>
+                    </dcc:name>
+                    <dcc:eMail>info@dakks.de</dcc:eMail>
+                    <dcc:location>
+                        <dcc:city>Braunschweig</dcc:city>
+                    </dcc:location>
+                </dcc:respAuthority>
+            </dcc:statement>
+
+            <dcc:statement>
+                <dcc:convention>Tracebility</dcc:convention>
+                <dcc:traceable>true</dcc:traceable>
+                <dcc:declaration>
+                    <dcc:content lang="de">Die Messung ist auf das SI rückführbar.</dcc:content>
+                    <dcc:content lang="en">The measurement is traceable to the SI.</dcc:content>
+                </dcc:declaration>
+            </dcc:statement>
+
+            <dcc:statement>
+                <dcc:norm>DIN EN ISO/IEC 17025:2018-03</dcc:norm>
+                <dcc:reference>7.8.4.3</dcc:reference>
+                <dcc:declaration>
+                    <dcc:content lang="de">Die Ergebnisse gelten zum Zeitpunkt der Kalibrierung. Es obliegt dem Verwender, zu gegebener Zeit eine Rekalibrierung zu veranlassen.</dcc:content>
+                    <dcc:content lang="en">The results refer only to the object calibrated in this DCC. The measurement results are valid at the time of calibration. The user is responsible for arranging a recalibration in due time.</dcc:content>
+                </dcc:declaration>
+            </dcc:statement>
+
+        </dcc:statements>
+
+    </dcc:administrativeData>
+
+    <dcc:measurementResults>
+        <dcc:measurementResult refId="weightABC1234">
+
+            <dcc:name>
+                <dcc:content>Massekalibrierung</dcc:content>
+            </dcc:name>
+
+            <dcc:usedMethods>
+
+                <dcc:usedMethod refType="conventionalMass">
+                    <dcc:name>
+                        <dcc:content lang="de">Bestimmung des konventionellen Wägewerts</dcc:content>
+                        <dcc:content lang="en">Determination of the conventional weighing value</dcc:content>
+                    </dcc:name>
+                    <dcc:norm>OIML R111-1:2004</dcc:norm>
+                </dcc:usedMethod>
+
+                <dcc:usedMethod refType="mass">
+                    <dcc:name>
+                        <dcc:content lang="de">Verwendete Methode der Massekalibrierung</dcc:content>
+                        <dcc:content lang="en">Used method of True Mass calibration</dcc:content>
+                    </dcc:name>
+                    <dcc:norm>OIML R111-1:2004</dcc:norm>
+                </dcc:usedMethod>
+
+            </dcc:usedMethods>
+
+            <dcc:influenceConditions>
+
+                <dcc:influenceCondition refType="density">
+                    <dcc:name>
+                        <dcc:content lang="de">Dichte</dcc:content>
+                        <dcc:content lang="en">Density</dcc:content>
+                    </dcc:name>
+                    <dcc:data>
+                        <dcc:quantity refType="referencedValue">
+                            <si:real>
+                                <si:value>8010</si:value>
+                                <si:unit>\kilogram\metre\tothe(-3)</si:unit>
+                                <si:expandedUnc>
+                                    <si:uncertainty>30</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                            <dcc:usedMethods>
+                                <dcc:usedMethod>
+                                    <dcc:name>
+                                        <dcc:content>Method of density determination</dcc:content>
+                                    </dcc:name>
+                                    <dcc:norm>OIML R111-1:2004, section B. method F</dcc:norm>
+                                </dcc:usedMethod>
+                            </dcc:usedMethods>
+                            <dcc:measurementMetaData>
+                                <dcc:metaData refType="source">
+                                    <dcc:reference>Certificate XXXXX by yyyy dated YYYY-MM-DD</dcc:reference>
+                                </dcc:metaData>
+                                <dcc:metaData refType="conformity">
+                                    <dcc:norm>OIML R111-1:2004, section B. method F</dcc:norm>
+                                    <dcc:declaration>
+                                        <dcc:content>Simple acceptance</dcc:content>
+                                    </dcc:declaration>
+                                    <dcc:conformity>pass</dcc:conformity>
+                                    <dcc:data>
+                                        <dcc:quantity refType="maximumPermissibleError">
+                                            <si:real>
+                                                <si:value>10</si:value>
+                                                <si:unit>\kilogram\metre\tothe(-3)</si:unit>
+                                            </si:real>
+                                        </dcc:quantity>
+                                    </dcc:data>
+                                </dcc:metaData>
+                            </dcc:measurementMetaData>
+                        </dcc:quantity>
+                    </dcc:data>
+                </dcc:influenceCondition>
+
+                <dcc:influenceCondition refType="temperature">
+                    <dcc:name>
+                        <dcc:content lang="de">Temperatur</dcc:content>
+                        <dcc:content lang="en">temperature</dcc:content>
+                    </dcc:name>
+                    <dcc:data>
+                        <dcc:quantity>
+                            <si:real>
+                                <si:value>294.05</si:value>
+                                <si:unit>\kelvin</si:unit>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.50</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+                    </dcc:data>
+                </dcc:influenceCondition>
+
+                <dcc:influenceCondition refType="airDensity">
+                    <dcc:name>
+                        <dcc:content lang="de">Luftdichte</dcc:content>
+                        <dcc:content lang="en">air density</dcc:content>
+                    </dcc:name>
+                    <dcc:data>
+                        <dcc:quantity>
+                            <si:real>
+                                <si:value>1.1635</si:value>
+                                <si:unit>\kilogram\metre\tothe(-3)</si:unit>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0035</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+                    </dcc:data>
+                </dcc:influenceCondition>
+
+                <dcc:influenceCondition refType="humidity">
+                    <dcc:name>
+                        <dcc:content lang="de">rel. Luftfeuchte</dcc:content>
+                        <dcc:content lang="en">relative humidity</dcc:content>
+                    </dcc:name>
+                    <dcc:data>
+                        <dcc:quantity>
+                            <si:real>
+                                <si:value>0.417</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.020</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+                    </dcc:data>
+                </dcc:influenceCondition>
+
+            </dcc:influenceConditions>
+
+            <dcc:results>
+
+                <dcc:result refType="conventionalMass">
+                    <dcc:name>
+                        <dcc:content lang="de">Konventioneller Wägewert</dcc:content>
+                        <dcc:content lang="en">Conventional mass</dcc:content>
+                    </dcc:name>
+                    <dcc:data>
+
+                        <dcc:quantity refType="nominalValue">
+                            <dcc:name>
+                                <dcc:content lang="de">Nennwert</dcc:content>
+                                <dcc:content lang="en">Nominal value</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>2</si:value>
+                                <si:unit>\kilogram</si:unit>
+                            </si:real>
+                        </dcc:quantity>
+
+
+                        <dcc:quantity refType="DimensionUnit">
+                            <dcc:name>
+                                <dcc:content>Mass</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>2</si:value>
+                                <si:unit>\kilogram</si:unit>
+                            </si:real>
+                        </dcc:quantity>
+
+
+
+                        <dcc:quantity refType="xRef">
+                            <si:real>
+                                <si:value>1000.5302036626827</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2023-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>1.94678449954686E-5</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>PTB</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.27093351503382546</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>LNE</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.39779692524976884</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>VTT</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>1.0814565213759537</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>NMIJ</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.8979885697696842</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>IMGC</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.37472167938039236</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>KRISS</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.2759804513553216</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>METAS</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.07502703475462225</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>NRC</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.7950089552798284</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>CEM</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>1.0971970537208176</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>CENAM</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.3387756649585726</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+                        <dcc:quantity refType="measurementValue">
+                            <dcc:name>
+                                <dcc:content>NIST</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>0.7601042918179086</si:value>
+                                <si:unit>\one</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.0</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                        </dcc:quantity>
+
+
+
+                        <dcc:quantity refType="measurementDeviation">
+                            <si:real>
+                                <si:value>0.0000002</si:value>
+                                <si:unit>\kilogram</si:unit>
+                                <si:dateTime>2021-06-01T12:01:02</si:dateTime>
+                                <si:expandedUnc>
+                                    <si:uncertainty>0.00000032</si:uncertainty>
+                                    <si:coverageFactor>2</si:coverageFactor>
+                                    <si:coverageProbability>0.95</si:coverageProbability>
+                                </si:expandedUnc>
+                            </si:real>
+                            <dcc:measurementMetaData>
+                                <dcc:metaData refType="isInCMC">
+                                    <dcc:reference>D-K-xxxxx-yy-zz</dcc:reference>
+                                    <dcc:declaration>
+                                        <dcc:content lang="de">Dieser Wert ist innerhalb der Kalibrier- und Messmöglichkeiten.</dcc:content>
+                                        <dcc:content lang="en">This result is within the calibration and measurement capabilities.</dcc:content>
+                                    </dcc:declaration>
+                                    <dcc:valid>true</dcc:valid>
+                                    <dcc:respAuthority>
+                                        <dcc:name>
+                                            <dcc:content>DAkkS</dcc:content>
+                                        </dcc:name>
+                                        <dcc:eMail>info@dakks.de</dcc:eMail>
+                                        <dcc:location>
+                                            <dcc:city>Braunschweig</dcc:city>
+                                        </dcc:location>
+                                    </dcc:respAuthority>
+                                </dcc:metaData>
+                                <dcc:metaData refType="conformity">
+                                    <dcc:convention>section 5.3.2</dcc:convention>
+                                    <dcc:norm>OIML R111-1:2004</dcc:norm>
+                                    <dcc:declaration>
+                                        <dcc:content>Binary, Guard banded acceptance w=U and TUR >=3</dcc:content>
+                                    </dcc:declaration>
+                                    <dcc:conformity>pass</dcc:conformity>
+                                    <dcc:data>
+                                        <dcc:quantity refType="maximumPermissibleError">
+                                            <si:real>
+                                                <si:value>0.000001</si:value>
+                                                <si:unit>\kilogram</si:unit>
+                                            </si:real>
+                                        </dcc:quantity>
+                                    </dcc:data>
+                                </dcc:metaData>
+                            </dcc:measurementMetaData>
+                        </dcc:quantity>
+                    </dcc:data>
+                </dcc:result>
+
+                <dcc:result refType="mass">
+                    <dcc:name>
+                        <dcc:content lang="de">Masse</dcc:content>
+                        <dcc:content lang="en">Mass</dcc:content>
+                    </dcc:name>
+                    <dcc:data>
+                        <dcc:quantity refType="nominalValue">
+                            <dcc:name>
+                                <dcc:content lang="de">Nennwert</dcc:content>
+                                <dcc:content lang="en">Nominal value</dcc:content>
+                            </dcc:name>
+                            <si:real>
+                                <si:value>2</si:value>
+                                <si:unit>\kilogram</si:unit>
+                            </si:real>
+                        </dcc:quantity>
+
+
+                    </dcc:data>
+                </dcc:result>
+            </dcc:results>
+        </dcc:measurementResult>
+    </dcc:measurementResults>
+</dcc:digitalCalibrationCertificate>
