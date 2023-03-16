@@ -2,7 +2,6 @@ package de.ptb.backend.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import de.ptb.backend.model.DKCRRequestMessage;
-import de.ptb.backend.model.DKCRResponseMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiReal;
 import de.ptb.backend.service.PidDccFileSystemReaderService;
@@ -19,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(path = "/api")
 public class BackendController {
-    @GetMapping("/sayHello")
+    @PostMapping("/sayHello")
     public String sayHelloWorld(){
         return "Hello World!";
     }
@@ -36,7 +35,7 @@ public class BackendController {
         DKCRRequestMessage request = new DKCRRequestMessage(pidReport,participantList);
         PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
         List<SiReal> SiReals = reader.readFiles();
-
+        System.out.println(SiReals);
         //DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccFile);
         return null;
     }

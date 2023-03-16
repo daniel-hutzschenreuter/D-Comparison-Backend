@@ -38,21 +38,17 @@ public class PidDccFileSystemReaderService {
         DocumentBuilder db = dbf.newDocumentBuilder();
         for(File file: Objects.requireNonNull(directory.listFiles())) {
             for(Participant participant: this.message.getParticipantList()){
-                if((participant.getDccPid() + ".xml").equals(file.getName())){
+                if(Objects.equals(file.getName().substring(0,file.getName().length()-4), participant.getDccPid().substring(1,participant.getDccPid().length()-1))){
                     try {
                         Document doc = db.parse(file);
                         doc.getDocumentElement().normalize();
                         XPath xPath =  XPathFactory.newInstance().newXPath();
                         String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result/data/quantity[@refType=\"measurementValue\"]/real";
-                        NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(
-                                doc, XPathConstants.NODESET);
+                        NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
                         for (int i = 0; i < nodeList.getLength(); i++) {
                             Node nNode = nodeList.item(i);
-                            System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
                             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                                 Element eElement = (Element) nNode;
-                                // System.out.println("Student roll no :" + eElement.getAttribute("rollno"));
                                 Double value = Double.valueOf(eElement.getElementsByTagName("si:value").item(0).getTextContent());
                                 String unit = eElement.getElementsByTagName("si:unit").item(0).getTextContent();
                                 String dateTime = eElement.getElementsByTagName("si:dateTime").item(0).getTextContent();
