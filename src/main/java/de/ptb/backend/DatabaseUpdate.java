@@ -32,7 +32,7 @@ public class DatabaseUpdate implements CommandLineRunner {
                 "normal");
         FundamentalConstant elementaryCharge = new FundamentalConstant(null, "si:elementary_charge:2019",
                 "https://siunits.stuchalk.domains.unf.edu/si/si:definingconstant:elementary_charge:2019",
-                true, "speed of light in vacuum",
+                true, "elementary charge",
                 "electric charge", 1.602176634e-19, "\\coulomb", new Date(), 0,
                 "normal");
         FundamentalConstant boltzmannConstant = new FundamentalConstant(null, "si:boltzmann_constant:2019",
