@@ -45,4 +45,13 @@ public class SiReal {
         this.expUnc = expUnc;
     }
 
+    @Override
+    public String toString() {
+        return "SiReal{" +
+                "value=" + value +
+                ", unit='" + unit + '\'' +
+                ", dateTime='" + dateTime + '\'' +
+                ", expUnc=" + expUnc.toString() +
+                '}';
+    }
 }

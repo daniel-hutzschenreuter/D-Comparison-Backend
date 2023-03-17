@@ -5,6 +5,7 @@ import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.FundamentalConstant;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiReal;
+import de.ptb.backend.model.formula.EEqualsMC2;
 import de.ptb.backend.repository.FundamentalConstantRepository;
 import de.ptb.backend.service.PidDccFileSystemReaderService;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,15 @@ public class BackendController {
         FundamentalConstant speedOfLight = getSpeedOfLight();
         System.out.println(speedOfLight);
 
-        //DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccFile);
+        System.out.println("Test E=mcc");
+        EEqualsMC2 equalsMC2 = new EEqualsMC2(speedOfLight, SiReals);
+        System.out.println("Calculate 1.");
+        System.out.println(equalsMC2.calculate(SiReals.get(0).getValue()).toString());
+        System.out.println("Calculate All");
+        List<SiReal> ergebnisse = equalsMC2.calculate();
+        for(SiReal ergebnis: ergebnisse){
+            System.out.println(ergebnis.toString());
+        }
         return null;
     }
 

@@ -33,4 +33,13 @@ public class SiExpandedUnc {
         this.coverageFactor = coverageFactor;
         this.coverageProbability = coverageProbability;
     }
+
+    @Override
+    public String toString() {
+        return "SiExpandedUnc{" +
+                "uncertainty=" + uncertainty +
+                ", coverageFactor=" + coverageFactor +
+                ", coverageProbability=" + coverageProbability +
+                '}';
+    }
 }
