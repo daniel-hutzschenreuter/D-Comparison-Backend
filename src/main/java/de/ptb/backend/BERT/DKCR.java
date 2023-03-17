@@ -209,7 +209,7 @@ public class DKCR {
 			    	EO eop = q.EOResults.get(i);
 			    	
 			    	// Is the previous run for this contribution already an outlier?
-			    	if(eop.OutlierFlag == true)
+			    	if(eop.OutlierFlag)
 			    	{
 			    		// Increment outlierflag counts
 			    		OldNOutlierFlags++;
@@ -242,11 +242,11 @@ public class DKCR {
 		    	DIR o = DirInputs.get(i);
 		    	
 		    	// Process only if ResultPresent = true
-		    	if(o.ResultPresentFlag == true)
+		    	if(o.ResultPresentFlag)
 		    	{
 		    		// Check that its not already an outlier
 		    		EO p = a.EOResults.get(i);
-		    		if(p.OutlierFlag == false)
+		    		if(!p.OutlierFlag)
 		    		{
 		    			G = G + 1 / (o.Ui * o.Ui);	
 		    		}	
@@ -294,11 +294,11 @@ public class DKCR {
 		    	DIR o = DirInputs.get(i);
 		    	
 		    	// Process only if ResultPresent = true
-		    	if(o.ResultPresentFlag == true)
+		    	if(o.ResultPresentFlag)
 		    	{
 		    		// Check that its not already an outlier
 		    		EO p = a.EOResults.get(i);
-		    		if(p.OutlierFlag == false)
+		    		if(!p.OutlierFlag)
 		    		{
 		    			// Calc. En95 for each of the contributions
 		    			En95 = Math.abs((o.xi - a.xRef) / Math.sqrt(o.Ui*o.Ui - a.URef*a.URef));

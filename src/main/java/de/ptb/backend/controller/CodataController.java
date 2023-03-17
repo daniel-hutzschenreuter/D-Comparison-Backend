@@ -16,17 +16,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping(path = "/")
 public class CodataController {
@@ -125,36 +122,6 @@ public class CodataController {
         outputStream.close();
     }
 
-
-//    @GetMapping(path = "/download/{name}")
-//    public ResponseEntity<ByteArrayResource> download
-//            (@PathVariable("name") String name, Model model) throws IOException {
-//        String fileName = "";
-//        File file1 = new File("src/main/resources/static/dccFiles/CCM-K1-M-PTB.xml");
-//        fileName = file1.getName();
-//        File file = new File(UPLOADED_FOLDER + name);
-//        Path path = Paths.get(file.getAbsolutePath());
-//        ByteArrayResource resource = new ByteArrayResource
-//                (Files.readAllBytes(path));
-//        model.addAttribute("message",
-//                "You successfully downloaded '"
-//                        + file.getName() + "'");
-//
-//        return ResponseEntity.ok().headers(this.headers(name))
-//                .contentLength(file.length())
-//                .contentType(MediaType.parseMediaType
-//                        ("application/octet-stream")).body(resource);
-//    }
-//    private HttpHeaders headers(String name) {
-//
-//        HttpHeaders header = new HttpHeaders();
-//        header.add(HttpHeaders.CONTENT_DISPOSITION,
-//                "attachment; filename=" + name);
-//        header.add("Cache-Control", "no-cache, no-store,"
-//                + " must-revalidate");
-//        return header;
-//
-//    }
     private List <FundamentalConstantDto> getConstantData() {
         List <FundamentalConstantDto> fundamentalConstantDtoList = new ArrayList<FundamentalConstantDto>();
         FundamentalConstantDto fundamentalConstantDto = new FundamentalConstantDto();
