@@ -1,6 +1,6 @@
 package de.ptb.backend.model.formula;
 
-import de.ptb.backend.model.FundamentalConstant;
+import de.ptb.backend.model.dsi.SiConstant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EEqualsMC2 {
-    FundamentalConstant c;
+    SiConstant c;
     List<Double> massValues = new ArrayList<>();
 
-    public EEqualsMC2(FundamentalConstant speedOfLight, List<SiReal> siReals) {
+    public EEqualsMC2(SiConstant speedOfLight, List<SiReal> siReals) {
         this.c = speedOfLight;
         for(SiReal sireal: siReals){
             if(sireal.getUnit().equals("\\one")){
@@ -20,7 +20,7 @@ public class EEqualsMC2 {
             }
         }
     }
-    public  EEqualsMC2(FundamentalConstant speedOfLight){
+    public  EEqualsMC2(SiConstant speedOfLight){
         this.c = speedOfLight;
     }
 
