@@ -12,6 +12,14 @@ public class DIR {
 	String filename;
 	
 	// Vector<RunResult> RunResults = new Vector<RunResult>();	// A vector of Nr RunResult(s)
-	
-	
+
+	public DIR() {
+	}
+
+	public DIR(Double xi, Double ui) {
+		this.xi = xi;
+		this.Ui = ui;
+		this.ResultPresentFlag=true;
+	}
 }
+

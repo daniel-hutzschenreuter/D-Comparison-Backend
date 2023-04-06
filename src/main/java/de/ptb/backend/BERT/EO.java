@@ -45,5 +45,13 @@ public class EO {
 		int y = 1;
 		return 0;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "EO{" +
+				"OutlierFlag=" + OutlierFlag +
+				", EquivalenceValue=" + EquivalenceValue +
+				", EquivalenceValueRounded=" + EquivalenceValueRounded +
+				'}';
+	}
 }

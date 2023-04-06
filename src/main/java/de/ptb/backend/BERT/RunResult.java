@@ -25,4 +25,26 @@ public class RunResult {
 		}
 		
 	}
+	public RunResult(int N, Double xRef, Double uRef){
+		this.xRef=xRef;
+		this.URef=uRef;
+		for(int i = 0; i < N; i++)
+		{
+			EO a = new EO();
+			// Initialise the object a
+			a.EquivalenceValue = 0.0;
+			a.EquivalenceValueRounded = 0.0;
+			a.OutlierFlag = false;
+			EOResults.add(a);
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "RunResult{" +
+				"xRef=" + xRef +
+				", URef=" + URef +
+				", EOResults=" + EOResults.toString() +
+				'}';
+	}
 }

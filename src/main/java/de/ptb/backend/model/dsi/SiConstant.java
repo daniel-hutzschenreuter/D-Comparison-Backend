@@ -27,6 +27,23 @@ public class SiConstant {
         this.uncertainty = uncertainty;
         this.distribution = distribution;
     }
+
+    @Override
+    public String toString() {
+        return "SiConstant{" +
+                "pid='" + pid + '\'' +
+                ", bipmPID='" + bipmPID + '\'' +
+                ", dSIApproved=" + dSIApproved +
+                ", label='" + label + '\'' +
+                ", quantityType='" + quantityType + '\'' +
+                ", value=" + value +
+                ", unit='" + unit + '\'' +
+                ", dateTime='" + dateTime + '\'' +
+                ", uncertainty=" + uncertainty +
+                ", distribution='" + distribution + '\'' +
+                '}';
+    }
+
     public String getPid() {
         return pid;
     }
