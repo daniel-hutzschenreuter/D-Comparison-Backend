@@ -47,4 +47,16 @@ public class RunResult {
 				", EOResults=" + EOResults.toString() +
 				'}';
 	}
+
+	public Double getxRef() {
+		return xRef;
+	}
+
+	public Double getURef() {
+		return URef;
+	}
+
+	public Vector<EO> getEOResults() {
+		return EOResults;
+	}
 }

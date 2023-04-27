@@ -45,6 +45,10 @@ public class SiReal {
         this.expUnc = expUnc;
     }
 
+    public void manipulateValue(Double manipulator){
+        this.value+=manipulator;
+    }
+
     @Override
     public String toString() {
         return "SiReal{" +

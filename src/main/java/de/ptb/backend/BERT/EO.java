@@ -54,4 +54,16 @@ public class EO {
 				", EquivalenceValueRounded=" + EquivalenceValueRounded +
 				'}';
 	}
+
+	public Boolean getOutlierFlag() {
+		return OutlierFlag;
+	}
+
+	public Double getEquivalenceValue() {
+		return EquivalenceValue;
+	}
+
+	public Double getEquivalenceValueRounded() {
+		return EquivalenceValueRounded;
+	}
 }
