@@ -3,28 +3,32 @@ package de.ptb.backend.model.dsi;
 public class MeasurementResult {
     String name = "";
     SiReal massValue;
-    final Double kcValue;
+    Double kcMassValue;
+    SiReal kcValue;
     Double enValue;
     SiReal energyValue;
     String result = "";
-    public MeasurementResult(SiReal massValue, Double kcValue, Double enValue, SiReal energyValue) {
+    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue) {
         this.massValue = massValue;
+        this.kcMassValue = kcMassValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
         this.energyValue = energyValue;
         generateMeasurementResult();
     }
-    public MeasurementResult(String name, SiReal massValue, Double kcValue, Double enValue, SiReal energyValue){
+    public MeasurementResult(String name, SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue){
         this.name = name;
         this.massValue = massValue;
+        this.kcMassValue = kcMassValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
         this.energyValue = energyValue;
         generateMeasurementResult();
     }
 
-    public MeasurementResult(SiReal massValue, Double kcValue, SiReal energyValue){
+    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, SiReal energyValue){
         this.kcValue = kcValue;
+        this.kcMassValue = kcMassValue;
         this.massValue = massValue;
         this.energyValue = energyValue;
         generateKCMeasurement();
@@ -48,6 +52,7 @@ public class MeasurementResult {
                 "                       <si:label>Mass</si:label>\n" +
                 "                       <si:value>"+this.massValue.getValue()+"</si:value>\n" +
                 "                       <si:unit>"+this.massValue.getUnit()+"</si:unit>\n" +
+                "                       <si:difference>"+this.massValue.getMassDifference()+"</si:difference>\n" +
                 "                       <si:expandedUnc>\n" +
                 "                           <si:uncertainty>"+this.massValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
                 "                           <si:coverageFactor>"+this.massValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
@@ -106,8 +111,9 @@ public class MeasurementResult {
                 "          <dcc:data>\n" +
                 "            <dcc:quantity>\n" +
                 "              <si:real>\n" +
-                "                <si:value>1000.530185</si:value>\n" +
+                "                <si:value>"+this.kcMassValue+"</si:value>\n" +
                 "                <si:unit>/gram</si:unit>\n" +
+                "                <si:difference>"+this.massValue.getMassDifference()+"</si:difference>\n" +
                 "                <si:expandedUnc>\n" +
                 "                  <si:uncertainty>0.00002535</si:uncertainty>\n" +
                 "                  <si:coverageFactor>2</si:coverageFactor>\n" +
@@ -129,12 +135,12 @@ public class MeasurementResult {
                 "              </dcc:name>\n" +
                 "              <si:real>\n" +
                 "                <si:label>Energy</si:label>\n" +
-                "                <si:value>4.76506E+13</si:value>\n" +
-                "                <si:unit>/Joule</si:unit>\n" +
+                "                <si:value>"+this.kcValue.getValue()+"</si:value>\n" +
+                "                <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
                 "                <si:expandedUnc>\n" +
-                "                  <si:uncertainty>2.3E+09</si:uncertainty>\n" +
-                "                  <si:coverageFactor>2</si:coverageFactor>\n" +
-                "                  <si:coverageProbability>0.95</si:coverageProbability>\n" +
+                "                  <si:uncertainty>"+this.kcValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
+                "                  <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+                "                  <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
                 "                  <si:distribution>Normal</si:distribution>\n" +
                 "                </si:expandedUnc>\n" +
                 "              </si:real>\n" +

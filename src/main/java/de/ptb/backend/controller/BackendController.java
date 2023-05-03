@@ -60,12 +60,10 @@ public class BackendController {
         DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
         PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
         List<SiReal> SiReals = reader.readFiles();
-        System.out.println(SiReals.get(0).getValue());
         manipulateMassValues(SiReals, -1.0);
-        System.out.println(SiReals.get(0).getValue());
         SiConstant speedOfLight = getSpeedOfLight();
-        EEqualsMC2 equalsMC2 = new EEqualsMC2(speedOfLight, SiReals);
-        List<SiReal> ergebnisse = equalsMC2.calculate();
+        EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
+        List<SiReal> ergebnisse = equalsMC.calculate();
         fDKCR fdkcr = new fDKCR();
         RunfDKCR objRunfDKCR = new RunfDKCR();
         Vector<DIR> inputs = new Vector<>();
@@ -78,7 +76,9 @@ public class BackendController {
         fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(),objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
         objRunfDKCR.setNr(fdkcr.processDKCR());
         Vector<RunResult> Results = objRunfDKCR.getRunResults();
-        List<MeasurementResult> mResults = generateMResults(SiReals, Results, ergebnisse);
+        System.out.println(Results);
+        SiReal kcVal = equalsMC.calculate(Results.get(0).getxRef());
+        List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse);
         DKCRResponseMessage response = new DKCRResponseMessage(pidReport, writeDataIntoDCC(mResults));
         return response.toString();
     }
@@ -122,13 +122,12 @@ public class BackendController {
         return new File("src/main/resources//tmp/output.xml");
     }
 
-    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enKcValues, List<SiReal> energy){
+    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy){
         List<MeasurementResult> results = new ArrayList<>();
-        RunResult runResult = enKcValues.get(0);
+        RunResult runResult = enMassValues.get(0);
         for(int i = 0; i<mass.size(); i++){
-            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i)));
+            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), kcValue, runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i)));
         }
-        results.add(new MeasurementResult(mass.get(0),runResult.getxRef(),energy.get(0)));
         return results;
     }
     private static String convertDocumentToString(Document doc) {

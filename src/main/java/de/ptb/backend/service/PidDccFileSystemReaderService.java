@@ -43,7 +43,7 @@ public class PidDccFileSystemReaderService {
                         Document doc = db.parse(file);
                         doc.getDocumentElement().normalize();
                         XPath xPath =  XPathFactory.newInstance().newXPath();
-                        String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result/data/quantity[@refType=\"measurementValue\"]/real";
+                        String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"participant_mass\"]/data/quantity[@refType=\"Kilogram\"]/real";
                         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
                         for (int i = 0; i < nodeList.getLength(); i++) {
                             Node nNode = nodeList.item(i);
@@ -51,7 +51,7 @@ public class PidDccFileSystemReaderService {
                                 Element eElement = (Element) nNode;
                                 Double value = Double.valueOf(eElement.getElementsByTagName("si:value").item(0).getTextContent());
                                 String unit = eElement.getElementsByTagName("si:unit").item(0).getTextContent();
-                                String dateTime = eElement.getElementsByTagName("si:dateTime").item(0).getTextContent();
+                                String dateTime = "nicht existent";//eElement.getElementsByTagName("si:dateTime").item(0).getTextContent();
                                 Double uncertainty = Double.valueOf(eElement.getElementsByTagName("si:uncertainty").item(0).getTextContent());
                                 int coverageFactor = Integer.parseInt(eElement.getElementsByTagName("si:coverageFactor").item(0).getTextContent());
                                 Double coverageProbability = Double.valueOf(eElement.getElementsByTagName("si:coverageProbability").item(0).getTextContent());

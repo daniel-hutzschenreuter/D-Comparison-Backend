@@ -5,7 +5,7 @@ public class SiReal {
     String unit;
     String dateTime;
     SiExpandedUnc expUnc;
-
+    Double massDifference = 0.0;
     public Double getValue() {
         return value;
     }
@@ -38,6 +38,10 @@ public class SiReal {
         this.expUnc = expUnc;
     }
 
+    public Double getMassDifference() {
+        return massDifference;
+    }
+
     public SiReal(Double value, String unit, String dateTime, SiExpandedUnc expUnc) {
         this.value = value;
         this.unit = unit;
@@ -46,6 +50,7 @@ public class SiReal {
     }
 
     public void manipulateValue(Double manipulator){
+        this.massDifference=manipulator;
         this.value+=manipulator;
     }
 
