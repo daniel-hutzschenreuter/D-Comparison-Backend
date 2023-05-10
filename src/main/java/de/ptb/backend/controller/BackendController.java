@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -51,7 +50,7 @@ public class BackendController {
     @PostMapping("/keyComparison")
     public String evaluateDKCR(@RequestBody JsonNode payload) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
         JsonNode data = payload.get("keyComparisonData");
-        String pidReport = data.get("pidReport").toString();
+        String pidReport = data.get("pidReport").toString().substring(1,data.get("pidReport").toString().length()-1);
         List<Participant> participantList = new ArrayList<>();
         for (JsonNode participant : data.get("participantList")) {
             participant = participant.get("participant");
@@ -76,10 +75,9 @@ public class BackendController {
         fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(),objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
         objRunfDKCR.setNr(fdkcr.processDKCR());
         Vector<RunResult> Results = objRunfDKCR.getRunResults();
-        System.out.println(Results);
         SiReal kcVal = equalsMC.calculate(Results.get(0).getxRef());
         List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse);
-        DKCRResponseMessage response = new DKCRResponseMessage(pidReport, writeDataIntoDCC(mResults));
+        DKCRResponseMessage response = new DKCRResponseMessage(pidReport, writeDataIntoDCC(pidReport, participantList, mResults));
         return response.toString();
     }
     public SiConstant getSpeedOfLight() {
@@ -99,7 +97,7 @@ public class BackendController {
         }
         return new SiConstant(constantValues[0], constantValues[1], Objects.equals(constantValues[2], "true"),constantValues[4],constantValues[5],Double.parseDouble(constantValues[6]),constantValues[7],constantValues[8],Integer.parseInt(constantValues[9]),constantValues[10]);
     }
-    public File writeDataIntoDCC(List<MeasurementResult> mResults) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
+    public File writeDataIntoDCC(String pid, List<Participant> participants, List<MeasurementResult> mResults) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
         File dccFile = new File(dccPath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -111,10 +109,24 @@ public class BackendController {
         for (MeasurementResult mResult : mResults){
             results+=mResult;
         }
-        content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>"+results+"</dcc:measurementResults>"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
+        content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
         Document newDoc = convertStringToDocument(content);
+        //write Participants and unique identifier
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        String expression = "/digitalCalibrationCertificate/administrativeData/coreData/uniqueIdentifier";
+        NodeList nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(pid);
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(participants.get(0).getName());
+        }
         DOMSource source = new DOMSource(newDoc);
-        FileWriter writer = new FileWriter(new File("src/main/resources//tmp/output.xml"));
+        FileWriter writer = new FileWriter("src/main/resources//tmp/output.xml");
         StreamResult result = new StreamResult(writer);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();

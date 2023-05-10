@@ -148,7 +148,7 @@ public class MeasurementResult {
                 "          </dcc:data>\n" +
                 "        </dcc:result>\n" +
                 "      </dcc:results>\n" +
-                "    </dcc:measurementResult>";
+                "    </dcc:measurementResult>\n";
     }
 
     @Override

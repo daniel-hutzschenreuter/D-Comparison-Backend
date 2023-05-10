@@ -15,7 +15,7 @@ public class EEqualsMC2 {
     public EEqualsMC2(SiConstant speedOfLight, List<SiReal> siReals) {
         this.c = speedOfLight;
         for(SiReal sireal: siReals){
-            if(sireal.getUnit().equals("\\gram")){
+            if(sireal.getUnit().equals("\\kilogram")){
                 this.massValues.add(sireal.getValue());
             }
         }

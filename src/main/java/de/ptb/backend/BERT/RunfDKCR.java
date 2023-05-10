@@ -18,8 +18,8 @@ public class RunfDKCR {
     String DKCRContributions = "DKCRContributions.txt";            // File containing current actual contributions
     String pathname = "src/main/resources/TestFiles";    // The pathname of the folder containing DKCR data
     // Vector<DIR> RunResults = new Vector<DIR>(50, 10);
-    Vector<DIR> DirInputs = new Vector<DIR>();                // A vector of Nc pairs of (xi, Ui
-    Vector<RunResult> RunResults = new Vector<RunResult>();    // A vector of Nr RunResult(s) Nc(Ei, OutlierFlagi)
+    Vector<DIR> DirInputs = new Vector<>();                // A vector of Nc pairs of (xi, Ui
+    Vector<RunResult> RunResults = new Vector<>();    // A vector of Nr RunResult(s) Nc(Ei, OutlierFlagi)
 
     public static void main(String[] args) throws IOException {
         // TODO Auto-generated method stub
@@ -103,7 +103,7 @@ public class RunfDKCR {
 
                 // Do something with the line
 
-                System.out.println(line);        // Debug shows file being read
+                //System.out.println(line);        // Debug shows file being read
 
                 String[] current_Record = line.split(",");
 
@@ -188,7 +188,7 @@ public class RunfDKCR {
 
                 // Process the line
 
-                System.out.println(line);        // Debug shows file being read
+             //   System.out.println(line);        // Debug shows file being read
 
                 String[] current_Record = line.split(",");
 

@@ -75,5 +75,6 @@
             </dcc:location>
         </dcc:customer>
     </dcc:administrativeData>
-    <dcc:measurementResults/>
+    <dcc:measurementResults>
+    </dcc:measurementResults>
 </dcc:digitalCalibrationCertificate>
