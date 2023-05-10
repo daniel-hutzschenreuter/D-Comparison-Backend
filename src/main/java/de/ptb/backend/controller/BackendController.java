@@ -71,8 +71,8 @@ public class BackendController {
             DIR sirealAsDIR = new DIR(siReal.getValue(), siReal.getExpUnc().getUncertainty());
             inputs.add(sirealAsDIR);
         }
-        int result1 = objRunfDKCR.ReadData();
-        int result2 = objRunfDKCR.ReadDKRCContributions();
+        objRunfDKCR.ReadData();
+        objRunfDKCR.ReadDKRCContributions();
         fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(),objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
         objRunfDKCR.setNr(fdkcr.processDKCR());
         Vector<RunResult> Results = objRunfDKCR.getRunResults();
