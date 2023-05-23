@@ -1,5 +1,4 @@
 package de.ptb.backend.controller;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import de.ptb.backend.BERT.DIR;
 import de.ptb.backend.BERT.RunResult;
@@ -13,6 +12,7 @@ import de.ptb.backend.model.dsi.SiConstant;
 import de.ptb.backend.model.dsi.SiReal;
 import de.ptb.backend.model.formula.EEqualsMC2;
 import de.ptb.backend.service.PidDccFileSystemReaderService;
+import de.ptb.backend.service.PidReportFileSystemWriteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -21,7 +21,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,12 +39,10 @@ import java.util.*;
 @RequestMapping(path = "/api")
 public class BackendController {
     final String dConstantUrl = "http://localhost:8082/api/";
-    final String dccPath = "src/main/resources/TestFiles/DCCTemplate.xml";
     @GetMapping("/sayHello")
     public String sayHelloWorld() {
         return "Hello World!";
     }
-
 
     @PostMapping("/keyComparison")
     public String evaluateDKCR(@RequestBody JsonNode payload) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
@@ -66,8 +63,8 @@ public class BackendController {
         fDKCR fdkcr = new fDKCR();
         RunfDKCR objRunfDKCR = new RunfDKCR();
         Vector<DIR> inputs = new Vector<>();
-        for (SiReal siReal : SiReals) {
-            DIR sirealAsDIR = new DIR(siReal.getValue(), siReal.getExpUnc().getUncertainty());
+        for (SiReal ergebnis : ergebnisse) {
+            DIR sirealAsDIR = new DIR(ergebnis.getValue(), ergebnis.getExpUnc().getUncertainty());
             inputs.add(sirealAsDIR);
         }
         objRunfDKCR.ReadData();
@@ -77,7 +74,8 @@ public class BackendController {
         Vector<RunResult> Results = objRunfDKCR.getRunResults();
         SiReal kcVal = equalsMC.calculate(Results.get(0).getxRef());
         List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse);
-        DKCRResponseMessage response = new DKCRResponseMessage(pidReport, writeDataIntoDCC(pidReport, participantList, mResults));
+        PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
+        DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
         return response.toString();
     }
     public SiConstant getSpeedOfLight() {
@@ -97,42 +95,6 @@ public class BackendController {
         }
         return new SiConstant(constantValues[0], constantValues[1], Objects.equals(constantValues[2], "true"),constantValues[4],constantValues[5],Double.parseDouble(constantValues[6]),constantValues[7],constantValues[8],Integer.parseInt(constantValues[9]),constantValues[10]);
     }
-    public File writeDataIntoDCC(String pid, List<Participant> participants, List<MeasurementResult> mResults) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
-        File dccFile = new File(dccPath);
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(dccFile);
-        doc.getDocumentElement().normalize();
-        String content = convertDocumentToString(doc);
-        String results = "";
-        for (MeasurementResult mResult : mResults){
-            results+=mResult;
-        }
-        content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
-        Document newDoc = convertStringToDocument(content);
-        //write Participants and unique identifier
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        String expression = "/digitalCalibrationCertificate/administrativeData/coreData/uniqueIdentifier";
-        NodeList nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
-        for (int idx = 0; idx < nodeList.getLength(); idx++) {
-            Node value = nodeList.item(idx);
-            value.setTextContent(pid);
-        }
-        expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
-        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
-        for (int idx = 0; idx < nodeList.getLength(); idx++) {
-            Node value = nodeList.item(idx);
-            value.setTextContent(participants.get(0).getName());
-        }
-        DOMSource source = new DOMSource(newDoc);
-        FileWriter writer = new FileWriter("src/main/resources//tmp/output.xml");
-        StreamResult result = new StreamResult(writer);
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        transformer.transform(source, result);
-        return new File("src/main/resources//tmp/output.xml");
-    }
 
     public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy){
         List<MeasurementResult> results = new ArrayList<>();
@@ -141,36 +103,6 @@ public class BackendController {
             results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), kcValue, runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i)));
         }
         return results;
-    }
-    private static String convertDocumentToString(Document doc) {
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer;
-        try {
-            transformer = tf.newTransformer();
-            // below code to remove XML declaration
-            // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(doc), new StreamResult(writer));
-            String output = writer.getBuffer().toString();
-            return output;
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-    private static Document convertStringToDocument(String xmlStr) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
-        try
-        {
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse( new InputSource( new StringReader( xmlStr ) ) );
-            return doc;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
     private static void manipulateMassValues(List<SiReal> siReals, Double manipulator){
         for (SiReal real: siReals){

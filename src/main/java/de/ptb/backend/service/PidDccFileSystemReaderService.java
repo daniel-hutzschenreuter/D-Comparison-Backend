@@ -17,6 +17,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,11 +25,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class PidDccFileSystemReaderService {
-    String path = "src/main/resources/DCCFiles";
+    String path = null;
     DKCRRequestMessage message;
 
     public PidDccFileSystemReaderService(DKCRRequestMessage message) {
         this.message = message;
+        if(System.getProperty("os.name").contains("Linux")) {
+            this.path = "src/main/resources/DCCFiles";
+        }
+        else if(System.getProperty("os.name").contains("Windows")){
+            this.path = "src\\main\\resources\\DCCFiles";
+        }
     }
 
     public List<SiReal> readFiles() throws ParserConfigurationException, IOException, SAXException {
