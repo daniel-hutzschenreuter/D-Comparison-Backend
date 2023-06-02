@@ -32,11 +32,10 @@ public class PidReportFileSystemWriteService {
         this.pid = pid;
         this.participants = participants;
         this.mResults = mResults;
-        if(System.getProperty("os.name").contains("Linux")) {
-            this.dccTemplatePath = "src/main/resources/TestFiles/DCCTemplate.xml";
-        }
-        else if(System.getProperty("os.name").contains("Windows")) {
+        if(System.getProperty("os.name").contains("Windows")) {
             this.dccTemplatePath = "src\\main\\resources\\TestFiles\\DCCTemplate.xml";
+        }else{
+            this.dccTemplatePath = "DCCTemplate.xml";
         }
     }
     public File writeDataIntoDCC() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
@@ -69,11 +68,10 @@ public class PidReportFileSystemWriteService {
         }
         DOMSource source = new DOMSource(newDoc);
         String tmpPath = null;
-        if(System.getProperty("os.name").contains("Linux")) {
-            tmpPath = "src/main/resources/tmp/output.xml";
-        }
-        else if(System.getProperty("os.name").contains("Windows")) {
+        if(System.getProperty("os.name").contains("Windows")) {
             tmpPath = "src\\main\\resources\\tmp\\output.xml";
+        }else{
+            tmpPath = "src/main/resources/tmp/output.xml";
         }
         FileWriter writer = new FileWriter(tmpPath);
         StreamResult result = new StreamResult(writer);

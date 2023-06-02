@@ -1,5 +1,7 @@
 package de.ptb.backend.controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ptb.backend.BERT.DIR;
 import de.ptb.backend.BERT.RunResult;
 import de.ptb.backend.BERT.RunfDKCR;
@@ -14,38 +16,28 @@ import de.ptb.backend.model.formula.EEqualsMC2;
 import de.ptb.backend.service.PidDccFileSystemReaderService;
 import de.ptb.backend.service.PidReportFileSystemWriteService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/d-comparison")
 public class BackendController {
-    final String dConstantUrl = "http://localhost:8082/api/";
+    final String dConstantUrl = "http://localhost:8082/api/d-constant/";
     @GetMapping("/sayHello")
     public String sayHelloWorld() {
         return "Hello World!";
     }
 
-    @PostMapping("/keyComparison")
-    public String evaluateDKCR(@RequestBody JsonNode payload) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
+    @PostMapping("/evaluateComparison")
+    public ResponseEntity<DKCRResponseMessage> evaluateDKCR(@RequestBody JsonNode payload) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
         JsonNode data = payload.get("keyComparisonData");
         String pidReport = data.get("pidReport").toString().substring(1,data.get("pidReport").toString().length()-1);
         List<Participant> participantList = new ArrayList<>();
@@ -76,16 +68,24 @@ public class BackendController {
         List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse);
         PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
         DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
-        return response.toString();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    public SiConstant getSpeedOfLight() {
+
+    @PostMapping("/converterKCDB")
+    public ResponseEntity<String> converterKCDB(@RequestBody JsonNode payload){
+        return new ResponseEntity<String>("KCDB-Beispielausgabe", HttpStatus.OK);
+    }
+
+
+
+    public SiConstant getSpeedOfLight() throws JsonProcessingException {
         final String url = dConstantUrl+"si:speed_of_light_vacuum:2019";
         RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(url, String.class);
-        assert result != null;
-        result = result.substring(2, result.length() - 2);
-        result = result.replaceAll("\"", "");
-        String[] resultValues = result.split(",");
+        ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
+        String resultBody = result.getBody();
+        resultBody = resultBody.substring(2, resultBody.length() - 2);
+        resultBody = resultBody.replaceAll("\"", "");
+        String[] resultValues = resultBody.split(",");
         String[] constantValues = new String[11];
         int count = 0;
         for (String resultValue : resultValues) {

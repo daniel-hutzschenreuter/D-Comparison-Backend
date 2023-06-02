@@ -1,5 +1,4 @@
 package de.ptb.backend.service;
-
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
@@ -9,7 +8,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,7 +15,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,20 +27,21 @@ public class PidDccFileSystemReaderService {
 
     public PidDccFileSystemReaderService(DKCRRequestMessage message) {
         this.message = message;
-        if(System.getProperty("os.name").contains("Linux")) {
-            this.path = "src/main/resources/DCCFiles";
-        }
-        else if(System.getProperty("os.name").contains("Windows")){
+        if(System.getProperty("os.name").contains("Windows")){
             this.path = "src\\main\\resources\\DCCFiles";
+        }else{
+            this.path = "DCCFiles";
         }
     }
 
-    public List<SiReal> readFiles() throws ParserConfigurationException, IOException, SAXException {
+    public List<SiReal> readFiles() throws ParserConfigurationException {
         List<SiReal> siReals = new ArrayList<>();
+        System.out.println(this.path);
         File directory = new File(this.path);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         for(File file: Objects.requireNonNull(directory.listFiles())) {
+            System.out.println(file.getName());
             for(Participant participant: this.message.getParticipantList()){
                 if(Objects.equals(file.getName().substring(0,file.getName().length()-4), participant.getDccPid().substring(1,participant.getDccPid().length()-1))){
                     try {
