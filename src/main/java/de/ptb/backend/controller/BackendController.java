@@ -1,7 +1,6 @@
 package de.ptb.backend.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ptb.backend.BERT.DIR;
 import de.ptb.backend.BERT.RunResult;
 import de.ptb.backend.BERT.RunfDKCR;
@@ -30,7 +29,7 @@ import java.util.*;
 @AllArgsConstructor
 @RequestMapping(path = "/api/d-comparison")
 public class BackendController {
-    final String dConstantUrl = "http://localhost:8082/api/d-constant/";
+    final String dConstantUrl = "https://d-si.ptb.de/api/d-constant/";//"http://localhost:8082/api/d-constant/";
     @GetMapping("/sayHello")
     public String sayHelloWorld() {
         return "Hello World!";
@@ -73,16 +72,17 @@ public class BackendController {
 
     @PostMapping("/converterKCDB")
     public ResponseEntity<String> converterKCDB(@RequestBody JsonNode payload){
-        return new ResponseEntity<String>("KCDB-Beispielausgabe", HttpStatus.OK);
+        return new ResponseEntity<>("KCDB-Beispielausgabe", HttpStatus.OK);
     }
 
 
 
-    public SiConstant getSpeedOfLight() throws JsonProcessingException {
+    public SiConstant getSpeedOfLight(){
         final String url = dConstantUrl+"si:speed_of_light_vacuum:2019";
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
         String resultBody = result.getBody();
+        assert resultBody != null;
         resultBody = resultBody.substring(2, resultBody.length() - 2);
         resultBody = resultBody.replaceAll("\"", "");
         String[] resultValues = resultBody.split(",");
