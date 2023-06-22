@@ -12,10 +12,10 @@ public class SiConstant {
     private final String unit;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private String dateTime;
-    private final int uncertainty;
+    private final double uncertainty;
     private final String distribution;
 
-    public SiConstant(String pid, String bipmPID, Boolean dSIApproved, String label, String quantityType, Double value, String unit, String dateTime, int uncertainty, String distribution) {
+    public SiConstant(String pid, String bipmPID, Boolean dSIApproved, String label, String quantityType, Double value, String unit, String dateTime, double uncertainty, String distribution) {
         this.pid = pid;
         this.bipmPID = bipmPID;
         this.dSIApproved = dSIApproved;
@@ -76,7 +76,7 @@ public class SiConstant {
         return dateTime;
     }
 
-    public int getUncertainty() {
+    public double getUncertainty() {
         return uncertainty;
     }
 

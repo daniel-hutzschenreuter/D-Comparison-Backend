@@ -1,17 +1,16 @@
 package de.ptb.backend.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import de.ptb.backend.BERT.DIR;
-import de.ptb.backend.BERT.RunResult;
-import de.ptb.backend.BERT.RunfDKCR;
-import de.ptb.backend.BERT.fDKCR;
+import de.ptb.backend.BERT.*;
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.DKCRResponseMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.MeasurementResult;
 import de.ptb.backend.model.dsi.SiConstant;
+import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import de.ptb.backend.model.formula.EEqualsMC2;
+import de.ptb.backend.service.PidConstantWebReaderService;
 import de.ptb.backend.service.PidDccFileSystemReaderService;
 import de.ptb.backend.service.PidReportFileSystemWriteService;
 import lombok.AllArgsConstructor;
@@ -29,7 +28,6 @@ import java.util.*;
 @AllArgsConstructor
 @RequestMapping(path = "/api/d-comparison")
 public class BackendController {
-    final String dConstantUrl = "https://d-si.ptb.de/api/d-constant/";//"http://localhost:8082/api/d-constant/";
     @GetMapping("/sayHello")
     public String sayHelloWorld() {
         return "Hello World!";
@@ -48,7 +46,8 @@ public class BackendController {
         PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
         List<SiReal> SiReals = reader.readFiles();
         manipulateMassValues(SiReals, -1.0);
-        SiConstant speedOfLight = getSpeedOfLight();
+        PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService("speedOfLightInVacuum2018");
+        SiConstant speedOfLight = speedOfLightWebReader.getConstant();
         EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
         List<SiReal> ergebnisse = equalsMC.calculate();
         fDKCR fdkcr = new fDKCR();
@@ -63,8 +62,13 @@ public class BackendController {
         fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(),objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
         objRunfDKCR.setNr(fdkcr.processDKCR());
         Vector<RunResult> Results = objRunfDKCR.getRunResults();
-        SiReal kcVal = equalsMC.calculate(Results.get(0).getxRef());
-        List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse);
+        SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
+        DKCR grubsTestDKCR = new DKCR(inputs);
+        double mean = grubsTestDKCR.CalcMean();
+        double stddev = grubsTestDKCR.CalcStdDev(mean);
+        Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stddev);
+        List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
+        mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(),Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
         PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
         DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -75,32 +79,11 @@ public class BackendController {
         return new ResponseEntity<>("KCDB-Beispielausgabe", HttpStatus.OK);
     }
 
-
-
-    public SiConstant getSpeedOfLight(){
-        final String url = dConstantUrl+"si:speed_of_light_vacuum:2019";
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-        String resultBody = result.getBody();
-        assert resultBody != null;
-        resultBody = resultBody.substring(2, resultBody.length() - 2);
-        resultBody = resultBody.replaceAll("\"", "");
-        String[] resultValues = resultBody.split(",");
-        String[] constantValues = new String[11];
-        int count = 0;
-        for (String resultValue : resultValues) {
-            String rValue = resultValue.substring(resultValue.indexOf(":")+1);
-            constantValues[count]=rValue;
-            count++;
-        }
-        return new SiConstant(constantValues[0], constantValues[1], Objects.equals(constantValues[2], "true"),constantValues[4],constantValues[5],Double.parseDouble(constantValues[6]),constantValues[7],constantValues[8],Integer.parseInt(constantValues[9]),constantValues[10]);
-    }
-
-    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy){
+    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy, Vector<GRunResult> grubsValues){
         List<MeasurementResult> results = new ArrayList<>();
         RunResult runResult = enMassValues.get(0);
         for(int i = 0; i<mass.size(); i++){
-            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), kcValue, runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i)));
+            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), kcValue, runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i), grubsValues.get(0).getGEOResults().get(i)));
         }
         return results;
     }

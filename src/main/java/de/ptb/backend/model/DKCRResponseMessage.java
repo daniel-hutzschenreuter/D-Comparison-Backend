@@ -35,7 +35,7 @@ public class DKCRResponseMessage {
     @Override
     public String toString() {
         return "DKCRResponseMessage{" +
-                "fileName='" + fileName + '\'' +
+                "fileName='" + fileName + ".xml"+'\'' +
                 ", base64String='" + base64String + '\'' +
                 '}';
     }

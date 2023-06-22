@@ -36,12 +36,10 @@ public class PidDccFileSystemReaderService {
 
     public List<SiReal> readFiles() throws ParserConfigurationException {
         List<SiReal> siReals = new ArrayList<>();
-        System.out.println(this.path);
         File directory = new File(this.path);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         for(File file: Objects.requireNonNull(directory.listFiles())) {
-            System.out.println(file.getName());
             for(Participant participant: this.message.getParticipantList()){
                 if(Objects.equals(file.getName().substring(0,file.getName().length()-4), participant.getDccPid().substring(1,participant.getDccPid().length()-1))){
                     try {

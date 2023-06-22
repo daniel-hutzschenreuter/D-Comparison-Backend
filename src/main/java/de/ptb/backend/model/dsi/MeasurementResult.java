@@ -1,19 +1,26 @@
 package de.ptb.backend.model.dsi;
 
+import de.ptb.backend.BERT.GEO;
+
 public class MeasurementResult {
     String name = "";
     SiReal massValue;
+    Double massDifference;
     Double kcMassValue;
     SiReal kcValue;
     Double enValue;
     SiReal energyValue;
+    GEO grubsValue;
+    Double grubsUncertainty;
+    Double grubsComparisonValue;
     String result = "";
-    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue) {
+    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue) {
         this.massValue = massValue;
         this.kcMassValue = kcMassValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
         this.energyValue = energyValue;
+        this.grubsValue = grubsValue;
         generateMeasurementResult();
     }
     public MeasurementResult(String name, SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue){
@@ -26,11 +33,12 @@ public class MeasurementResult {
         generateMeasurementResult();
     }
 
-    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, SiReal energyValue){
+    public MeasurementResult(Double massDifference, Double kcMassValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
         this.kcValue = kcValue;
         this.kcMassValue = kcMassValue;
-        this.massValue = massValue;
-        this.energyValue = energyValue;
+        this.massDifference = massDifference;
+        this.grubsComparisonValue = grubsValue;
+        this.grubsUncertainty = grubsUncertainty;
         generateKCMeasurement();
     }
     private void generateMeasurementResult(){
@@ -70,6 +78,28 @@ public class MeasurementResult {
                 "                       </si:real>\n" +
                 "                   </dcc:quantity>\n" +
                 "               </dcc:data>\n" +
+                "           </dcc:result>\n" +
+                "           <dcc:result refType=\"Grubs\">\n" +
+                "               <dcc:name>\n" +
+                "                   <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+                "               </dcc:name>\n" +
+                "               <dcc:data>\n" +
+                "                   <dcc:quantity>\n" +
+                "                       <dcc:name>\n" +
+                "                           <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+                "                       </dcc:name>\n" +
+                "                       <si:real>\n" +
+                "                           <si:label>Energy</si:label>\n" +
+                "                           <si:value>"+this.energyValue.getValue()+"</si:value>\n" +
+                "                           <si:unit>"+this.energyValue.getUnit()+"</si:unit>\n" +
+                "                           <si:expandedUnc>\n" +
+                "                               <si:uncertainty>"+this.energyValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
+                "                               <si:coverageFactor>"+this.energyValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+                "                               <si:coverageProbability>"+this.energyValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+                "                           </si:expandedUnc>\n" +
+                "                       </si:real>\n" +
+                "                   </dcc:quantity>\n" +
+                "                </dcc:data>\n" +
                 "           </dcc:result>\n" +
                 "           <dcc:result refType=\"Energy\">\n"+
                 "               <dcc:name>\n" +
@@ -128,7 +158,7 @@ public class MeasurementResult {
                 "                   <si:real>\n" +
                 "                       <si:value>"+this.kcMassValue+"</si:value>\n" +
                 "                       <si:unit>/gram</si:unit>\n" +
-                "                       <si:difference>"+this.massValue.getMassDifference()+"</si:difference>\n" +
+                "                       <si:difference>"+this.massDifference+"</si:difference>\n" +
                 "                       <si:expandedUnc>\n" +
                 "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
                 "                           <si:coverageFactor>2</si:coverageFactor>\n" +
@@ -162,6 +192,29 @@ public class MeasurementResult {
                 "                   </dcc:quantity>\n" +
                 "               </dcc:data>\n" +
                 "           </dcc:result>\n" +
+                "           <dcc:result refType=\"Energy (Grubs)\">\n" +
+                "               <dcc:name>\n" +
+                "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
+                "               </dcc:name>\n" +
+                "               <dcc:data>\\n\" +\n" +
+                "                   <dcc:quantity refType=\"Energy (Grubs)\">\n" +
+                "                       <dcc:name>\n" +
+                "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
+                "                       </dcc:name>\n" +
+                "                       <si:real>\n" +
+                "                           <si:label>Energy (Grubs)</si:label>\n" +
+                "                           <si:value>"+this.grubsComparisonValue+"</si:value>\n" +
+                "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
+                "                           <si:expandedUnc>\n" +
+                "                               <si:uncertainty>"+this.grubsUncertainty+"</si:uncertainty>\n" +
+                "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+                "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+                "                               <si:distribution>Normal</si:distribution>\n" +
+                "                           </si:expandedUnc>\n" +
+                "                       </si:real>\n" +
+                "                   </dcc:quantity>\n" +
+                "                </dcc:data>\n" +
+                "       </dcc:result>\n" +
                 "       </dcc:results>\n" +
                 "    </dcc:measurementResult>\n";
     }

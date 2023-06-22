@@ -10,13 +10,13 @@ import java.util.List;
 
 public class EEqualsMC2 {
     SiConstant c;
-    List<Double> massValues = new ArrayList<>();
+    List<SiReal> massSiReal = new ArrayList<>();
 
     public EEqualsMC2(SiConstant speedOfLight, List<SiReal> siReals) {
         this.c = speedOfLight;
         for(SiReal sireal: siReals){
             if(sireal.getUnit().equals("\\kilogram")){
-                this.massValues.add(sireal.getValue());
+                this.massSiReal.add(sireal);
             }
         }
     }
@@ -24,19 +24,19 @@ public class EEqualsMC2 {
         this.c = speedOfLight;
     }
 
-    public SiReal calculate(Double mass){
-        Double value = mass * this.c.getValue()*this.c.getValue();
+    public SiReal calculate(SiReal massSiReal){
+        Double value = massSiReal.getValue() * this.c.getValue()*this.c.getValue();
         String unit = "\\joule";
         String dateTime = LocalDateTime.now().toString();
-        Double uncertainty = 0.0;
-        int coverageFactor = 0;
-        Double coverageProbability = 0.0;
+        Double uncertainty = massSiReal.getExpUnc().getUncertainty();
+        int coverageFactor = massSiReal.getExpUnc().getCoverageFactor();
+        Double coverageProbability = massSiReal.getExpUnc().getCoverageProbability();
         return new SiReal(value, unit, dateTime, new SiExpandedUnc(uncertainty, coverageFactor, coverageProbability));
     }
 
     public List<SiReal> calculate(){
         List<SiReal> newSiReals = new ArrayList<>();
-        for (Double mass: this.massValues){
+        for (SiReal mass: this.massSiReal){
             newSiReals.add(this.calculate(mass));
         }
         return newSiReals;
