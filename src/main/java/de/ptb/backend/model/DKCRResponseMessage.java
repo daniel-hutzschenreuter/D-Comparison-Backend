@@ -10,7 +10,7 @@ public class DKCRResponseMessage {
     String base64String;
 
     public DKCRResponseMessage(String fileName, File file) throws IOException {
-        this.fileName = fileName;
+        this.fileName = fileName+ ".xml";
         byte[] fileContent = Files.readAllBytes(file.toPath());
         this.base64String = Base64.getEncoder().encodeToString(fileContent);
     }
@@ -35,7 +35,7 @@ public class DKCRResponseMessage {
     @Override
     public String toString() {
         return "DKCRResponseMessage{" +
-                "fileName='" + fileName + ".xml"+'\'' +
+                "fileName='" + fileName +'\'' +
                 ", base64String='" + base64String + '\'' +
                 '}';
     }

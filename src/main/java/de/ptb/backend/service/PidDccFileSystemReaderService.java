@@ -40,8 +40,9 @@ public class PidDccFileSystemReaderService {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         for(File file: Objects.requireNonNull(directory.listFiles())) {
-            for(Participant participant: this.message.getParticipantList()){
-                if(Objects.equals(file.getName().substring(0,file.getName().length()-4), participant.getDccPid().substring(1,participant.getDccPid().length()-1))){
+            //for(Participant participant: this.message.getParticipantList()){
+                if(file.getName().contains(".xml")){
+                //if(Objects.equals(file.getName().substring(0,file.getName().length()-4), participant.getDccPid().substring(1,participant.getDccPid().length()-1))){
                     try {
                         Document doc = db.parse(file);
                         doc.getDocumentElement().normalize();
@@ -66,7 +67,7 @@ public class PidDccFileSystemReaderService {
                         throw new RuntimeException(e);
                     }
                 }
-            }
+            //}
         }
         return siReals;
     }

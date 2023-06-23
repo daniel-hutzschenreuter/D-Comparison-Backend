@@ -79,14 +79,14 @@ public class MeasurementResult {
                 "                   </dcc:quantity>\n" +
                 "               </dcc:data>\n" +
                 "           </dcc:result>\n" +
-                "           <dcc:result refType=\"Grubs\">\n" +
+                "           <dcc:result refType=\"Energy (Grubs)\">\n" +
                 "               <dcc:name>\n" +
-                "                   <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+                "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
                 "               </dcc:name>\n" +
                 "               <dcc:data>\n" +
                 "                   <dcc:quantity>\n" +
                 "                       <dcc:name>\n" +
-                "                           <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+                "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
                 "                       </dcc:name>\n" +
                 "                       <si:real>\n" +
                 "                           <si:label>Energy</si:label>\n" +
