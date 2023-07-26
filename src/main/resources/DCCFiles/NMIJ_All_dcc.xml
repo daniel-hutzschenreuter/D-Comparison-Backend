@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dcc:digitalCalibrationCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.1.2/dcc.xsd" xmlns:dcc="https://ptb.de/dcc" xmlns:si="https://ptb.de/si" schemaVersion="3.1.2">
+  <dcc:administrativeData>
+    <dcc:dccSoftware>
+      <dcc:software>
+        <dcc:name>
+          <dcc:content>GEMIMEG Tool</dcc:content>
+        </dcc:name>
+        <dcc:release>v1.2.0</dcc:release>
+      </dcc:software>
+    </dcc:dccSoftware>
+    <dcc:coreData>
+      <dcc:countryCodeISO3166_1>JP</dcc:countryCodeISO3166_1>
+      <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
+      <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>
+      <dcc:uniqueIdentifier>CCM.D-K1.NMIJ-1</dcc:uniqueIdentifier>
+      <dcc:identifications>
+        <dcc:identification>
+          <dcc:issuer>calibrationLaboratory</dcc:issuer>
+          <dcc:value>NMIJ</dcc:value>
+        </dcc:identification>
+      </dcc:identifications>
+      <dcc:beginPerformanceDate>2023-01-01</dcc:beginPerformanceDate>
+      <dcc:endPerformanceDate>2023-01-01</dcc:endPerformanceDate>
+      <dcc:performanceLocation>laboratory</dcc:performanceLocation>
+    </dcc:coreData>
+    <dcc:items>
+      <dcc:name>
+        <dcc:content lang="en">1kg Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:item>
+        <dcc:name>
+          <dcc:content lang="en">1kg Silicon Sphere</dcc:content>
+        </dcc:name>
+        <dcc:manufacturer>
+          <dcc:name>
+            <dcc:content lang="en">NMIJ</dcc:content>
+          </dcc:name>
+        </dcc:manufacturer>
+        <dcc:identifications>
+          <dcc:identification>
+            <dcc:issuer>calibrationLaboratory</dcc:issuer>
+            <dcc:value>An Identification</dcc:value>
+          </dcc:identification>
+        </dcc:identifications>
+      </dcc:item>
+    </dcc:items>
+    <dcc:calibrationLaboratory>
+      <dcc:contact>
+        <dcc:name>
+          <dcc:content lang="en">National Measurement Institute Japan</dcc:content>
+        </dcc:name>
+        <dcc:eMail>info@nmij.jp</dcc:eMail>
+        <dcc:location>
+          <dcc:city>Tokyo</dcc:city>
+        </dcc:location>
+      </dcc:contact>
+    </dcc:calibrationLaboratory>
+    <dcc:respPersons>
+      <dcc:respPerson>
+        <dcc:person>
+          <dcc:name>
+            <dcc:content lang="en">A Person</dcc:content>
+          </dcc:name>
+        </dcc:person>
+      </dcc:respPerson>
+    </dcc:respPersons>
+    <dcc:customer>
+      <dcc:name>
+        <dcc:content lang="en">Kenichi Fuji</dcc:content>
+      </dcc:name>
+      <dcc:eMail>k.f@NMILJ.jp</dcc:eMail>
+      <dcc:location>
+        <dcc:city>Tokyo</dcc:city>
+      </dcc:location>
+    </dcc:customer>
+  </dcc:administrativeData>
+  <dcc:measurementResults>
+    <dcc:measurementResult refId="NMIJ-1">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530188</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.00061</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.0588</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="PTB">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530161</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000109</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.2239</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="IMGC">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530102</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000096</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.8935</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="KRISS">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530122</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000093</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.7011</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="NMIJ-2">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530182</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000061</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.0493</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="METAS">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530154</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000181</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.1715</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="NMIJ-3">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530208</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000061</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.4192</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="NRC">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530063</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000178</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.6909</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="CEM">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530253</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000097</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.7290</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="CENAM">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530050</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000454</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.2972</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult refId="NMIJ-4">
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="Mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="Kilogram">
+              <dcc:name>
+                <dcc:content lang="en">Kilogram</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1000.530222</si:value>
+                <si:unit>\gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.000061</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+            <dcc:quantity refType="En">
+              <dcc:name>
+                <dcc:content lang="en">En</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.6716</si:value>
+                <si:unit>\One</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+    <dcc:measurementResult>
+      <dcc:name>
+        <dcc:content lang="en">Mass of Silicon Sphere Output Reference Values</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result>
+          <dcc:name>
+            <dcc:content lang="en">Reference Output Values</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity>
+              <si:real>
+                <si:value>1000.530185</si:value>
+                <si:unit>/gram</si:unit>
+                <si:expandedUnc>
+                  <si:uncertainty>0.00002535</si:uncertainty>
+                  <si:coverageFactor>2</si:coverageFactor>
+                  <si:coverageProbability>0.95</si:coverageProbability>
+                  <si:distribution>Normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+  </dcc:measurementResults>
+</dcc:digitalCalibrationCertificate>

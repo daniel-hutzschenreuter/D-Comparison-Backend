@@ -14,11 +14,8 @@ public class EEqualsMC2 {
 
     public EEqualsMC2(SiConstant speedOfLight, List<SiReal> siReals) {
         this.c = speedOfLight;
-        for(SiReal sireal: siReals){
-            if(sireal.getUnit().equals("\\kilogram")){
-                this.massSiReal.add(sireal);
-            }
-        }
+        this.massSiReal = siReals;
+
     }
     public  EEqualsMC2(SiConstant speedOfLight){
         this.c = speedOfLight;
@@ -31,6 +28,7 @@ public class EEqualsMC2 {
         Double uncertainty = massSiReal.getExpUnc().getUncertainty();
         int coverageFactor = massSiReal.getExpUnc().getCoverageFactor();
         Double coverageProbability = massSiReal.getExpUnc().getCoverageProbability();
+
         return new SiReal(value, unit, dateTime, new SiExpandedUnc(uncertainty, coverageFactor, coverageProbability));
     }
 

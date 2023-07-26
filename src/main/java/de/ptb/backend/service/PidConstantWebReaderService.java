@@ -17,7 +17,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
 public class PidConstantWebReaderService {
-    final String dConstantUrl = "http://localhost:8082/api/d-constant/";//"https://d-si.ptb.de/api/d-constant/";
+    final String dConstantUrl = "https://d-si.ptb.de/api/d-constant/";//"http://localhost:8082/api/d-constant/";//
     String constant;
     public PidConstantWebReaderService(String constant){
         this.constant = constant;

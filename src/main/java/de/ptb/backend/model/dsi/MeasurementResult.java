@@ -196,7 +196,7 @@ public class MeasurementResult {
                 "               <dcc:name>\n" +
                 "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
                 "               </dcc:name>\n" +
-                "               <dcc:data>\\n\" +\n" +
+                "               <dcc:data>\n" +
                 "                   <dcc:quantity refType=\"Energy (Grubs)\">\n" +
                 "                       <dcc:name>\n" +
                 "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
