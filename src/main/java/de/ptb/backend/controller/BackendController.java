@@ -50,7 +50,6 @@ public class BackendController {
         SiConstant speedOfLight = speedOfLightWebReader.getConstant();
         EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
         List<SiReal> ergebnisse = equalsMC.calculate();
-        System.out.println(SiReals);
         fDKCR fdkcr = new fDKCR();
         RunfDKCR objRunfDKCR = new RunfDKCR();
         Vector<DIR> inputs = new Vector<>();

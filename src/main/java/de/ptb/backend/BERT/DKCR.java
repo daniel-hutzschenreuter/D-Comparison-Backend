@@ -327,7 +327,7 @@ public class DKCR {
 			// and cases where ResultPresentFlag = false).
 			// Simultaneously note the largest value for G and for which contribution
 
-			int iGMax = 0;
+			int iGMax = -1;
 			double GMax = 0.0;
 			double G = 0.0 ;			// The calculated value of G for a contribution (Note:- Positive definite)
 			int Nopc = 0;				// This is the number of contributions processed
@@ -363,7 +363,7 @@ public class DKCR {
 			}
 
 			// Process the iGMax and GMax information to see if there is a new (single) outlier
-			if(iGMax != 0)
+			if(iGMax != -1)
 			{
 				// Get the maximum data GEOResult object
 				GEO p = a.GEOResults.get(iGMax);

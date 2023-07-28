@@ -46,7 +46,7 @@
         </dcc:items>
         <dcc:calibrationLaboratory>
             <dcc:contact>
-                <dcc:name>Physikalisch-Technische</dcc:name>
+                <dcc:name>NRC</dcc:name>
                 <dcc:eMail>info@nmij.jp</dcc:eMail>
                 <dcc:location>
                     <dcc:city>Tokyo</dcc:city>
@@ -104,7 +104,7 @@
                            <dcc:content lang="en">En</dcc:content>
                        </dcc:name>
                        <si:real>
-                           <si:value>1.4419581612775178E16</si:value>
+                           <si:value>8.4202872727584128E16</si:value>
                            <si:unit>\one</si:unit>
                        </si:real>
                    </dcc:quantity>
@@ -203,7 +203,7 @@
                            <dcc:content lang="en">En</dcc:content>
                        </dcc:name>
                        <si:real>
-                           <si:value>1.2522629143171116E16</si:value>
+                           <si:value>8.39228920097869E15</si:value>
                            <si:unit>\one</si:unit>
                        </si:real>
                    </dcc:quantity>
@@ -287,6 +287,105 @@
                        </dcc:name>
                        <si:real>
                            <si:label>Mass</si:label>
+                           <si:value>999.530063</si:value>
+                           <si:unit>gram</si:unit>
+                           <si:expandedUnc>
+                               <si:uncertainty>1.78E-4</si:uncertainty>
+                               <si:coverageFactor>2</si:coverageFactor>
+                               <si:coverageProbability>0.95</si:coverageProbability>
+                               <si:distribution>Normal</si:distribution>
+                           </si:expandedUnc>
+                       </si:real>
+                   </dcc:quantity>
+                   <dcc:quantity refType="En">
+                       <dcc:name>
+                           <dcc:content lang="en">En</dcc:content>
+                       </dcc:name>
+                       <si:real>
+                           <si:value>8.3477866782369952E16</si:value>
+                           <si:unit>\one</si:unit>
+                       </si:real>
+                   </dcc:quantity>
+               </dcc:data>
+           </dcc:result>
+           <dcc:result refType="Energy (Grubs)">
+               <dcc:name>
+                   <dcc:content lang="en">Energy (Grubs)</dcc:content>
+               </dcc:name>
+               <dcc:data>
+                   <dcc:quantity>
+                       <dcc:name>
+                           <dcc:content lang="en">Energy (Grubs)</dcc:content>
+                       </dcc:name>
+                       <si:real>
+                           <si:label>Energy</si:label>
+                           <si:value>8.983328204243876E19</si:value>
+                           <si:unit>\joule</si:unit>
+                           <si:expandedUnc>
+                               <si:uncertainty>1.78E-4</si:uncertainty>
+                               <si:coverageFactor>2</si:coverageFactor>
+                               <si:coverageProbability>0.95</si:coverageProbability>
+                           </si:expandedUnc>
+                       </si:real>
+                   </dcc:quantity>
+                </dcc:data>
+           </dcc:result>
+           <dcc:result refType="Energy">
+               <dcc:name>
+                   <dcc:content lang="en">Energy</dcc:content>
+               </dcc:name>
+               <dcc:data>
+                   <dcc:quantity>
+                       <dcc:name>
+                           <dcc:content lang="en">Energy</dcc:content>
+                       </dcc:name>
+                       <si:real>
+                           <si:label>Energy</si:label>
+                           <si:value>8.983328204243876E19</si:value>
+                           <si:unit>\joule</si:unit>
+                           <si:expandedUnc>
+                               <si:uncertainty>1.78E-4</si:uncertainty>
+                               <si:coverageFactor>2</si:coverageFactor>
+                               <si:coverageProbability>0.95</si:coverageProbability>
+                           </si:expandedUnc>
+                       </si:real>
+                   </dcc:quantity>
+               </dcc:data>
+           </dcc:result>
+           <dcc:result refType="participant_delta_mass">
+               <dcc:name>
+                   <dcc:content lang="en">Delta Mass</dcc:content>
+               </dcc:name>
+               <dcc:data>
+                   <dcc:quantity refType="participant_delta_mass">
+                       <dcc:name>
+                           <dcc:content lang="en">Delta Mass</dcc:content>
+                       </dcc:name>
+                       <si:real>
+                           <si:value>-1.0</si:value>
+                           <si:unit>gram</si:unit>
+                       </si:real>
+                   </dcc:quantity>
+               </dcc:data>
+           </dcc:result>
+       </dcc:results>
+   </dcc:measurementResult>
+         <dcc:measurementResult refId="NMIJ-1">
+       <dcc:name>
+           <dcc:content lang="en"/>
+       </dcc:name>
+       <dcc:results>
+           <dcc:result refType="Mass">
+               <dcc:name>
+                   <dcc:content lang="en">Mass of Silicon Sphere</dcc:content>
+               </dcc:name>
+               <dcc:data>
+                   <dcc:quantity reftype="Kilogram">
+                       <dcc:name>
+                           <dcc:content lang="en">Kilogram</dcc:content>
+                       </dcc:name>
+                       <si:real>
+                           <si:label>Mass</si:label>
                            <si:value>999.530161</si:value>
                            <si:unit>gram</si:unit>
                            <si:expandedUnc>
@@ -302,7 +401,7 @@
                            <dcc:content lang="en">En</dcc:content>
                        </dcc:name>
                        <si:real>
-                           <si:value>7.440493022239259E15</si:value>
+                           <si:value>3.926836850243927E15</si:value>
                            <si:unit>\one</si:unit>
                        </si:real>
                    </dcc:quantity>
@@ -382,7 +481,7 @@
            <dcc:data>
                <dcc:quantity>
                    <si:real>
-                       <si:value>8.983329892879437E19</si:value>
+                       <si:value>8.983329511759115E19</si:value>
                        <si:unit>/gram</si:unit>
                        <si:difference>-1.0</si:difference>
                        <si:expandedUnc>
@@ -406,7 +505,7 @@
                    </dcc:name>
                        <si:real>
                            <si:label>Energy</si:label>
-                           <si:value>8.073814263526655E36</si:value>
+                           <si:value>8.073813920992792E36</si:value>
                            <si:unit>\joule</si:unit>
                            <si:expandedUnc>
                                <si:uncertainty>0.0</si:uncertainty>
@@ -429,10 +528,10 @@
                        </dcc:name>
                        <si:real>
                            <si:label>Energy (Grubs)</si:label>
-                           <si:value>0.0</si:value>
+                           <si:value>8.983329511759115E19</si:value>
                            <si:unit>\joule</si:unit>
                            <si:expandedUnc>
-                               <si:uncertainty>0.0</si:uncertainty>
+                               <si:uncertainty>8.456352721896728E-5</si:uncertainty>
                                <si:coverageFactor>0</si:coverageFactor>
                                <si:coverageProbability>0.0</si:coverageProbability>
                                <si:distribution>Normal</si:distribution>
