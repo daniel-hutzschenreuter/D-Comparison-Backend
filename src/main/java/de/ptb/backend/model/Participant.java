@@ -34,11 +34,6 @@ public class Participant implements Serializable {
     /**
      * This class is a part of the participantList which is given in BackendController as part of its parameter
      */
-    public Participant() {
-        instanceCounter++;
-        id=instanceCounter;
-    }
-
     public Participant(String name, String dccPid) {
         this.name = name;
         this.dccPid = dccPid;

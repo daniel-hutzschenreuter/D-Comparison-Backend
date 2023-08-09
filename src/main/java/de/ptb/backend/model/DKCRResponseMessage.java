@@ -29,19 +29,13 @@ public class DKCRResponseMessage {
      * This class contains the information of a succesfull response of the server which will be attached as response in BackendController.java
      * @param fileName String
      * @param file File
-     * @throws IOException
+     * @throws IOException Throws exception when path to file is nonexistent.
      */
     public DKCRResponseMessage(String fileName, File file) throws IOException {
         this.fileName = fileName+ ".xml";
         byte[] fileContent = Files.readAllBytes(file.toPath());
         this.base64String = Base64.getEncoder().encodeToString(fileContent);
     }
-
-    public void setBase64String(File file) throws IOException {
-        byte[] fileContent = Files.readAllBytes(file.toPath());
-        this.base64String = Base64.getEncoder().encodeToString(fileContent);
-    }
-
     @Override
     public String toString() {
         return "DKCRResponseMessage{" +

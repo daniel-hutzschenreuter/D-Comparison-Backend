@@ -16,29 +16,20 @@ LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model.dsi;
 
+import lombok.Getter;
+
+@Getter
 public class SiExpandedUnc {
     Double uncertainty;
     int coverageFactor;
     Double coverageProbability;
 
-    public Double getUncertainty() {
-        return uncertainty;
-    }
-
     public void setUncertainty(Double uncertainty) {
         this.uncertainty = uncertainty;
     }
 
-    public int getCoverageFactor() {
-        return coverageFactor;
-    }
-
     public void setCoverageFactor(int coverageFactor) {
         this.coverageFactor = coverageFactor;
-    }
-
-    public Double getCoverageProbability() {
-        return coverageProbability;
     }
 
     public void setCoverageProbability(Double coverageProbability) {

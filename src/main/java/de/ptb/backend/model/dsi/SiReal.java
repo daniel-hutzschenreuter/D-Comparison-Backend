@@ -16,7 +16,14 @@ LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model.dsi;
 
+import lombok.Getter;
+
+@Getter
 public class SiReal {
+    /**
+     * -- GETTER --
+     *  Getter und Setter for the values of the SiReal
+     */
     Double value;
     String unit;
     String dateTime;
@@ -36,39 +43,17 @@ public class SiReal {
         this.dateTime = dateTime;
         this.expUnc = expUnc;
     }
-    /**
-     * Getter und Setter for the values of the SiReal
-     */
-    public Double getValue() {
-        return value;
-    }
 
     public void setValue(Double value) {
         this.value = value;
-    }
-
-    public String getUnit() {
-        return unit;
     }
 
     public void setUnit(String unit) {
         this.unit = unit;
     }
 
-    public String getDateTime() {
-        return dateTime;
-    }
-
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public SiExpandedUnc getExpUnc() {
-        return expUnc;
-    }
-
-    public Double getMassDifference() {
-        return massDifference;
     }
 
     /**

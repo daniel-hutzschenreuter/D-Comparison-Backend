@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PidDccFileSystemReaderService {
-    String path = null;
+    String path;
     DKCRRequestMessage message;
 
     /**
@@ -59,7 +59,7 @@ public class PidDccFileSystemReaderService {
      * This function iterates through the participantList of the Requestmessage and the dcc files on the system
      * and creates SiReals for every matching name containing the values of the respective dcc file.
      * @return List<SiReal> which contains the mass values of the participant dcc files
-     * @throws ParserConfigurationException
+     * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
     public List<SiReal> readFiles() throws ParserConfigurationException {
         List<SiReal> siReals = new ArrayList<>();

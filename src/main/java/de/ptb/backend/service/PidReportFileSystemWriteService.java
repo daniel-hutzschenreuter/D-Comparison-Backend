@@ -43,7 +43,7 @@ public class PidReportFileSystemWriteService {
     String pid;
     List<Participant> participants;
     List<MeasurementResult> mResults;
-    String dccTemplatePath = null;
+    String dccTemplatePath;
 
     /**
      * This class is used to write the previously generated measurement results into a new DCC.
@@ -65,7 +65,7 @@ public class PidReportFileSystemWriteService {
     /**
      * This function creates a new DCC file out of the measurement results and a template dcc file.
      * @return File which contains the newly generated Dcc file
-     * @throws IOException
+     * @throws IOException Throws exception when path to file is nonexistent.
      * @throws SAXException
      * @throws ParserConfigurationException
      * @throws XPathExpressionException
@@ -79,10 +79,11 @@ public class PidReportFileSystemWriteService {
         Document doc = dBuilder.parse(dccFile);
         doc.getDocumentElement().normalize();
         String content = convertDocumentToString(doc);
-        String results = "";
+        StringBuilder results = new StringBuilder();
         for (MeasurementResult mResult : mResults){
-            results+=mResult;
+            results.append(mResult);
         }
+        assert content != null;
         content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
         Document newDoc = convertStringToDocument(content);
         //write Participants and unique identifier
@@ -100,7 +101,7 @@ public class PidReportFileSystemWriteService {
             value.setTextContent(participants.get(0).getName().substring(1,participants.get(0).getName().length()-1));
         }
         DOMSource source = new DOMSource(newDoc);
-        String tmpPath = null;
+        String tmpPath;
         if(System.getProperty("os.name").contains("Windows")) {
             tmpPath = "src\\main\\resources\\tmp\\output.xml";
         }else{
@@ -123,8 +124,7 @@ public class PidReportFileSystemWriteService {
         try
         {
             builder = factory.newDocumentBuilder();
-            Document doc = builder.parse( new InputSource( new StringReader( xmlStr ) ) );
-            return doc;
+            return builder.parse( new InputSource( new StringReader( xmlStr ) ) );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,8 +145,7 @@ public class PidReportFileSystemWriteService {
             // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(doc), new StreamResult(writer));
-            String output = writer.getBuffer().toString();
-            return output;
+            return writer.getBuffer().toString();
         } catch (TransformerException e) {
             e.printStackTrace();
         }
