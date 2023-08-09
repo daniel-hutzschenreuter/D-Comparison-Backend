@@ -12,13 +12,17 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model;
 
 public class DKCRErrorMessage {
     String errorMessage;
 
+    /**
+     * This class contains the information of an error message which will be attached of an error response in BackendController.java
+     * @param message String which contains the details of the error
+     */
     public  DKCRErrorMessage(String message){
         this.errorMessage = message;
     }

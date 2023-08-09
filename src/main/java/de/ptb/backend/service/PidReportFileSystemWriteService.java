@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.service;
 
@@ -44,6 +44,13 @@ public class PidReportFileSystemWriteService {
     List<Participant> participants;
     List<MeasurementResult> mResults;
     String dccTemplatePath = null;
+
+    /**
+     * This class is used to write the previously generated measurement results into a new DCC.
+     * @param pid String
+     * @param participants List<Participant>
+     * @param mResults List<MeasurementResult>
+     */
     public PidReportFileSystemWriteService(String pid, List<Participant> participants, List<MeasurementResult> mResults) {
         this.pid = pid;
         this.participants = participants;
@@ -54,6 +61,16 @@ public class PidReportFileSystemWriteService {
             this.dccTemplatePath = "DCCTemplate.xml";
         }
     }
+
+    /**
+     * This function creates a new DCC file out of the measurement results and a template dcc file.
+     * @return File which contains the newly generated Dcc file
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws XPathExpressionException
+     * @throws TransformerException
+     */
     public File writeDataIntoDCC() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
         File dccFile = new File(this.dccTemplatePath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -96,6 +113,10 @@ public class PidReportFileSystemWriteService {
         transformer.transform(source, result);
         return new File(tmpPath);
     }
+    /** This is an auxiliary function to create a xml document from the rewritten string.
+     * @param xmlStr String
+     * @return Document containing all the information from the string
+     */
     private static Document convertStringToDocument(String xmlStr) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
@@ -109,6 +130,12 @@ public class PidReportFileSystemWriteService {
         }
         return null;
     }
+
+    /**
+     * This is an auxiliary function to create a string from the template dcc file.
+     * @param doc
+     * @return String containing the information of the xml file
+     */
     private static String convertDocumentToString(Document doc) {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer;

@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 
 package de.ptb.backend.model;
@@ -23,24 +23,18 @@ public class DKCRRequestMessage {
     String pidReport;
     List<Participant> participantList;
 
+    /**
+     * This class packages the important information that comes from the payload so that it can be processed by other functions.
+     * @param pidReport String
+     * @param participantList List<Participant>
+     */
     public DKCRRequestMessage(String pidReport, List<Participant> participantList) {
         this.pidReport = pidReport;
         this.participantList = participantList;
-    }
-
-    public String getPidReport() {
-        return pidReport;
-    }
-
-    public void setPidReport(String pidReport) {
-        this.pidReport = pidReport;
     }
 
     public List<Participant> getParticipantList() {
         return participantList;
     }
 
-    public void setParticipantList(List<Participant> participantList) {
-        this.participantList = participantList;
-    }
 }

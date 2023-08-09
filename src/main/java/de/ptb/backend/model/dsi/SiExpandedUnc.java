@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model.dsi;
 
@@ -44,6 +44,13 @@ public class SiExpandedUnc {
     public void setCoverageProbability(Double coverageProbability) {
         this.coverageProbability = coverageProbability;
     }
+
+    /**
+     * A SiExpandedUnc is a part of an SiReal containing its uncertainty, coverageFactor and coveragePossibility
+     * @param uncertainty Double
+     * @param coverageFactor Int
+     * @param coverageProbability Double
+     */
     public SiExpandedUnc(Double uncertainty, int coverageFactor, Double coverageProbability){
         this.uncertainty = uncertainty;
         this.coverageFactor = coverageFactor;

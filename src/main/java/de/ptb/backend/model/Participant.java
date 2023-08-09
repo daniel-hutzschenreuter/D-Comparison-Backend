@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model;
 
@@ -30,6 +30,10 @@ public class Participant implements Serializable {
     private  int id=0;
     private  String name;
     private String  dccPid;
+
+    /**
+     * This class is a part of the participantList which is given in BackendController as part of its parameter
+     */
     public Participant() {
         instanceCounter++;
         id=instanceCounter;

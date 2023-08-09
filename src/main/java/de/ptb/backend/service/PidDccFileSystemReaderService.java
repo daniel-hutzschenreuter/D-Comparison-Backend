@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.service;
 import de.ptb.backend.model.DKCRRequestMessage;
@@ -41,6 +41,11 @@ public class PidDccFileSystemReaderService {
     String path = null;
     DKCRRequestMessage message;
 
+    /**
+     * This class is used to read out the DCC files located on the server.
+     * Only the DCC files with the same name as the DCCPID of the participants are read.
+     * @param message DKCRRequestMessage containing the participantList and the pidReport
+     */
     public PidDccFileSystemReaderService(DKCRRequestMessage message) {
         this.message = message;
         if(System.getProperty("os.name").contains("Windows")){
@@ -50,6 +55,12 @@ public class PidDccFileSystemReaderService {
         }
     }
 
+    /**
+     * This function iterates through the participantList of the Requestmessage and the dcc files on the system
+     * and creates SiReals for every matching name containing the values of the respective dcc file.
+     * @return List<SiReal> which contains the mass values of the participant dcc files
+     * @throws ParserConfigurationException
+     */
     public List<SiReal> readFiles() throws ParserConfigurationException {
         List<SiReal> siReals = new ArrayList<>();
         File directory = new File(this.path);

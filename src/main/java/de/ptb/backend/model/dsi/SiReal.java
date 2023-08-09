@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model.dsi;
 
@@ -22,6 +22,23 @@ public class SiReal {
     String dateTime;
     SiExpandedUnc expUnc;
     Double massDifference = 0.0;
+
+    /**
+     * A SiReal contains the necessary values to create a part in the entry of a DCC.
+     * @param value Double
+     * @param unit String
+     * @param dateTime String
+     * @param expUnc SiExpandedUnc contains uncertainty, coverageFactor and coveragePossibility
+     */
+    public SiReal(Double value, String unit, String dateTime, SiExpandedUnc expUnc) {
+        this.value = value;
+        this.unit = unit;
+        this.dateTime = dateTime;
+        this.expUnc = expUnc;
+    }
+    /**
+     * Getter und Setter for the values of the SiReal
+     */
     public Double getValue() {
         return value;
     }
@@ -50,21 +67,14 @@ public class SiReal {
         return expUnc;
     }
 
-    public void setExpUnc(SiExpandedUnc expUnc) {
-        this.expUnc = expUnc;
-    }
-
     public Double getMassDifference() {
         return massDifference;
     }
 
-    public SiReal(Double value, String unit, String dateTime, SiExpandedUnc expUnc) {
-        this.value = value;
-        this.unit = unit;
-        this.dateTime = dateTime;
-        this.expUnc = expUnc;
-    }
-
+    /**
+     * This functio is used to increase/decrease the values of the SiReals
+     * @param manipulator Double
+     */
     public void manipulateValue(Double manipulator){
         this.massDifference=manipulator;
         this.value+=manipulator;

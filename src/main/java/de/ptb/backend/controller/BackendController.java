@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.controller;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -43,11 +43,26 @@ import java.util.*;
 @AllArgsConstructor
 @RequestMapping(path = "/api/d-comparison")
 public class BackendController {
+    /**
+     * This is a test function to check if the DKCR backend is running on the server.
+     * @return      always the string "Hello World"
+     */
     @GetMapping("/sayHello")
     public String sayHelloWorld() {
         return "Hello World!";
     }
 
+    /**
+     * This function reads the mass values from the DCC's specified in the participant list and calculates energy values, KC values and Grubstest values from them.
+     * These are then returned in the form of a DCC.
+     * @param payload   JsonNode which contains the PIDReport and Participantlist
+     * @return  ResponseEntity, which consists of the HTTPStatus and the message. The message can be an error message or the created DCCs as a base64 string.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     * @throws XPathExpressionException
+     * @throws TransformerException
+     */
     @PostMapping("/evaluateComparison")
     public ResponseEntity evaluateDKCR(@RequestBody JsonNode payload) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
         JsonNode data = payload.get("keyComparisonData");
@@ -99,11 +114,25 @@ public class BackendController {
         }
     }
 
+    /**
+     * This function converts a DCC, which is an xml file, into a PDF file.
+     * @param payload JsonNode which contains the name and the content as a Base64 string
+     * @return ResponseEntity which consists of the HTTPStatus and the message. The message is the DCC pdf file as a base64 string.
+     */
     @PostMapping("/converterKCDB")
     public ResponseEntity<String> converterKCDB(@RequestBody JsonNode payload){
         return new ResponseEntity<>("KCDB-Beispielausgabe", HttpStatus.OK);
     }
 
+    /**
+     * This function generates the content of the new DCC file from the previously determined or calculated values.
+     * @param mass List<SiReal> which contains the mass values of the participant dcc files
+     * @param enMassValues  Vector<RunResult> which contains the en values
+     * @param kcValue   SiReal
+     * @param energy    List<SiReal> which contains the energy values calculated from the mass values
+     * @param grubsValues   Vector<GRunResult> containing all the calculated Grubstest values
+     * @return  List<MeasurementResult> which contains every measurementresult entry in the new DCC
+     */
     public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy, Vector<GRunResult> grubsValues){
         List<MeasurementResult> results = new ArrayList<>();
         RunResult runResult = enMassValues.get(0);
@@ -112,6 +141,12 @@ public class BackendController {
         }
         return results;
     }
+
+    /**
+     * This function increase/decrease every mass value depending on the manipulator value
+     * @param siReals List<SiReal> which contains the mass values of the participant dcc files
+     * @param manipulator Double
+     */
     private static void manipulateMassValues(List<SiReal> siReals, Double manipulator){
         for (SiReal real: siReals){
             real.manipulateValue(manipulator);

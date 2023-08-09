@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model.dsi;
 
@@ -30,6 +30,16 @@ public class MeasurementResult {
     Double grubsUncertainty;
     Double grubsComparisonValue;
     String result = "";
+
+    /**
+     * This constructor is for every normal measurement result entry in the new DCC.
+     * @param massValue SiReal
+     * @param kcMassValue Double
+     * @param kcValue SiReal
+     * @param enValue Double
+     * @param energyValue SiReal
+     * @param grubsValue GEO
+     */
     public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue) {
         this.massValue = massValue;
         this.kcMassValue = kcMassValue;
@@ -39,16 +49,15 @@ public class MeasurementResult {
         this.grubsValue = grubsValue;
         generateMeasurementResult();
     }
-    public MeasurementResult(String name, SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue){
-        this.name = name;
-        this.massValue = massValue;
-        this.kcMassValue = kcMassValue;
-        this.kcValue = kcValue;
-        this.enValue = enValue;
-        this.energyValue = energyValue;
-        generateMeasurementResult();
-    }
 
+    /**
+     * This constructor is for the last measurement result entry in the new DCC.
+     * @param massDifference Double which has the same value of the manipulator parameter of the function manipulateMassValues in BackendController.java
+     * @param kcMassValue Double
+     * @param kcValue Double
+     * @param grubsValue Double
+     * @param grubsUncertainty Double
+     */
     public MeasurementResult(Double massDifference, Double kcMassValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
         this.kcValue = kcValue;
         this.kcMassValue = kcMassValue;
@@ -57,6 +66,10 @@ public class MeasurementResult {
         this.grubsUncertainty = grubsUncertainty;
         generateKCMeasurement();
     }
+
+    /**
+     * This function generates for the parameter result the content of one measurement result entry of the new DCC file
+     */
     private void generateMeasurementResult(){
         this.result = "         <dcc:measurementResult refId=\"NMIJ-1\">\n" +
                 "       <dcc:name>\n" +
@@ -158,7 +171,9 @@ public class MeasurementResult {
                 "       </dcc:results>\n" +
                 "   </dcc:measurementResult>\n";
     }
-
+    /**
+     * This function generates for the parameter result the content of the last measurement result entry of the new DCC file
+     */
     public void generateKCMeasurement(){
         this.result = "         <dcc:measurementResult refId=\"RefVals\">\n" +
                 "       <dcc:name>\n" +

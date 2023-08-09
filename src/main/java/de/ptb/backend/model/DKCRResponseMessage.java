@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-08
+LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model;
 
@@ -25,22 +25,16 @@ public class DKCRResponseMessage {
     String fileName;
     String base64String;
 
+    /**
+     * This class contains the information of a succesfull response of the server which will be attached as response in BackendController.java
+     * @param fileName String
+     * @param file File
+     * @throws IOException
+     */
     public DKCRResponseMessage(String fileName, File file) throws IOException {
         this.fileName = fileName+ ".xml";
         byte[] fileContent = Files.readAllBytes(file.toPath());
         this.base64String = Base64.getEncoder().encodeToString(fileContent);
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getBase64String() {
-        return base64String;
     }
 
     public void setBase64String(File file) throws IOException {

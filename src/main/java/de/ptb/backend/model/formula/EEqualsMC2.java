@@ -26,19 +26,25 @@ import java.util.List;
 
 public class EEqualsMC2 {
     SiConstant c;
-    List<SiReal> massSiReal = new ArrayList<>();
+    List<SiReal> massSiReal;
 
+    /**
+     * EEqualsMC2 is a class to calculate energy values out of mass values and the Speed of Light. The formular used for this ist E = M * C^2.
+     * @param speedOfLight SIConstant
+     * @param siReals List<SiReals> which contains the mass values of the participant dcc files
+     */
     public EEqualsMC2(SiConstant speedOfLight, List<SiReal> siReals) {
         this.c = speedOfLight;
         this.massSiReal = siReals;
-
-    }
-    public  EEqualsMC2(SiConstant speedOfLight){
-        this.c = speedOfLight;
     }
 
+    /**
+     * This function calculates one energy value using this.c and a mass value
+     * @param massSiReal SiReal
+     * @return SiReal which contains the new calculated energy value
+     */
     public SiReal calculate(SiReal massSiReal){
-        Double value = massSiReal.getValue() * this.c.getValue()*this.c.getValue();
+        Double value = massSiReal.getValue() * this.c.getValue() * this.c.getValue();
         String unit = "\\joule";
         String dateTime = LocalDateTime.now().toString();
         Double uncertainty = massSiReal.getExpUnc().getUncertainty();
@@ -48,6 +54,10 @@ public class EEqualsMC2 {
         return new SiReal(value, unit, dateTime, new SiExpandedUnc(uncertainty, coverageFactor, coverageProbability));
     }
 
+    /**
+     * This function calculates energy values out of all this.massSiReal using the above calculate function
+     * @return List<SiReal> containing all energy values which are calculated from the mass values and the speed of light
+     */
     public List<SiReal> calculate(){
         List<SiReal> newSiReals = new ArrayList<>();
         for (SiReal mass: this.massSiReal){
