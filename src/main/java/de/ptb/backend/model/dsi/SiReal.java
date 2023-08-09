@@ -16,14 +16,10 @@ LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model.dsi;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class SiReal {
-    /**
-     * -- GETTER --
-     *  Getter und Setter for the values of the SiReal
-     */
     Double value;
     String unit;
     String dateTime;

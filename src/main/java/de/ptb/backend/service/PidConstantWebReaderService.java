@@ -17,6 +17,7 @@ LAST MODIFIED:	2023-08-09
 package de.ptb.backend.service;
 
 import de.ptb.backend.model.dsi.SiConstant;
+import lombok.Data;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -16,6 +16,9 @@ LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model;
 
+import lombok.Data;
+
+@Data
 public class DKCRErrorMessage {
     String errorMessage;
 

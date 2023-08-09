@@ -19,11 +19,12 @@ package de.ptb.backend.model.formula;
 import de.ptb.backend.model.dsi.SiConstant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class EEqualsMC2 {
     SiConstant c;
     List<SiReal> massSiReal;

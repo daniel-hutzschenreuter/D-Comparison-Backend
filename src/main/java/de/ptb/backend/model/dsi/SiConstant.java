@@ -16,8 +16,10 @@ LAST MODIFIED:	2023-08-08
 */
 package de.ptb.backend.model.dsi;
 
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Data
 public class SiConstant {
     private final String pid;
     private final String bipmPID;
@@ -60,43 +62,4 @@ public class SiConstant {
                 '}';
     }
 
-    public String getPid() {
-        return pid;
-    }
-
-    public String getBipmPID() {
-        return bipmPID;
-    }
-
-    public Boolean getdSIApproved() {
-        return dSIApproved;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public String getQuantityType() {
-        return quantityType;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public double getUncertainty() {
-        return uncertainty;
-    }
-
-    public String getDistribution() {
-        return distribution;
-    }
 }

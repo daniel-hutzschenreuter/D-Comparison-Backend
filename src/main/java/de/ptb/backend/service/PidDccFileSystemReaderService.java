@@ -19,6 +19,7 @@ import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
+import lombok.Data;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,7 +37,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Data
 public class PidDccFileSystemReaderService {
     String path;
     DKCRRequestMessage message;

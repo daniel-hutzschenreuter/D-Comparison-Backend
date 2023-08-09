@@ -18,6 +18,7 @@ package de.ptb.backend.service;
 
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.MeasurementResult;
+import lombok.Data;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -38,7 +39,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.List;
-
+@Data
 public class PidReportFileSystemWriteService {
     String pid;
     List<Participant> participants;

@@ -17,8 +17,10 @@ LAST MODIFIED:	2023-08-09
 
 package de.ptb.backend.model;
 
-import java.util.List;
+import lombok.Data;
 
+import java.util.List;
+@Data
 public class DKCRRequestMessage {
     String pidReport;
     List<Participant> participantList;

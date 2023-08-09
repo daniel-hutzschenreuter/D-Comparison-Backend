@@ -20,8 +20,7 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode

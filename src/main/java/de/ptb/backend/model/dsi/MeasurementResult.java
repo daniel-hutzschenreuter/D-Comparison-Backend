@@ -17,7 +17,9 @@ LAST MODIFIED:	2023-08-09
 package de.ptb.backend.model.dsi;
 
 import de.ptb.backend.BERT.GEO;
+import lombok.Data;
 
+@Data
 public class MeasurementResult {
     String name = "";
     SiReal massValue;

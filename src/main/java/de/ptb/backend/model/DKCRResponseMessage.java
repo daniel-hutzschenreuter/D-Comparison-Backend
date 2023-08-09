@@ -16,11 +16,13 @@ LAST MODIFIED:	2023-08-09
 */
 package de.ptb.backend.model;
 
+import lombok.Data;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
-
+@Data
 public class DKCRResponseMessage {
     String fileName;
     String base64String;
