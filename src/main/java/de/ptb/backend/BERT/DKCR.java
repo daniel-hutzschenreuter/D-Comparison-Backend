@@ -403,7 +403,7 @@ public class DKCR {
 			{
 				// There should always be a maximum value so iGMax != 0 always
 				// If iGMax == 0 something has gone wrong!
-				throw new Exception("No Maximum found");
+				throw new Exception("At least 2 or more participants.");
 			}
 
 
