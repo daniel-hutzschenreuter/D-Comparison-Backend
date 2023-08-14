@@ -21,7 +21,6 @@ import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +40,7 @@ public class GrubsCalculationTest {
         assertTrue(true);
     }
     @Test
-    public void checkGrubsCalc() throws IOException {
+    public void checkGrubsCalc() throws Exception {
         List<SiReal> enSiReals = new ArrayList<>();
         for(int i = 0; i < this.energyValues.size(); i++){
             enSiReals.add(new SiReal(this.energyValues.get(i), "/joule", "",new SiExpandedUnc(this.uncertainties.get(i),0,0.0)));

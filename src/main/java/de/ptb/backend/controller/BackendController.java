@@ -17,8 +17,6 @@ LAST MODIFIED:	2023-08-09
 package de.ptb.backend.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import de.ptb.backend.BERT.*;
 import de.ptb.backend.model.DKCRErrorMessage;
 import de.ptb.backend.model.DKCRRequestMessage;
@@ -72,44 +70,50 @@ public class BackendController {
      * @throws TransformerException
      */
     @PostMapping("/evaluateComparison")
-    public ResponseEntity<DKCRResponseMessage> evaluateDKCR(@RequestBody JsonNode payload) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
-        JsonNode data = payload.get("keyComparisonData");
-        String pidReport = data.get("pidReport").toString().substring(1, data.get("pidReport").toString().length() - 1);
-        List<Participant> participantList = new ArrayList<>();
-        for (JsonNode participant : data.get("participantList")) {
-            participant = participant.get("participant");
-            participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
+    public ResponseEntity evaluateDKCR(@RequestBody JsonNode payload) throws Exception {
+        try{
+            JsonNode data = payload.get("keyComparisonData");
+            String pidReport = data.get("pidReport").toString().substring(1, data.get("pidReport").toString().length() - 1);
+            List<Participant> participantList = new ArrayList<>();
+            for (JsonNode participant : data.get("participantList")) {
+                participant = participant.get("participant");
+                participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
+            }
+            DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
+            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
+            List<SiReal> SiReals = reader.readFiles();
+            manipulateMassValues(SiReals, -1.0);
+            PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService("speedOfLightInVacuum2018");
+            SiConstant speedOfLight = speedOfLightWebReader.getConstant();
+            EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
+            List<SiReal> ergebnisse = equalsMC.calculate();
+            fDKCR fdkcr = new fDKCR();
+            RunfDKCR objRunfDKCR = new RunfDKCR();
+            Vector<DIR> inputs = new Vector<>();
+            for (SiReal ergebnis : ergebnisse) {
+                DIR sirealAsDIR = new DIR(ergebnis.getValue(), ergebnis.getExpUnc().getUncertainty());
+                inputs.add(sirealAsDIR);
+            }
+            objRunfDKCR.ReadData();
+            objRunfDKCR.ReadDKRCContributions();
+            fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
+            objRunfDKCR.setNr(fdkcr.processDKCR());
+            Vector<RunResult> Results = objRunfDKCR.getRunResults();
+            SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
+            DKCR grubsTestDKCR = new DKCR(inputs);
+            double mean = grubsTestDKCR.CalcMean();
+            double stddev = grubsTestDKCR.CalcStdDev(mean);
+            Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stddev);
+            List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
+            mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
+            PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
+            DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }catch(Exception e){
+            DKCRErrorMessage errorMessage = new DKCRErrorMessage(e.getMessage());
+           return new ResponseEntity(errorMessage, HttpStatus.BAD_GATEWAY);
         }
-        DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
-        PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
-        List<SiReal> SiReals = reader.readFiles();
-        manipulateMassValues(SiReals, -1.0);
-        PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService("speedOfLightInVacuum2018");
-        SiConstant speedOfLight = speedOfLightWebReader.getConstant();
-        EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
-        List<SiReal> ergebnisse = equalsMC.calculate();
-        fDKCR fdkcr = new fDKCR();
-        RunfDKCR objRunfDKCR = new RunfDKCR();
-        Vector<DIR> inputs = new Vector<>();
-        for (SiReal ergebnis : ergebnisse) {
-            DIR sirealAsDIR = new DIR(ergebnis.getValue(), ergebnis.getExpUnc().getUncertainty());
-            inputs.add(sirealAsDIR);
-        }
-        objRunfDKCR.ReadData();
-        objRunfDKCR.ReadDKRCContributions();
-        fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
-        objRunfDKCR.setNr(fdkcr.processDKCR());
-        Vector<RunResult> Results = objRunfDKCR.getRunResults();
-        SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
-        DKCR grubsTestDKCR = new DKCR(inputs);
-        double mean = grubsTestDKCR.CalcMean();
-        double stddev = grubsTestDKCR.CalcStdDev(mean);
-        Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stddev);
-        List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
-        mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
-        PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
-        DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     /**
