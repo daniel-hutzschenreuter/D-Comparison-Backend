@@ -259,7 +259,15 @@ public class DKCR {
 		return stddev;				// XX
 	}								// XX
 
-
+	/**
+	 * Put an explanation of what the function does.
+	 * Update the params to explain their functionality
+	 *
+	 * @param mean
+	 * @param stddev
+	 * @return
+	 * @throws Exception
+	 */
 	public Vector<GRunResult> ProcessGrubsDKCR(double mean, double stddev) throws Exception {
 		int NOutlierFlags = 0;		// The number of outlier flags from current Run
 		int OldNOutlierFlags = 0;	// The number of outlier flags from the previous Run
@@ -367,8 +375,15 @@ public class DKCR {
 				// Get the maximum data GEOResult object
 				GEO p = a.GEOResults.get(iGMax);
 
-				// Get the Grubs Critical Value for the number of contributions processed (Use Nopc from previous loop)
-				GrubsStatistic gs = GSTable.gst.get(Nopc - 3);	//Table starts at 3
+				GrubsStatistic gs;
+
+				try {
+					// Get the Grubs Critical Value for the number of contributions processed (Use Nopc from previous loop)
+					gs = GSTable.gst.get(Nopc - 3);    // Table starts at 3
+				}
+				catch(Exception e){
+					throw new Exception("At least 3 participants for the Grubs Test are required");
+				}
 
 				// Check to see if the G Value exceeds the Grubs Critical Value
 				if(Double.compare(GMax, gs.GrubsCritical) > 0)
@@ -399,7 +414,7 @@ public class DKCR {
 			{
 				// There should always be a maximum value so iGMax != 0 always
 				// If iGMax == 0 something has gone wrong!
-				throw new Exception("At least 2 or more participants.");
+				throw new Exception("At least 3 or more participants.");
 			}
 
 
