@@ -260,8 +260,7 @@ public class DKCR {
 	}								// XX
 
 
-	public Vector<GRunResult> ProcessGrubsDKCR(double mean, double stddev)
-	{
+	public Vector<GRunResult> ProcessGrubsDKCR(double mean, double stddev) throws Exception {
 		int NOutlierFlags = 0;		// The number of outlier flags from current Run
 		int OldNOutlierFlags = 0;	// The number of outlier flags from the previous Run
 		int NRun = 1;				// The number of the current Run
@@ -395,17 +394,12 @@ public class DKCR {
 					// For the moment leave it in place.
 					a.ProcessGRunResult(iGMax, DirInputs);
 				}
-
-
-
-
 			}
 			else
 			{
 				// There should always be a maximum value so iGMax != 0 always
 				// If iGMax == 0 something has gone wrong!
-				System.out.println("****ERROR***** in ProcessGrubsDKCR. No Maximum found.");
-
+				throw new Exception("At least 2 or more participants.");
 			}
 
 
@@ -626,7 +620,7 @@ public class DKCR {
 		System.out.println("End of Grubs En");
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
 		// Create the NMIS object that will contain a list of BIPM registered NMIs

@@ -1,6 +1,23 @@
+/*
+Copyright (c) 2023 Physikalisch-Technische Bundesanstalt (PTB), all rights reserved.
+This source code and software is free software: you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, version 3 of the License.
+The software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public License
+along with this XSD.  If not, see http://www.gnu.org/licenses.
+CONTACT: 		info@ptb.de
+DEVELOPMENT:	https://d-si.ptb.de
+AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
+LAST MODIFIED:	2023-08-09
+*/
 package de.ptb.backend.service;
 
 import de.ptb.backend.model.dsi.SiConstant;
+import lombok.Data;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,9 +36,20 @@ import java.io.StringReader;
 public class PidConstantWebReaderService {
     final String dConstantUrl = "https://d-si.ptb.de/api/d-constant/";//"http://localhost:8082/api/d-constant/";//
     String constant;
+
+    /**
+     * This class is used to read out a SiConstant out of the D-Constant Backend (The String this.dConstantUrl must be changed for different server connections)
+     * @param constant String name of the requested constant
+     */
     public PidConstantWebReaderService(String constant){
         this.constant = constant;
     }
+
+    /**
+     * This function establishes a connection with this.dConstantUrl and this.constant and reads the necessary contents from the xml file received.
+     * @return SiConstant containing the wanted constant
+     * @throws XPathExpressionException
+     */
     public SiConstant getConstant() throws XPathExpressionException {
         final String url = this.dConstantUrl+this.constant;
         RestTemplate restTemplate = new RestTemplate();
@@ -47,8 +75,14 @@ public class PidConstantWebReaderService {
                 return speedOfLight;
             }
         }
-        return new SiConstant(null,null,null,null,null,null,null,null,0,null);
+        return null;
     }
+
+    /**
+     * This is an auxiliary function to create a xml document from the received string.
+     * @param xmlString String
+     * @return Document containing all the information from the string
+     */
     private static Document convertStringToXMLDocument(String xmlString) {
         //Parser that produces DOM object trees from XML content
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
