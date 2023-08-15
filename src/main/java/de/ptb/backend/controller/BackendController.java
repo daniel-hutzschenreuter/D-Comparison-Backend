@@ -12,7 +12,7 @@ along with this XSD.  If not, see http://www.gnu.org/licenses.
 CONTACT: 		info@ptb.de
 DEVELOPMENT:	https://d-si.ptb.de
 AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
-LAST MODIFIED:	2023-08-14
+LAST MODIFIED:	2023-08-15
 */
 package de.ptb.backend.controller;
 
@@ -63,15 +63,15 @@ public class BackendController {
      *
      * @param payload JsonNode which contains the PIDReport and Participantlist
      * @return ResponseEntity, which consists of the HTTPStatus and the message. The message can be an error message or the created DCCs as a base64 string.
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     * @throws XPathExpressionException
-     * @throws TransformerException
+     * @throws Exception In the future, more exceptions will be added for more specific cases.
      */
     @PostMapping("/evaluateComparison")
     public ResponseEntity evaluateDKCR(@RequestBody JsonNode payload) throws Exception {
         try{
+            /*
+             *This part of the function reads the passed data from the payload
+             *and creates SiReal objects from the DCC files found from the pidDCC of the participantList.
+             */
             JsonNode data = payload.get("keyComparisonData");
             String pidReport = data.get("pidReport").toString().substring(1, data.get("pidReport").toString().length() - 1);
             List<Participant> participantList = new ArrayList<>();
@@ -82,11 +82,19 @@ public class BackendController {
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
             PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
             List<SiReal> SiReals = reader.readFiles();
+            /*
+            *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
+            * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.
+            */
             manipulateMassValues(SiReals, -1.0);
             PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService("speedOfLightInVacuum2018");
             SiConstant speedOfLight = speedOfLightWebReader.getConstant();
             EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
             List<SiReal> ergebnisse = equalsMC.calculate();
+            /*
+            *The generated energy values are now used to calculate the En and KC values.
+            * Subsequently, the energy values are used to perform the Grubstest.
+             */
             fDKCR fdkcr = new fDKCR();
             RunfDKCR objRunfDKCR = new RunfDKCR();
             Vector<DIR> inputs = new Vector<>();
@@ -102,14 +110,22 @@ public class BackendController {
             SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
             DKCR grubsTestDKCR = new DKCR(inputs);
             double mean = grubsTestDKCR.CalcMean();
-            double stddev = grubsTestDKCR.CalcStdDev(mean);
-            Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stddev);
+            double stdDev = grubsTestDKCR.CalcStdDev(mean);
+            Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
+            /*
+            *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
+            * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
+             */
             List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
             mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
             PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
             DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }catch(Exception e){
+        }
+        catch(Exception e){
+            /*
+            * If something went wrong an error message is returned. Different error messages are planned for the future.
+             */
             DKCRErrorMessage errorMessage = new DKCRErrorMessage(e.getMessage());
            return new ResponseEntity(errorMessage, HttpStatus.BAD_GATEWAY);
         }

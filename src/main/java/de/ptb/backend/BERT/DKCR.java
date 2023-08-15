@@ -394,10 +394,6 @@ public class DKCR {
 					// For the moment leave it in place.
 					a.ProcessGRunResult(iGMax, DirInputs);
 				}
-
-
-
-
 			}
 			else
 			{
