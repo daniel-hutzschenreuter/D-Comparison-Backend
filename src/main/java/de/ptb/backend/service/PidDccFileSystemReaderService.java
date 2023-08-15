@@ -1,8 +1,25 @@
+/*
+Copyright (c) 2023 Physikalisch-Technische Bundesanstalt (PTB), all rights reserved.
+This source code and software is free software: you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, version 3 of the License.
+The software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public License
+along with this XSD.  If not, see http://www.gnu.org/licenses.
+CONTACT: 		info@ptb.de
+DEVELOPMENT:	https://d-si.ptb.de
+AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
+LAST MODIFIED:	2023-08-09
+*/
 package de.ptb.backend.service;
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
+import lombok.Data;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,11 +37,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Data
 public class PidDccFileSystemReaderService {
-    String path = null;
+    String path;
     DKCRRequestMessage message;
 
+    /**
+     * This class is used to read out the DCC files located on the server.
+     * Only the DCC files with the same name as the DCCPID of the participants are read.
+     * @param message DKCRRequestMessage containing the participantList and the pidReport
+     */
     public PidDccFileSystemReaderService(DKCRRequestMessage message) {
         this.message = message;
         if(System.getProperty("os.name").contains("Windows")){
@@ -34,6 +56,12 @@ public class PidDccFileSystemReaderService {
         }
     }
 
+    /**
+     * This function iterates through the participantList of the Requestmessage and the dcc files on the system
+     * and creates SiReals for every matching name containing the values of the respective dcc file.
+     * @return List<SiReal> which contains the mass values of the participant dcc files
+     * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
+     */
     public List<SiReal> readFiles() throws ParserConfigurationException {
         List<SiReal> siReals = new ArrayList<>();
         File directory = new File(this.path);
