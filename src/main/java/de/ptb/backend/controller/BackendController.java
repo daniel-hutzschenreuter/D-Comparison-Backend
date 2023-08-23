@@ -12,7 +12,7 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	15.08.23, 15:41
+ * LAST MODIFIED:	23.08.23, 08:26
  */
 
 package de.ptb.backend.controller;
@@ -28,19 +28,14 @@ import de.ptb.backend.model.dsi.SiConstant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import de.ptb.backend.model.formula.EEqualsMC2;
-import de.ptb.backend.service.PidConstantWebReaderService;
-import de.ptb.backend.service.PidDccFileSystemReaderService;
-import de.ptb.backend.service.PidReportFileSystemWriteService;
+import de.ptb.backend.IO.PidConstantWebReader;
+import de.ptb.backend.IO.PidDccFileSystemReader;
+import de.ptb.backend.IO.PidReportFileSystemWriter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.*;
 import java.util.*;
 
 @RestController
@@ -81,14 +76,14 @@ public class BackendController {
                 participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
             }
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
-            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService(request);
+            PidDccFileSystemReader reader = new PidDccFileSystemReader(request);
             List<SiReal> SiReals = reader.readFiles();
             /*
             *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
             * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.
             */
             manipulateMassValues(SiReals, -1.0);
-            PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService("speedOfLightInVacuum2018");
+            PidConstantWebReader speedOfLightWebReader = new PidConstantWebReader("speedOfLightInVacuum2018");
             SiConstant speedOfLight = speedOfLightWebReader.getConstant();
             EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
             List<SiReal> ergebnisse = equalsMC.calculate();
@@ -119,7 +114,7 @@ public class BackendController {
              */
             List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
             mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
-            PidReportFileSystemWriteService dccWriter = new PidReportFileSystemWriteService(pidReport, participantList, mResults);
+            PidReportFileSystemWriter dccWriter = new PidReportFileSystemWriter(pidReport, participantList, mResults);
             DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }

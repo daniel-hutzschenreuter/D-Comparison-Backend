@@ -12,13 +12,12 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	15.08.23, 15:41
+ * LAST MODIFIED:	23.08.23, 08:26
  */
 
-package de.ptb.backend.service;
+package de.ptb.backend.IO;
 
 import de.ptb.backend.model.dsi.SiConstant;
-import lombok.Data;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,7 +33,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
-public class PidConstantWebReaderService {
+public class PidConstantWebReader {
     final String dConstantUrl = "https://d-si.ptb.de/api/d-constant/";//"http://localhost:8082/api/d-constant/";//
     String constant;
 
@@ -42,7 +41,7 @@ public class PidConstantWebReaderService {
      * This class is used to read out a SiConstant out of the D-Constant Backend (The String this.dConstantUrl must be changed for different server connections)
      * @param constant String name of the requested constant
      */
-    public PidConstantWebReaderService(String constant){
+    public PidConstantWebReader(String constant){
         this.constant = constant;
     }
 

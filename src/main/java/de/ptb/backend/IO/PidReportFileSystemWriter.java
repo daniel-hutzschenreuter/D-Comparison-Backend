@@ -12,10 +12,10 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	15.08.23, 15:41
+ * LAST MODIFIED:	23.08.23, 08:26
  */
 
-package de.ptb.backend.service;
+package de.ptb.backend.IO;
 
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.MeasurementResult;
@@ -41,7 +41,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.List;
 @Data
-public class PidReportFileSystemWriteService {
+public class PidReportFileSystemWriter {
     String pid;
     List<Participant> participants;
     List<MeasurementResult> mResults;
@@ -53,7 +53,7 @@ public class PidReportFileSystemWriteService {
      * @param participants List<Participant>
      * @param mResults List<MeasurementResult>
      */
-    public PidReportFileSystemWriteService(String pid, List<Participant> participants, List<MeasurementResult> mResults) {
+    public PidReportFileSystemWriter(String pid, List<Participant> participants, List<MeasurementResult> mResults) {
         this.pid = pid;
         this.participants = participants;
         this.mResults = mResults;
