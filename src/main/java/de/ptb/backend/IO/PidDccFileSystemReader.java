@@ -12,10 +12,10 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	15.08.23, 15:41
+ * LAST MODIFIED:	23.08.23, 08:26
  */
 
-package de.ptb.backend.service;
+package de.ptb.backend.IO;
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 @Data
-public class PidDccFileSystemReaderService {
+public class PidDccFileSystemReader {
     String path;
     DKCRRequestMessage message;
 
@@ -48,7 +48,7 @@ public class PidDccFileSystemReaderService {
      * Only the DCC files with the same name as the DCCPID of the participants are read.
      * @param message DKCRRequestMessage containing the participantList and the pidReport
      */
-    public PidDccFileSystemReaderService(DKCRRequestMessage message) {
+    public PidDccFileSystemReader(DKCRRequestMessage message) {
         this.message = message;
         if(System.getProperty("os.name").contains("Windows")){
             this.path = "src\\main\\resources\\DCCFiles";
