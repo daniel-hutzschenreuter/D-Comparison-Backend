@@ -547,8 +547,16 @@ public class DKCR {
 			a.xRef = xRef;
 
 			//// Do 2nd Stage DKCR Processing
+			// Only 1 possible outlier can be found. This is based on the maximum value of En95 found that is greater than or equal to 1.0
+			// If the maximum value of En95 found is less than 1, then there is no new outlier found in this run and processing will stop at the end
+			// of this run.
 
-			Double En95 = 0.0;
+			Double En95 = 0.0;			// The current value of En95 for this contribution
+			Double En95Max = 0.0;		// The maximum value of En95 found in the loop
+			int iEn95Max = -1;			// The integer position of the Maximum value of En95 found (so far) and at the end of the process loop
+
+			// Note that only contributions that are present (ResultPresentFlag = true) and contributions that are not already outliers (from previous run)
+			// will be processed.
 
 			for(int i = 0; i < DirInputs.size(); i++)
 			{
@@ -576,18 +584,67 @@ public class DKCR {
 						// eo.RoundEquivalenceValue();
 						p.RoundEquivalenceValue();
 
-						// Is it a (new) outlier?
-						if(En95 > 1.0)
+						// Check to see if this En95 value is the maximum so far
+						if(En95 > En95Max)
 						{
-							// Yes its an new Outlier
-							// eo.OutlierFlag = true;
-							p.OutlierFlag = true;
-
-							// Increment the Outlier Count NOutlierFlags
-							NOutlierFlags++;
+							// Yes it is, store values
+							iEn95Max = i;
+							En95Max = En95;
 						}
+
+		    			/* BLOCK OUT OLD CODE
+
+		    			// Is it a (new) outlier?
+		    			if(En95 > 1.0)
+		    			{
+		    				// Yes its an new Outlier
+		    				// eo.OutlierFlag = true;
+		    				p.OutlierFlag = true;
+
+		    				// Increment the Outlier Count NOutlierFlags
+		    				NOutlierFlags++;
+		    			}
+
+		    			*/
+
+
+					}	// End of if not already outlier block
+					else
+					{
+						// OK this was marked as an outlier in the previous run so need to calc En95 using Eqn. 4 not Eqn 3.
+						En95 = Math.abs((o.xi - a.xRef) / Math.sqrt(o.Ui*o.Ui + a.URef*a.URef));
+						p.EquivalenceValue = En95;
+						p.RoundEquivalenceValue();
 					}
+
+
+
+
+				}	//  End of if ResultPresent Block
+			}	// End of for loop
+
+			// OK now check to see if the maximum En95 is greater or equal to 1 and if so set it to be 'the' new outlier
+			// If its not greater than, or equal to 1.0 then there is no new outlier.
+			if(iEn95Max != -1)
+			{
+				// As expected a maximum was found
+
+				// Get the relevant EO object
+				EO p = a.EOResults.get(iEn95Max);
+
+				// Now check to see if the En95Max value is >= 1. If yes, its a new outlier, if no, its not.
+				if(Double.compare(En95Max, 1.0) > 0)
+				{
+					// Yes its a new outlier
+					p.OutlierFlag = true;
+
+					// Increment the number of Outliers
+					NOutlierFlags++;
 				}
+			}
+			else
+			{
+				// This should never happen, no maximum found!
 			}
 
 			// Increment the Run Number
