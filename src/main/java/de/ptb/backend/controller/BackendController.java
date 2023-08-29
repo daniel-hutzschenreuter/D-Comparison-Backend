@@ -12,7 +12,7 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	23.08.23, 08:26
+ * LAST MODIFIED:	29.08.23, 12:18
  */
 
 package de.ptb.backend.controller;
@@ -28,9 +28,10 @@ import de.ptb.backend.model.dsi.SiConstant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import de.ptb.backend.model.formula.EEqualsMC2;
-import de.ptb.backend.IO.PidConstantWebReader;
-import de.ptb.backend.IO.PidDccFileSystemReader;
-import de.ptb.backend.IO.PidReportFileSystemWriter;
+import de.ptb.backend.services.PidConstantWebReaderService;
+import de.ptb.backend.services.PidDccFileSystemReaderService;
+import de.ptb.backend.services.PidReportFileSystemWriterService;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.*;
@@ -62,6 +63,7 @@ public class BackendController {
      * @throws Exception In the future, more exceptions will be added for more specific cases.
      */
     @PostMapping("/evaluateComparison")
+    @Schema
     public ResponseEntity evaluateDKCR(@RequestBody JsonNode payload) throws Exception {
         try{
             /*
@@ -76,14 +78,16 @@ public class BackendController {
                 participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
             }
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
-            PidDccFileSystemReader reader = new PidDccFileSystemReader(request);
+            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
+            reader.setMessage(request);
             List<SiReal> SiReals = reader.readFiles();
             /*
             *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
             * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.
             */
             manipulateMassValues(SiReals, -1.0);
-            PidConstantWebReader speedOfLightWebReader = new PidConstantWebReader("speedOfLightInVacuum2018");
+            PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService();
+            speedOfLightWebReader.setConstant("speedOfLightInVacuum2018");
             SiConstant speedOfLight = speedOfLightWebReader.getConstant();
             EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
             List<SiReal> ergebnisse = equalsMC.calculate();
@@ -114,7 +118,10 @@ public class BackendController {
              */
             List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
             mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
-            PidReportFileSystemWriter dccWriter = new PidReportFileSystemWriter(pidReport, participantList, mResults);
+            PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
+            dccWriter.setPid(pidReport);
+            dccWriter.setParticipants(participantList);
+            dccWriter.setMResults(mResults);
             DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }

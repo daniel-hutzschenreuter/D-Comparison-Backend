@@ -12,14 +12,15 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	23.08.23, 08:26
+ * LAST MODIFIED:	29.08.23, 12:18
  */
 
-package de.ptb.backend.IO;
+package de.ptb.backend.services;
 
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.MeasurementResult;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -41,21 +42,35 @@ import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.List;
 @Data
-public class PidReportFileSystemWriter {
+@Service
+public class PidReportFileSystemWriterService implements I_PidReportFileSystemWriter{
     String pid;
     List<Participant> participants;
     List<MeasurementResult> mResults;
     String dccTemplatePath;
 
     /**
-     * This class is used to write the previously generated measurement results into a new DCC.
-     * @param pid String
+     * This function set the pid used for naming the generated file.
+     * @param pid String contains the PID which is similar to the name of the generated DCC
+     */
+    @Override
+    public void setPid(String pid){
+        this.pid = pid;
+    }
+    /**
+     * This function set the participants used to be written to the DCC.
      * @param participants List<Participant>
+     */
+    @Override
+    public void setParticipants(List<Participant> participants){
+        this.participants = participants;
+    }
+    /**
+     * This function set the Measurement Results used to be written to the DCC.
      * @param mResults List<MeasurementResult>
      */
-    public PidReportFileSystemWriter(String pid, List<Participant> participants, List<MeasurementResult> mResults) {
-        this.pid = pid;
-        this.participants = participants;
+    @Override
+    public void setMResults(List<MeasurementResult> mResults){
         this.mResults = mResults;
         if(System.getProperty("os.name").contains("Windows")) {
             this.dccTemplatePath = "src\\main\\resources\\TestFiles\\DCCTemplate.xml";
@@ -63,7 +78,6 @@ public class PidReportFileSystemWriter {
             this.dccTemplatePath = "DCCTemplate.xml";
         }
     }
-
     /**
      * This function creates a new DCC file out of the measurement results and a template dcc file.
      * @return File which contains the newly generated Dcc file
@@ -135,7 +149,7 @@ public class PidReportFileSystemWriter {
 
     /**
      * This is an auxiliary function to create a string from the template dcc file.
-     * @param doc
+     * @param doc Document
      * @return String containing the information of the xml file
      */
     private static String convertDocumentToString(Document doc) {

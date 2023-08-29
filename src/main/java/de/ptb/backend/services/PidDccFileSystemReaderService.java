@@ -12,15 +12,16 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	23.08.23, 08:26
+ * LAST MODIFIED:	29.08.23, 12:18
  */
 
-package de.ptb.backend.IO;
+package de.ptb.backend.services;
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -39,16 +40,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 @Data
-public class PidDccFileSystemReader {
+@Service
+public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
     String path;
     DKCRRequestMessage message;
 
     /**
-     * This class is used to read out the DCC files located on the server.
-     * Only the DCC files with the same name as the DCCPID of the participants are read.
-     * @param message DKCRRequestMessage containing the participantList and the pidReport
+     * This function sets the message which is used to read out all the requested DCC files.
+     * @param message DKCRRequestMessage which contains all the information from request of the frontend
      */
-    public PidDccFileSystemReader(DKCRRequestMessage message) {
+    @Override
+    public void setMessage(DKCRRequestMessage message){
         this.message = message;
         if(System.getProperty("os.name").contains("Windows")){
             this.path = "src\\main\\resources\\DCCFiles";
@@ -63,6 +65,7 @@ public class PidDccFileSystemReader {
      * @return List<SiReal> which contains the mass values of the participant dcc files
      * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
+    @Override
     public List<SiReal> readFiles() throws ParserConfigurationException {
         List<SiReal> siReals = new ArrayList<>();
         File directory = new File(this.path);
