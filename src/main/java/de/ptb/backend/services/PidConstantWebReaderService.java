@@ -12,12 +12,13 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	23.08.23, 08:26
+ * LAST MODIFIED:	29.08.23, 12:18
  */
 
-package de.ptb.backend.IO;
+package de.ptb.backend.services;
 
 import de.ptb.backend.model.dsi.SiConstant;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,15 +34,17 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
-public class PidConstantWebReader {
+@Service
+public class PidConstantWebReaderService implements I_PidConstantWebReader{
     final String dConstantUrl = "https://d-si.ptb.de/api/d-constant/";//"http://localhost:8082/api/d-constant/";//
     String constant;
 
     /**
-     * This class is used to read out a SiConstant out of the D-Constant Backend (The String this.dConstantUrl must be changed for different server connections)
-     * @param constant String name of the requested constant
+     * This function sets the constant which is later requested from the constant backend.
+     * @param constant String
      */
-    public PidConstantWebReader(String constant){
+    @Override
+    public void setConstant(String constant) {
         this.constant = constant;
     }
 
@@ -50,6 +53,7 @@ public class PidConstantWebReader {
      * @return SiConstant containing the wanted constant
      * @throws XPathExpressionException
      */
+    @Override
     public SiConstant getConstant() throws XPathExpressionException {
         final String url = this.dConstantUrl+this.constant;
         RestTemplate restTemplate = new RestTemplate();
