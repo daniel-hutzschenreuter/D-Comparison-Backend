@@ -12,17 +12,35 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	15.08.23, 15:41
+ * LAST MODIFIED:	29.08.23, 14:57
  */
 
 package de.ptb.backend.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
 @Data
 public class DKCRRequestMessage {
+    @Schema(example = "NMIJ_All")
     String pidReport;
+    @Schema(example = "[ \n" +
+            "            { \"participant\" : \n" +
+            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"DCCBIPM\" } \n" +
+            "            },  \n" +
+            "            { \"participant\" : \n" +
+            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"DCCPTB\" } \n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"participant\" :\n" +
+            "                {\"name\": \"KRISS\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"participant\" :\n" +
+            "                {\"name\": \"NPL\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "            }\n" +
+            "        ] ")
     List<Participant> participantList;
 
     /**

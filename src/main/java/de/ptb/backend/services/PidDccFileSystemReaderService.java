@@ -12,7 +12,7 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	29.08.23, 12:18
+ * LAST MODIFIED:	29.08.23, 13:26
  */
 
 package de.ptb.backend.services;
@@ -79,7 +79,7 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
                             Document doc = db.parse(file);
                             doc.getDocumentElement().normalize();
                             XPath xPath = XPathFactory.newInstance().newXPath();
-                            String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result/data/quantity[@refType=\"Kilogram\"]/real";
+                            String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
                             NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
                             for (int i = 0; i < nodeList.getLength(); i++) {
                                 Node nNode = nodeList.item(i);

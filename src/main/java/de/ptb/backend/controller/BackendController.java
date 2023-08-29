@@ -12,7 +12,7 @@
  * CONTACT: 		info@ptb.de
  * DEVELOPMENT:	https://d-si.ptb.de
  * AUTHORS:		Wafa El Jaoua, Tobias Hoffmann, Clifford Brown, Daniel Hutzschenreuter
- * LAST MODIFIED:	29.08.23, 12:18
+ * LAST MODIFIED:	29.08.23, 14:57
  */
 
 package de.ptb.backend.controller;
@@ -31,13 +31,18 @@ import de.ptb.backend.model.formula.EEqualsMC2;
 import de.ptb.backend.services.PidConstantWebReaderService;
 import de.ptb.backend.services.PidDccFileSystemReaderService;
 import de.ptb.backend.services.PidReportFileSystemWriterService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 @RestController
 @AllArgsConstructor
@@ -54,6 +59,7 @@ public class BackendController {
         return "Hello World!";
     }
 
+
     /**
      * This function reads the mass values from the DCC's specified in the participant list and calculates energy values, KC values and Grubstest values from them.
      * These are then returned in the form of a DCC.
@@ -62,9 +68,30 @@ public class BackendController {
      * @return ResponseEntity, which consists of the HTTPStatus and the message. The message can be an error message or the created DCCs as a base64 string.
      * @throws Exception In the future, more exceptions will be added for more specific cases.
      */
+    @Operation(summary = "Generate new DCC", description = "Evaluate a DKCR, calculate En, KC and Grubstest values and generate a dcc file with those calculations")
     @PostMapping("/evaluateComparison")
-    @Schema
-    public ResponseEntity evaluateDKCR(@RequestBody JsonNode payload) throws Exception {
+    public ResponseEntity evaluateDKCR(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "A Json Node contain all participants and the PIDDCC", content = @Content(schema = @Schema(example = "{\"keyComparisonData\":\n" +
+            " {\n" +
+            "  \"pidReport\" : \"NMIJ_All\",\n" +
+            "  \"participantList\" : \n" +
+            "        [ \n" +
+            "            { \"participant\" : \n" +
+            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"DCCBIPM\" } \n" +
+            "            },  \n" +
+            "            { \"participant\" : \n" +
+            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"DCCPTB\" } \n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"participant\" :\n" +
+            "                {\"name\": \"KRISS\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"participant\" :\n" +
+            "                {\"name\": \"NPL\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "            }\n" +
+            "        ] \n" +
+            "    } \n" +
+            "}\n"))) JsonNode payload) throws Exception {
         try{
             /*
              *This part of the function reads the passed data from the payload
