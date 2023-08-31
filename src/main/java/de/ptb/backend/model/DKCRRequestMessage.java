@@ -27,18 +27,18 @@ public class DKCRRequestMessage {
     String pidReport;
     @Schema(example = "[ \n" +
             "            { \"participant\" : \n" +
-            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"DCCBIPM\" } \n" +
+            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"CCM.M-K1-BIPM9502\" } \n" +
             "            },  \n" +
             "            { \"participant\" : \n" +
-            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"DCCPTB\" } \n" +
+            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"CCM.M-K1-PTB9608\" } \n" +
             "            },\n" +
             "            {\n" +
             "                \"participant\" :\n" +
-            "                {\"name\": \"KRISS\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "                {\"name\": \"KRISS\", \"pidDCC\": \"CCM.M-K1-KRISS9703\"}\n" +
             "            },\n" +
             "            {\n" +
             "                \"participant\" :\n" +
-            "                {\"name\": \"NPL\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "                {\"name\": \"NPL\", \"pidDCC\": \"CCM.M-K1-NPL9507\"}\n" +
             "            }\n" +
             "        ] ")
     List<Participant> participantList;
