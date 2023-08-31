@@ -36,6 +36,11 @@ public class DKCR {
 	double DKCRMean;	// XX	Mean value determined for all data marked as Present
 	double DKCRStdDev;	// XX	Standard Deviation determined for all data marked as Present
 
+	/**
+	 * Public constructor parameterless method for singleton DKCR object
+	 *
+	 * @throws IOException		On file read error
+	 */
 	public DKCR() throws IOException
 	{
 		// So far empty constructor
@@ -44,11 +49,24 @@ public class DKCR {
 		int result = ReadData();
 
 	}
+
+	/**
+	 * Public constructor with dirInputs parameter for singleton DKCR object
+	 *
+	 * @param dirInputs		DirInputs core DKCR Input data
+	 * @throws IOException	???
+	 */
 	public DKCR(Vector<DIR> dirInputs) throws IOException {
 		this.DirInputs = dirInputs;
 		this.NTotalContributions = this.DirInputs.size();
 	}
 
+	/**
+	 * Method to read basic DKCR information from text file
+	 *
+	 * @return
+	 * @throws IOException		Throws exception on file read error
+	 */
 	public int ReadData() throws IOException
 	{
 		// Read data from DKCR.txt file which contains the set up information for the DKCR
@@ -104,6 +122,12 @@ public class DKCR {
 		return 0;
 	}
 
+	/**
+	 * Read the actual contributions from contributors to the DKCR from file
+	 *
+	 * @return
+	 * @throws IOException		Throws exception on file read error
+	 */
 	public int ReadDKRCContributions() throws IOException
 	{
 
@@ -151,6 +175,14 @@ public class DKCR {
 
 	}
 
+	/**
+	 * Method to add a contribution to the list of contributors
+	 *
+	 * @param sID		ID for the contributor
+	 * @param dxi		Core value associated with the contributor
+	 * @param dUi		Expanded uncertainty associated with the core value
+	 * @return
+	 */
 	public int AddContributions(String sID, Double dxi, Double dUi)
 	{
 		// The size of DirInputs will always be NTotalContributions
@@ -201,6 +233,11 @@ public class DKCR {
 		return 1;							// XX
 	}										// XX
 
+	/**
+	 * Calculates the mean value for of the DKCR participants contributions
+	 *
+	 * @return
+	 */
 	public double CalcMean()		// XX
 	{								// XX
 
@@ -230,6 +267,12 @@ public class DKCR {
 		return mean;					// XX
 	}								// XX
 
+	/**
+	 * Calculates the standard deviation value for of the DKCR participants contributions
+	 *
+	 * @param mean	The mean value for the contributions
+	 * @return
+	 */
 	public double CalcStdDev(double mean)		// XX
 	{								// XX
 
@@ -260,11 +303,11 @@ public class DKCR {
 	}								// XX
 
 	/**
-	 * Put an explanation of what the function does.
-	 * Update the params to explain their functionality
+	 * This method processes the contribution data to generate the Grubs result values for the
+	 * contributions and the overall reference values for xRef and URef.
 	 *
-	 * @param mean
-	 * @param stddev
+	 * @param mean			The mean value for the contributions
+	 * @param stddev		The standard deviation value for the contributions
 	 * @return
 	 * @throws Exception
 	 */
@@ -430,6 +473,12 @@ public class DKCR {
 		return this.GRunResults;
 	}
 
+	/**
+	 * 	 * This method processes the contribution data to generate the En result values for the
+	 * 	 * contributions and the overall reference values for xRef and URef.
+	 *
+	 * @return
+	 */
 	public int ProcessDKCR()
 	{
 		int NOutlierFlags = 0;		// The number of outlier flags from current Run
@@ -654,6 +703,9 @@ public class DKCR {
 		return 0;
 	}
 
+	/**
+	 * Method to output the En Process values to the Console Window (for debug purposes)
+	 */
 	public void PresentResults()
 	{
 
@@ -673,6 +725,9 @@ public class DKCR {
 		System.out.println("End of Standard En");
 	}
 
+	/**
+	 * Method to output the Grubs Process values to the Console Window (for debug purposes)
+	 */
 	public void PresentGResults()
 	{
 
