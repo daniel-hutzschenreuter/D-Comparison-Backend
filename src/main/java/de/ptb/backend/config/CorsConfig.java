@@ -30,7 +30,7 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://d-si.ptb.de","http://localhost:58304")
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://d-si.ptb.de","http://localhost:58304", "https://d-si.ptb.de/api/d-comparison/swagger-ui")
                         .allowedMethods("GET","POST","PUT","DELETE")
                         .allowedHeaders("*");
             }
