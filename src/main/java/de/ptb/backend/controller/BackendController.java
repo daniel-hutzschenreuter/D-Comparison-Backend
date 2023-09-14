@@ -68,7 +68,6 @@ public class BackendController {
      * @return ResponseEntity, which consists of the HTTPStatus and the message. The message can be an error message or the created DCCs as a base64 string.
      * @throws Exception In the future, more exceptions will be added for more specific cases.
      */
-    @Operation(summary = "Generate new DCC", description = "Evaluate a DKCR, calculate En, KC and Grubstest values and generate a dcc file with those calculations")
     @PostMapping("/evaluateComparison")
     public ResponseEntity evaluateDKCR(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "A Json Node contain all participants and the PIDDCC", content = @Content(schema = @Schema(example = "{\"keyComparisonData\":\n" +
             " {\n" +
@@ -76,18 +75,18 @@ public class BackendController {
             "  \"participantList\" : \n" +
             "        [ \n" +
             "            { \"participant\" : \n" +
-            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"DCCBIPM\" } \n" +
+            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"CCM.M-K1-BIPM9502\" } \n" +
             "            },  \n" +
             "            { \"participant\" : \n" +
-            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"DCCPTB\" } \n" +
+            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"CCM.M-K1-PTB9608\" } \n" +
             "            },\n" +
             "            {\n" +
             "                \"participant\" :\n" +
-            "                {\"name\": \"KRISS\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "                {\"name\": \"KRISS\", \"pidDCC\": \"CCM.M-K1-KRISS9703\"}\n" +
             "            },\n" +
             "            {\n" +
             "                \"participant\" :\n" +
-            "                {\"name\": \"NPL\", \"pidDCC\": \"DCCKRISS\"}\n" +
+            "                {\"name\": \"NPL\", \"pidDCC\": \"CCM.M-K1-NPL9507\"}\n" +
             "            }\n" +
             "        ] \n" +
             "    } \n" +
@@ -122,6 +121,7 @@ public class BackendController {
             *The generated energy values are now used to calculate the En and KC values.
             * Subsequently, the energy values are used to perform the Grubstest.
              */
+            System.out.println(SiReals);
             fDKCR fdkcr = new fDKCR();
             RunfDKCR objRunfDKCR = new RunfDKCR();
             Vector<DIR> inputs = new Vector<>();
