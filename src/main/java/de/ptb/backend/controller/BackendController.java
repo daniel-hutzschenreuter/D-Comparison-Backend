@@ -75,18 +75,18 @@ public class BackendController {
             "  \"participantList\" : \n" +
             "        [ \n" +
             "            { \"participant\" : \n" +
-            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"CCM.M-K1-BIPM9502\" } \n" +
+            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-BIPM9502\" } \n" +
             "            },  \n" +
             "            { \"participant\" : \n" +
-            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"CCM.M-K1-PTB9608\" } \n" +
+            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-PTB9608\" } \n" +
             "            },\n" +
             "            {\n" +
             "                \"participant\" :\n" +
-            "                {\"name\": \"KRISS\", \"pidDCC\": \"CCM.M-K1-KRISS9703\"}\n" +
+            "                {\"name\": \"KRISS\", \"pidDCC\": \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-KRISS9703\"}\n" +
             "            },\n" +
             "            {\n" +
             "                \"participant\" :\n" +
-            "                {\"name\": \"NPL\", \"pidDCC\": \"CCM.M-K1-NPL9507\"}\n" +
+            "                {\"name\": \"NPL\", \"pidDCC\": \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-NPL9507\"}\n" +
             "            }\n" +
             "        ] \n" +
             "    } \n" +

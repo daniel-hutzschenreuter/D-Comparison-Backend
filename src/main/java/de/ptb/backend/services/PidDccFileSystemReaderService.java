@@ -21,11 +21,15 @@ import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import lombok.Data;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,11 +38,12 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-import java.util.Objects;
+
 @Data
 @Service
 public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
@@ -66,21 +71,34 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
      * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
     @Override
-    public List<SiReal> readFiles() throws ParserConfigurationException {
+    public List<SiReal> readFiles() throws ParserConfigurationException, JSONException {
+//        String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
+        String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
+        RestTemplate restTemplate = new RestTemplate();
+        String dccPidList = restTemplate.getForObject(urlListPid, String.class, 200);
+        JSONArray PidListArray = new JSONArray(dccPidList);
+        String[] pidList = new String[PidListArray.length()];
+        for (int i = 0; i < PidListArray.length(); i++) {
+            pidList[i] = PidListArray.getString(i);
+        }
         List<SiReal> siReals = new ArrayList<>();
-        File directory = new File(this.path);
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        for(File file: Objects.requireNonNull(directory.listFiles())) {
-            for(Participant participant: this.message.getParticipantList()) {
-                if (file.getName().contains(".xml")) {
-                    if (Objects.equals(file.getName().substring(0, file.getName().length() - 4), participant.getDccPid().substring(1, participant.getDccPid().length() - 1))) {
+        if (!urlListPid.isEmpty()) {
+            for (Participant participant : this.message.getParticipantList()) {
+                for (String pid : pidList) {
+                    System.out.println("participant:" + participant.getDccPid().substring(1, participant.getDccPid().length() - 1));
+                    if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
                         try {
-                            Document doc = db.parse(file);
-                            doc.getDocumentElement().normalize();
+                            String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
+                            byte[] byteBase64 = Base64.getDecoder().decode(result);
+                            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                            DocumentBuilder builder;
+                            String decodedXml = new String(byteBase64);
+                            builder = factory.newDocumentBuilder();
+                            Document document = builder.parse(new InputSource(new StringReader(decodedXml)));
+//                          System.out.println("decoded" + decodedXml);
                             XPath xPath = XPathFactory.newInstance().newXPath();
                             String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
-                            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
+                            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
                             for (int i = 0; i < nodeList.getLength(); i++) {
                                 Node nNode = nodeList.item(i);
                                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -95,7 +113,9 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
                                     siReals.add(new SiReal(value, unit, dateTime, expUnc));
                                 }
                             }
-                        } catch (SAXException | XPathExpressionException | IOException e) {
+                        } catch (XPathExpressionException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException | SAXException e) {
                             throw new RuntimeException(e);
                         }
                     }

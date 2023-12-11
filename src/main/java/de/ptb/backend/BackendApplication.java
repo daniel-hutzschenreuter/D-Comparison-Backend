@@ -20,13 +20,14 @@ package de.ptb.backend;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.servers.Servers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.validation.annotation.Validated;
 
 @SpringBootApplication
 @Validated
-@OpenAPIDefinition(info =@Info(title = "DKCRBackend",version = "1.0", description = "DKCR_Backend"), servers = {@Server(url="https://d-si.ptb.de/api/d-comparison")})
+@OpenAPIDefinition(info =@Info(title = "DKCRBackend",version = "1.0", description = "DKCR_Backend"), servers = {@Server(url="http://localhost:8083",description = "local system")})
 public class BackendApplication {
 
     public static void main(String[] args) {

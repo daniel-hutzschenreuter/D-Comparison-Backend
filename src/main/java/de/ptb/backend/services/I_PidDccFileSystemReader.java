@@ -18,6 +18,7 @@ package de.ptb.backend.services;
 
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.dsi.SiReal;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.text.ParseException;
@@ -36,5 +37,5 @@ public interface I_PidDccFileSystemReader {
      * @return List<SiReal> which contains the mass values of the participant dcc files
      * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
-    List<SiReal> readFiles() throws ParserConfigurationException;
+    List<SiReal> readFiles() throws ParserConfigurationException, JSONException;
 }
