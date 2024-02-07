@@ -28,27 +28,29 @@ import de.ptb.backend.model.dsi.SiConstant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
 import de.ptb.backend.model.formula.EEqualsMC2;
+import de.ptb.backend.services.I_PidDccFileSystemReader;
 import de.ptb.backend.services.PidConstantWebReaderService;
-import de.ptb.backend.services.PidDccFileSystemReaderService;
 import de.ptb.backend.services.PidReportFileSystemWriterService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping(path = "/api/d-comparison")
 @Data
+@AllArgsConstructor
 public class BackendController {
+    private I_PidDccFileSystemReader pidDccFileSystemReaderService;
+
+
+
+
     /**
      * This is a test function to check if the DKCR backend is running on the server.
      *
@@ -62,11 +64,10 @@ public class BackendController {
 
     /**
      * This function reads the mass values from the DCC's specified in the participant list and calculates energy values, KC values and Grubstest values from them.
-     * These are then returned in the form of a DCC.
+     * These are then returned to the form of a DCC.
      *
      * @param payload JsonNode which contains the PIDReport and Participantlist
      * @return ResponseEntity, which consists of the HTTPStatus and the message. The message can be an error message or the created DCCs as a base64 string.
-     * @throws Exception In the future, more exceptions will be added for more specific cases.
      */
     @PostMapping("/evaluateComparison")
     public ResponseEntity evaluateDKCR(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "A Json Node contain all participants and the PIDDCC", content = @Content(schema = @Schema(example = "{\"keyComparisonData\":\n" +
@@ -90,7 +91,7 @@ public class BackendController {
             "            }\n" +
             "        ] \n" +
             "    } \n" +
-            "}\n"))) JsonNode payload) throws Exception {
+            "}\n"))) JsonNode payload) {
         try{
             /*
              *This part of the function reads the passed data from the payload
@@ -104,9 +105,9 @@ public class BackendController {
                 participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
             }
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
-            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
-            reader.setMessage(request);
-            List<SiReal> SiReals = reader.readFiles();
+//            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
+            pidDccFileSystemReaderService.setMessage(request);
+            List<SiReal> SiReals = pidDccFileSystemReaderService.readFiles();
             /*
             *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
             * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.

@@ -20,9 +20,9 @@ import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
-import lombok.Data;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import lombok.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
@@ -44,10 +44,12 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-@Data
+
+
 @Service
+@Data
 public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
-    String path;
+
     DKCRRequestMessage message;
 
     /**
@@ -57,21 +59,16 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
     @Override
     public void setMessage(DKCRRequestMessage message){
         this.message = message;
-        if(System.getProperty("os.name").contains("Windows")){
-            this.path = "src\\main\\resources\\DCCFiles";
-        }else{
-            this.path = "DCCFiles";
-        }
     }
 
     /**
-     * This function iterates through the participantList of the Requestmessage and the dcc files on the system
+     * This function iterates through the participantList of the Request-message and the dcc files on the DCC_Backend
      * and creates SiReals for every matching name containing the values of the respective dcc file.
      * @return List<SiReal> which contains the mass values of the participant dcc files
      * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
     @Override
-    public List<SiReal> readFiles() throws ParserConfigurationException, JSONException {
+    public List<SiReal> readFiles() throws ParserConfigurationException, JSONException{
 //        String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
         String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
         RestTemplate restTemplate = new RestTemplate();

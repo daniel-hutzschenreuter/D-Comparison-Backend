@@ -31,7 +31,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200","http://localhost:8085","https://d-si.ptb.de", "https://d-si.ptb.de/api/d-comparison/swagger-ui","http://localhost:8083/api/d-comparison/v3/api-docs","http://localhost:8083/api/d-comparison/swagger-ui/index.html")
+                        .allowedOrigins("http://localhost:4200","http://localhost:8084","http://localhost:8085","https://d-si.ptb.de", "https://d-si.ptb.de/api/d-comparison/swagger-ui","http://localhost:8083/api/d-comparison/v3/api-docs","http://localhost:8083/api/d-comparison/swagger-ui/index.html")
                         .allowedMethods("GET","POST","PUT","DELETE")
                         .allowedHeaders("*");
             }

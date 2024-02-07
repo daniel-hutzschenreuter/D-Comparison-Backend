@@ -18,10 +18,8 @@ package de.ptb.backend.services;
 
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.dsi.SiReal;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-
+import org.json.JSONException;
 import javax.xml.parsers.ParserConfigurationException;
-import java.text.ParseException;
 import java.util.List;
 
 public interface I_PidDccFileSystemReader {
