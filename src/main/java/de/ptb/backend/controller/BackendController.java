@@ -49,8 +49,6 @@ public class BackendController {
     private I_PidDccFileSystemReader pidDccFileSystemReaderService;
 
 
-
-
     /**
      * This is a test function to check if the DKCR backend is running on the server.
      *
@@ -98,59 +96,94 @@ public class BackendController {
              *and creates SiReal objects from the DCC files found from the pidDCC of the participantList.
              */
             JsonNode data = payload.get("keyComparisonData");
+            String smartStandard = data.get("smartStandardEvaluationMethod").toString().substring(1, data.get("smartStandardEvaluationMethod").toString().length() - 1);
             String pidReport = data.get("pidReport").toString().substring(1, data.get("pidReport").toString().length() - 1);
             List<Participant> participantList = new ArrayList<>();
             for (JsonNode participant : data.get("participantList")) {
                 participant = participant.get("participant");
                 participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
             }
+            System.out.println("Posi 0");
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
 //            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
             pidDccFileSystemReaderService.setMessage(request);
             List<SiReal> SiReals = pidDccFileSystemReaderService.readFiles();
-            /*
-            *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
-            * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.
-            */
-            manipulateMassValues(SiReals, -1.0);
-            PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService();
-            speedOfLightWebReader.setConstant("speedOfLightInVacuum2018");
-            SiConstant speedOfLight = speedOfLightWebReader.getConstant();
-            EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
-            List<SiReal> ergebnisse = equalsMC.calculate();
-            /*
-            *The generated energy values are now used to calculate the En and KC values.
-            * Subsequently, the energy values are used to perform the Grubstest.
-             */
-            System.out.println(SiReals);
-            fDKCR fdkcr = new fDKCR();
-            RunfDKCR objRunfDKCR = new RunfDKCR();
-            Vector<DIR> inputs = new Vector<>();
-            for (SiReal ergebnis : ergebnisse) {
-                DIR sirealAsDIR = new DIR(ergebnis.getValue(), ergebnis.getExpUnc().getUncertainty());
-                inputs.add(sirealAsDIR);
+            DKCRResponseMessage response = null;
+            System.out.println(smartStandard);
+            if(smartStandard.equals("energyComparison")) {
+                /*
+                 *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
+                 * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.
+                 */
+                manipulateMassValues(SiReals, -1.0);
+                PidConstantWebReaderService speedOfLightWebReader = new PidConstantWebReaderService();
+                speedOfLightWebReader.setConstant("speedOfLightInVacuum2018");
+                SiConstant speedOfLight = speedOfLightWebReader.getConstant();
+                EEqualsMC2 equalsMC = new EEqualsMC2(speedOfLight, SiReals);
+                List<SiReal> ergebnisse = equalsMC.calculate();
+                /*
+                 *The generated energy values are now used to calculate the En and KC values.
+                 * Subsequently, the energy values are used to perform the Grubstest.
+                 */
+                fDKCR fdkcr = new fDKCR();
+                RunfDKCR objRunfDKCR = new RunfDKCR();
+                Vector<DIR> inputs = new Vector<>();
+                for (SiReal ergebnis : ergebnisse) {
+                    DIR sirealAsDIR = new DIR(ergebnis.getValue(), ergebnis.getExpUnc().getUncertainty());
+                    inputs.add(sirealAsDIR);
+                }
+                objRunfDKCR.ReadData();
+                objRunfDKCR.ReadDKRCContributions();
+                fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
+                objRunfDKCR.setNr(fdkcr.processDKCR());
+                Vector<RunResult> Results = objRunfDKCR.getRunResults();
+                //Prüfen ob equalsMC richtig ist
+                SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
+                DKCR grubsTestDKCR = new DKCR(inputs);
+                double mean = grubsTestDKCR.CalcMean();
+                double stdDev = grubsTestDKCR.CalcStdDev(mean);
+                Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
+                /*
+                 *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
+                 * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
+                 */
+                List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
+                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
+                PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
+                dccWriter.setPid(pidReport);
+                dccWriter.setParticipants(participantList);
+                dccWriter.setMResults(mResults);
+                response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
             }
-            objRunfDKCR.ReadData();
-            objRunfDKCR.ReadDKRCContributions();
-            fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
-            objRunfDKCR.setNr(fdkcr.processDKCR());
-            Vector<RunResult> Results = objRunfDKCR.getRunResults();
-            SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
-            DKCR grubsTestDKCR = new DKCR(inputs);
-            double mean = grubsTestDKCR.CalcMean();
-            double stdDev = grubsTestDKCR.CalcStdDev(mean);
-            Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
-            /*
-            *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
-            * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
-             */
-            List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
-            mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
-            PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
-            dccWriter.setPid(pidReport);
-            dccWriter.setParticipants(participantList);
-            dccWriter.setMResults(mResults);
-            DKCRResponseMessage response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
+            else if(smartStandard.equals("massIntercomparison")) {
+                fDKCR fdkcr = new fDKCR();
+                RunfDKCR objRunfDKCR = new RunfDKCR();
+                Vector<DIR> inputs = new Vector<>();
+                for (SiReal SiReal : SiReals) {
+                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+                    inputs.add(sirealAsDIR);
+                }
+                objRunfDKCR.ReadData();
+                objRunfDKCR.ReadDKRCContributions();
+                fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
+                objRunfDKCR.setNr(fdkcr.processDKCR());
+                Vector<RunResult> Results = objRunfDKCR.getRunResults();
+                SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 0, 0.0));
+                DKCR grubsTestDKCR = new DKCR(inputs);
+                double mean = grubsTestDKCR.CalcMean();
+                double stdDev = grubsTestDKCR.CalcStdDev(mean);
+                Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
+                /*
+                 *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
+                 * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
+                 */
+                List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, gRunResults);
+                PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
+                dccWriter.setPid(pidReport);
+                dccWriter.setParticipants(participantList);
+                dccWriter.setMResults(mResults);
+                response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
+            }
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         catch(Exception e){
@@ -193,6 +226,15 @@ public class BackendController {
         return results;
     }
 
+    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, Vector<GRunResult> grubsValues) {
+        List<MeasurementResult> results = new ArrayList<>();
+        RunResult runResult = enMassValues.get(0);
+        for (int i = 0; i < mass.size(); i++) {
+            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), kcValue, grubsValues.get(0).getGEOResults().get(i)));
+        }
+        return results;
+    }
+    
     /**
      * This function increase/decrease every mass value depending on the manipulator value
      *
