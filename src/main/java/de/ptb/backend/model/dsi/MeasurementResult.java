@@ -53,6 +53,15 @@ public class MeasurementResult {
         generateMeasurementResult();
     }
 
+    public MeasurementResult(SiReal massValue, Double kcMassValue, Double enValue, SiReal kcValue){
+        generateMeasurementResult();
+        this.massValue = massValue;
+        this.kcMassValue = kcMassValue;
+        this.kcValue = kcValue;
+        //Change Fuction when not having grubsvalues
+        generateMeasurementResult();
+
+    }
     /**
      * This constructor is for the last measurement result entry in the new DCC.
      * @param massDifference Double which has the same value of the manipulator parameter of the function manipulateMassValues in BackendController.java

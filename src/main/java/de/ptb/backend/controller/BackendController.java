@@ -185,6 +185,27 @@ public class BackendController {
                 dccWriter.setMResults(mResults);
                 response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
             }
+            else if(smartStandard.equals("massLaboratoryIntercomparison")){
+                fDKCR fdkcr = new fDKCR();
+                RunfDKCR objRunfDKCR = new RunfDKCR();
+                Vector<DIR> inputs = new Vector<>();
+                for (SiReal SiReal : SiReals) {
+                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+                    inputs.add(sirealAsDIR);
+                }
+                objRunfDKCR.ReadData();
+                objRunfDKCR.ReadDKRCContributions();
+                fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
+                objRunfDKCR.setNr(fdkcr.processDKCR());
+                Vector<RunResult> Results = objRunfDKCR.getRunResults();
+                SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 0, 0.0));
+                List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal);
+                PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
+                dccWriter.setPid(pidReport);
+                dccWriter.setParticipants(participantList);
+                dccWriter.setMResults(mResults);
+                response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
+            }
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         catch(Exception e){
@@ -232,6 +253,15 @@ public class BackendController {
         RunResult runResult = enMassValues.get(0);
         for (int i = 0; i < mass.size(); i++) {
             results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), kcValue, grubsValues.get(0).getGEOResults().get(i)));
+        }
+        return results;
+    }
+
+    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue) {
+        List<MeasurementResult> results = new ArrayList<>();
+        RunResult runResult = enMassValues.get(0);
+        for (int i = 0; i < mass.size(); i++) {
+            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), kcValue));
         }
         return results;
     }
