@@ -178,6 +178,7 @@ public class BackendController {
                  * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
                  */
                 List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, gRunResults);
+                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
                 PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
                 dccWriter.setPid(pidReport);
                 dccWriter.setParticipants(participantList);
