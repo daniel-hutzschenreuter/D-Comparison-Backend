@@ -54,10 +54,10 @@ public class MeasurementResult {
     }
 
     public MeasurementResult(SiReal massValue, Double kcMassValue, Double enValue, SiReal kcValue){
-        generateMeasurementResult();
         this.massValue = massValue;
         this.kcMassValue = kcMassValue;
         this.kcValue = kcValue;
+        this.enValue = enValue;
         //Change Fuction when not having grubsvalues
         generateMeasurementResult();
 
@@ -78,6 +78,12 @@ public class MeasurementResult {
         this.grubsUncertainty = grubsUncertainty;
         generateKCMeasurement();
     }
+    public MeasurementResult(Double massDifference, Double kcMassValue, SiReal kcValue){
+        this.kcValue = kcValue;
+        this.kcMassValue = kcMassValue;
+        this.massDifference = massDifference;
+        generateKCMeasurement();
+    }
 
     public MeasurementResult(SiReal massValue, Double kcMassValue, Double enValue, SiReal kcValue, GEO grubsValue) {
         this.massValue = massValue;
@@ -92,7 +98,54 @@ public class MeasurementResult {
      * This function generates for the parameter result the content of one measurement result entry of the new DCC file
      */
     private void generateMeasurementResult(){
-        if(this.energyValue == null){
+        if(this.grubsValue == null){
+            this.result = "<dcc:measurementResult refId=\"NMIJ-1\">\n" +
+                    "      <dcc:name>\n" +
+                    "        <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
+                    "      </dcc:name>\n" +
+                    "      <dcc:results>\n" +
+                    "        <dcc:result refType=\"mass_mass\">\n" +
+                    "          <dcc:name>\n" +
+                    "            <dcc:content lang=\"en\">Mass of Silicon Sphere</dcc:content>\n" +
+                    "          </dcc:name>\n" +
+                    "          <dcc:data>\n" +
+                    "            <dcc:quantity refType=\"basic_measuredValue\">\n" +
+                    "              <dcc:name>\n" +
+                    "                <dcc:content lang=\"en\">Measured value</dcc:content>\n" +
+                    "              </dcc:name>\n" +
+                    "              <si:real>\n" +
+                    "                <si:label>Mass</si:label>\n" +
+                    "                <si:value>"+this.massValue.getValue()+"</si:value>\n" +
+                    "                <si:unit>"+this.massValue.getUnit()+"</si:unit>\n" +
+                    "                <si:expandedUnc>\n" +
+                    "                   <si:uncertainty>"+this.massValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
+                    "                   <si:coverageFactor>"+this.massValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+                    "                   <si:coverageProbability>"+this.massValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+                    "                   <si:distribution>Normal</si:distribution>\n" +
+                    "                </si:expandedUnc>\n" +
+                    "              </si:real>\n" +
+                    "            </dcc:quantity>\n" +
+                    "          </dcc:data>\n" +
+                    "        </dcc:result>\n" +
+                    "        <dcc:result refType=\"comparison_equivalenceValue\">\n" +
+                    "          <dcc:name>\n" +
+                    "            <dcc:content lang=\"en\">Equivalence value</dcc:content>\n" +
+                    "          </dcc:name>\n" +
+                    "          <dcc:data>\n" +
+                    "            <dcc:quantity refType=\"comparison_equivalenceValueEnCriterion\">\n" +
+                    "              <dcc:name>\n" +
+                    "                <dcc:content lang=\"en\">En criterion value</dcc:content>\n" +
+                    "              </dcc:name>\n" +
+                    "              <si:real>\n" +
+                    "                <si:value>"+this.enValue+"</si:value>\n" +
+                    "                <si:unit>\\one</si:unit>\n" +
+                    "              </si:real>\n" +
+                    "            </dcc:quantity>\n" +
+                    "          </dcc:data>\n" +
+                    "        </dcc:result>\n" +
+                    "      </dcc:results>\n" +
+                    "    </dcc:measurementResult>\n ";
+        } else if (this.energyValue == null) {
             this.result = "<dcc:measurementResult refId=\"NMIJ-1\">\n" +
                     "      <dcc:name>\n" +
                     "        <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
@@ -155,7 +208,7 @@ public class MeasurementResult {
                     "        </dcc:result>\n" +
                     "      </dcc:results>\n" +
                     "    </dcc:measurementResult>\n ";
-        }else{
+        } else{
             this.result = "         <dcc:measurementResult refId=\"NMIJ-1\">\n" +
                     "       <dcc:name>\n" +
                     "           <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
@@ -261,80 +314,111 @@ public class MeasurementResult {
      * This function generates for the parameter result the content of the last measurement result entry of the new DCC file
      */
     public void generateKCMeasurement(){
-        this.result = "         <dcc:measurementResult refId=\"RefVals\">\n" +
-                "       <dcc:name>\n" +
-                "           <dcc:content lang=\"en\">Mass of Silicon Sphere Output Reference Values</dcc:content>\n" +
-                "       </dcc:name>\n" +
-                "       <dcc:results>\n" +
-                "           <dcc:result refType=\"RefMassUnc\">\n" +
-                "           <dcc:name>\n" +
-                "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
-                "           </dcc:name>\n" +
-                "           <dcc:data>\n" +
-                "               <dcc:quantity>\n" +
-                "                   <si:real>\n" +
-                "                       <si:value>"+this.kcMassValue+"</si:value>\n" +
-                "                       <si:unit>/gram</si:unit>\n" +
-                "                       <si:difference>"+this.massDifference+"</si:difference>\n" +
-                "                       <si:expandedUnc>\n" +
-                "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
-                "                           <si:coverageFactor>2</si:coverageFactor>\n" +
-                "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
-                "                           <si:distribution>Normal</si:distribution>\n" +
-                "                       </si:expandedUnc>\n" +
-                "                   </si:real>\n" +
-                "               </dcc:quantity>\n" +
-                "           </dcc:data>\n" +
-                "           </dcc:result>\n" +
-                "           <dcc:result refType=\"Energy\">\n" +
-                "               <dcc:name>\n" +
-                "                   <dcc:content lang=\"en\">Energy</dcc:content>\n" +
-                "               </dcc:name>\n" +
-                "               <dcc:data>\n" +
-                "                   <dcc:quantity refType=\"Energy\">\n" +
-                "                   <dcc:name>\n" +
-                "                       <dcc:content lang=\"en\">Energy</dcc:content>\n" +
-                "                   </dcc:name>\n" +
-                "                       <si:real>\n" +
-                "                           <si:label>Energy</si:label>\n" +
-                "                           <si:value>"+this.kcValue.getValue()+"</si:value>\n" +
-                "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
-                "                           <si:expandedUnc>\n" +
-                "                               <si:uncertainty>"+this.kcValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
-                "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
-                "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
-                "                               <si:distribution>Normal</si:distribution>\n" +
-                "                           </si:expandedUnc>\n" +
-                "                       </si:real>\n" +
-                "                   </dcc:quantity>\n" +
-                "               </dcc:data>\n" +
-                "           </dcc:result>\n" +
-                "           <dcc:result refType=\"Energy (Grubs)\">\n" +
-                "               <dcc:name>\n" +
-                "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
-                "               </dcc:name>\n" +
-                "               <dcc:data>\n" +
-                "                   <dcc:quantity refType=\"Energy (Grubs)\">\n" +
-                "                       <dcc:name>\n" +
-                "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
-                "                       </dcc:name>\n" +
-                "                       <si:real>\n" +
-                "                           <si:label>Energy (Grubs)</si:label>\n" +
-                "                           <si:value>"+this.grubsComparisonValue+"</si:value>\n" +
-                "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
-                "                           <si:expandedUnc>\n" +
-                "                               <si:uncertainty>"+this.grubsUncertainty+"</si:uncertainty>\n" +
-                "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
-                "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
-                "                               <si:distribution>Normal</si:distribution>\n" +
-                "                           </si:expandedUnc>\n" +
-                "                       </si:real>\n" +
-                "                   </dcc:quantity>\n" +
-                "                </dcc:data>\n" +
-                "       </dcc:result>\n" +
-                "       </dcc:results>\n" +
-                "    </dcc:measurementResult>\n";
+        if(this.grubsUncertainty == null){
+            this.result = "         <dcc:measurementResult refId=\"RefVals\">\n" +
+                    "       <dcc:name>\n" +
+                    "           <dcc:content lang=\"en\">Mass of Silicon Sphere Output Reference Values</dcc:content>\n" +
+                    "       </dcc:name>\n" +
+                    "       <dcc:results>\n" +
+                    "           <dcc:result refType=\"RefMassUnc\">\n" +
+                    "           <dcc:name>\n" +
+                    "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
+                    "           </dcc:name>\n" +
+                    "           <dcc:data>\n" +
+                    "               <dcc:quantity>\n" +
+                    "                   <si:real>\n" +
+                    "                       <si:value>"+this.kcMassValue+"</si:value>\n" +
+                    "                       <si:unit>/gram</si:unit>\n" +
+                    "                       <si:difference>"+this.massDifference+"</si:difference>\n" +
+                    "                       <si:expandedUnc>\n" +
+                    "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
+                    "                           <si:coverageFactor>2</si:coverageFactor>\n" +
+                    "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
+                    "                           <si:distribution>Normal</si:distribution>\n" +
+                    "                       </si:expandedUnc>\n" +
+                    "                   </si:real>\n" +
+                    "               </dcc:quantity>\n" +
+                    "           </dcc:data>\n" +
+                    "           </dcc:result>\n" +
+                    "       </dcc:results>\n" +
+                    "    </dcc:measurementResult>\n";
+        }else{
+            this.result = "         <dcc:measurementResult refId=\"RefVals\">\n" +
+                    "       <dcc:name>\n" +
+                    "           <dcc:content lang=\"en\">Mass of Silicon Sphere Output Reference Values</dcc:content>\n" +
+                    "       </dcc:name>\n" +
+                    "       <dcc:results>\n" +
+                    "           <dcc:result refType=\"RefMassUnc\">\n" +
+                    "           <dcc:name>\n" +
+                    "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
+                    "           </dcc:name>\n" +
+                    "           <dcc:data>\n" +
+                    "               <dcc:quantity>\n" +
+                    "                   <si:real>\n" +
+                    "                       <si:value>"+this.kcMassValue+"</si:value>\n" +
+                    "                       <si:unit>/gram</si:unit>\n" +
+                    "                       <si:difference>"+this.massDifference+"</si:difference>\n" +
+                    "                       <si:expandedUnc>\n" +
+                    "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
+                    "                           <si:coverageFactor>2</si:coverageFactor>\n" +
+                    "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
+                    "                           <si:distribution>Normal</si:distribution>\n" +
+                    "                       </si:expandedUnc>\n" +
+                    "                   </si:real>\n" +
+                    "               </dcc:quantity>\n" +
+                    "           </dcc:data>\n" +
+                    "           </dcc:result>\n" +
+                    "           <dcc:result refType=\"Energy\">\n" +
+                    "               <dcc:name>\n" +
+                    "                   <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+                    "               </dcc:name>\n" +
+                    "               <dcc:data>\n" +
+                    "                   <dcc:quantity refType=\"Energy\">\n" +
+                    "                   <dcc:name>\n" +
+                    "                       <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+                    "                   </dcc:name>\n" +
+                    "                       <si:real>\n" +
+                    "                           <si:label>Energy</si:label>\n" +
+                    "                           <si:value>"+this.kcValue.getValue()+"</si:value>\n" +
+                    "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
+                    "                           <si:expandedUnc>\n" +
+                    "                               <si:uncertainty>"+this.kcValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
+                    "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+                    "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+                    "                               <si:distribution>Normal</si:distribution>\n" +
+                    "                           </si:expandedUnc>\n" +
+                    "                       </si:real>\n" +
+                    "                   </dcc:quantity>\n" +
+                    "               </dcc:data>\n" +
+                    "           </dcc:result>\n" +
+                    "           <dcc:result refType=\"Energy (Grubs)\">\n" +
+                    "               <dcc:name>\n" +
+                    "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
+                    "               </dcc:name>\n" +
+                    "               <dcc:data>\n" +
+                    "                   <dcc:quantity refType=\"Energy (Grubs)\">\n" +
+                    "                       <dcc:name>\n" +
+                    "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
+                    "                       </dcc:name>\n" +
+                    "                       <si:real>\n" +
+                    "                           <si:label>Energy (Grubs)</si:label>\n" +
+                    "                           <si:value>"+this.grubsComparisonValue+"</si:value>\n" +
+                    "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
+                    "                           <si:expandedUnc>\n" +
+                    "                               <si:uncertainty>"+this.grubsUncertainty+"</si:uncertainty>\n" +
+                    "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+                    "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+                    "                               <si:distribution>Normal</si:distribution>\n" +
+                    "                           </si:expandedUnc>\n" +
+                    "                       </si:real>\n" +
+                    "                   </dcc:quantity>\n" +
+                    "                </dcc:data>\n" +
+                    "       </dcc:result>\n" +
+                    "       </dcc:results>\n" +
+                    "    </dcc:measurementResult>\n";
+        }
     }
+
 
     @Override
     public String toString() {

@@ -103,13 +103,11 @@ public class BackendController {
                 participant = participant.get("participant");
                 participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
             }
-            System.out.println("Posi 0");
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
 //            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
             pidDccFileSystemReaderService.setMessage(request);
             List<SiReal> SiReals = pidDccFileSystemReaderService.readFiles();
             DKCRResponseMessage response = null;
-            System.out.println(smartStandard);
             if(smartStandard.equals("energyComparison")) {
                 /*
                  *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
@@ -207,11 +205,11 @@ public class BackendController {
                 response = new DKCRResponseMessage(pidReport, dccWriter.writeDataIntoDCC());
             }
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
+       }
         catch(Exception e){
             /*
             * If something went wrong an error message is returned. Different error messages are planned for the future.
-             */
+         */
             DKCRErrorMessage errorMessage = new DKCRErrorMessage(e.getMessage());
            return new ResponseEntity(errorMessage, HttpStatus.BAD_GATEWAY);
         }
