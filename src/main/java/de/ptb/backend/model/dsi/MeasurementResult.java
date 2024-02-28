@@ -99,7 +99,7 @@ public class MeasurementResult {
      */
     private void generateMeasurementResult(){
         if(this.grubsValue == null){
-            this.result = "<dcc:measurementResult refId=\"NMIJ-1\">\n" +
+            this.result = "<dcc:measurementResult refId=\"PTB\">\n" +
                     "      <dcc:name>\n" +
                     "        <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
                     "      </dcc:name>\n" +
@@ -146,7 +146,7 @@ public class MeasurementResult {
                     "      </dcc:results>\n" +
                     "    </dcc:measurementResult>\n ";
         } else if (this.energyValue == null) {
-            this.result = "<dcc:measurementResult refId=\"NMIJ-1\">\n" +
+            this.result = "<dcc:measurementResult refId=\"PTB\">\n" +
                     "      <dcc:name>\n" +
                     "        <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
                     "      </dcc:name>\n" +
@@ -209,17 +209,17 @@ public class MeasurementResult {
                     "      </dcc:results>\n" +
                     "    </dcc:measurementResult>\n ";
         } else{
-            this.result = "         <dcc:measurementResult refId=\"NMIJ-1\">\n" +
+            this.result = "         <dcc:measurementResult refId=\"PTB\">\n" +
                     "       <dcc:name>\n" +
                     "           <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
                     "       </dcc:name>\n" +
                     "       <dcc:results>\n" +
-                    "           <dcc:result refType=\"Mass\">\n" +
+                    "           <dcc:result refType=\"mass_mass\">\n" +
                     "               <dcc:name>\n" +
                     "                   <dcc:content lang=\"en\">Mass of Silicon Sphere</dcc:content>\n" +
                     "               </dcc:name>\n" +
                     "               <dcc:data>\n" +
-                    "                   <dcc:quantity reftype=\"Kilogram\">\n" +
+                    "                   <dcc:quantity refType=\"basic_measuredValue\">\n" +
                     "                       <dcc:name>\n" +
                     "                           <dcc:content lang=\"en\">Kilogram</dcc:content>\n" +
                     "                       </dcc:name>\n" +
@@ -329,7 +329,6 @@ public class MeasurementResult {
                     "                   <si:real>\n" +
                     "                       <si:value>"+this.kcMassValue+"</si:value>\n" +
                     "                       <si:unit>/gram</si:unit>\n" +
-                    "                       <si:difference>"+this.massDifference+"</si:difference>\n" +
                     "                       <si:expandedUnc>\n" +
                     "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
                     "                           <si:coverageFactor>2</si:coverageFactor>\n" +
@@ -357,7 +356,6 @@ public class MeasurementResult {
                     "                   <si:real>\n" +
                     "                       <si:value>"+this.kcMassValue+"</si:value>\n" +
                     "                       <si:unit>/gram</si:unit>\n" +
-                    "                       <si:difference>"+this.massDifference+"</si:difference>\n" +
                     "                       <si:expandedUnc>\n" +
                     "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
                     "                           <si:coverageFactor>2</si:coverageFactor>\n" +

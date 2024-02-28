@@ -136,7 +136,7 @@ public class BackendController {
                 objRunfDKCR.setNr(fdkcr.processDKCR());
                 Vector<RunResult> Results = objRunfDKCR.getRunResults();
                 //Prüfen ob equalsMC richtig ist
-                SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 0, 0.0)));
+                SiReal kcVal = equalsMC.calculate(new SiReal(Results.get(0).getxRef(), "//joule", "", new SiExpandedUnc(0.0, 1, 0.0)));
                 DKCR grubsTestDKCR = new DKCR(inputs);
                 double mean = grubsTestDKCR.CalcMean();
                 double stdDev = grubsTestDKCR.CalcStdDev(mean);
@@ -166,7 +166,7 @@ public class BackendController {
                 fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
                 objRunfDKCR.setNr(fdkcr.processDKCR());
                 Vector<RunResult> Results = objRunfDKCR.getRunResults();
-                SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 0, 0.0));
+                SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 1, 0.0));
                 DKCR grubsTestDKCR = new DKCR(inputs);
                 double mean = grubsTestDKCR.CalcMean();
                 double stdDev = grubsTestDKCR.CalcStdDev(mean);
@@ -196,7 +196,7 @@ public class BackendController {
                 fdkcr.setData(objRunfDKCR.getDKCRTitle(), objRunfDKCR.getDKCRID(), objRunfDKCR.getNTotalContributions(), objRunfDKCR.getPilotOrganisationID(), objRunfDKCR.getDKCRDimension(), objRunfDKCR.getDKCRUnit(), SiReals.size(), inputs, objRunfDKCR.getRunResults());
                 objRunfDKCR.setNr(fdkcr.processDKCR());
                 Vector<RunResult> Results = objRunfDKCR.getRunResults();
-                SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 0, 0.0));
+                SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 1, 0.0));
                 List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal);
                 PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
                 dccWriter.setPid(pidReport);
