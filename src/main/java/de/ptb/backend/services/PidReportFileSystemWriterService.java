@@ -110,7 +110,7 @@ public class PidReportFileSystemWriterService implements I_PidReportFileSystemWr
             Node value = nodeList.item(idx);
             value.setTextContent(pid);
         }
-        expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
+        expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name/content";
         nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
         for (int idx = 0; idx < nodeList.getLength(); idx++) {
             Node value = nodeList.item(idx);

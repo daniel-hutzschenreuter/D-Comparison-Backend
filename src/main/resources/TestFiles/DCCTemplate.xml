@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dcc:digitalCalibrationCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.2.0/dcc.xsd" xmlns:dcc="https://ptb.de/dcc" xmlns:si="https://ptb.de/si" schemaVersion="3.2.0">
+<?xml version="1.0" encoding="UTF-8"?><dcc:digitalCalibrationCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.2.1/dcc.xsd" xmlns:dcc="https://ptb.de/dcc" xmlns:si="https://ptb.de/si" schemaVersion="3.2.1">
     <dcc:administrativeData>
         <dcc:dccSoftware>
             <dcc:software>
@@ -10,14 +9,14 @@
             </dcc:software>
         </dcc:dccSoftware>
         <dcc:coreData>
-            <dcc:countryCodeISO3166_1>JP</dcc:countryCodeISO3166_1>
+            <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>
             <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
             <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>
-            <dcc:uniqueIdentifier>CCM.D-K1.NMIJ-1</dcc:uniqueIdentifier>
+            <dcc:uniqueIdentifier>CCM.D-K1.PTB-1</dcc:uniqueIdentifier>
             <dcc:identifications>
                 <dcc:identification>
                     <dcc:issuer>calibrationLaboratory</dcc:issuer>
-                    <dcc:value>NMIJ</dcc:value>
+                    <dcc:value>International Mass Comparison</dcc:value>
                 </dcc:identification>
             </dcc:identifications>
             <dcc:beginPerformanceDate>2023-01-01</dcc:beginPerformanceDate>
@@ -28,31 +27,56 @@
             <dcc:name>
                 <dcc:content lang="en">1kg Silicon Sphere</dcc:content>
             </dcc:name>
+            <dcc:identifications>
+                <dcc:identification>
+                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
+                    <dcc:value>serialNo</dcc:value>
+                    <dcc:name>
+                        <dcc:content lang="en">serialNo</dcc:content>
+                    </dcc:name>
+                </dcc:identification>
+            </dcc:identifications>
             <dcc:item>
                 <dcc:name>
-                    <dcc:content lang="en">1kg Silicon Sphere</dcc:content>
+                    <dcc:content lang="en">Mass transfer standard</dcc:content>
                 </dcc:name>
-                <dcc:manufacturer>
-                    <dcc:name>
-                        <dcc:content lang="en">NMIJ</dcc:content>
-                    </dcc:name>
-                </dcc:manufacturer>
                 <dcc:identifications>
                     <dcc:identification>
-                        <dcc:issuer>calibrationLaboratory</dcc:issuer>
-                        <dcc:value>An Identification</dcc:value>
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>natural silicon</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="en">Material of transfer normal</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification>
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>sphere</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="en">Shape of transfer normal</dcc:content>
+                        </dcc:name>
                     </dcc:identification>
                 </dcc:identifications>
+                <dcc:itemQuantities>
+                    <dcc:itemQuantity refType="basic_nominalValue">
+                        <dcc:name>
+                            <dcc:content lang="en">Nominal mass</dcc:content>
+                        </dcc:name>
+                        <si:real>
+                            <si:value>1</si:value>
+                            <si:unit>\kilogram</si:unit>
+                        </si:real>
+                    </dcc:itemQuantity>
+                </dcc:itemQuantities>
             </dcc:item>
         </dcc:items>
         <dcc:calibrationLaboratory>
             <dcc:contact>
                 <dcc:name>
-                    <dcc:content lang="en">National Measurement Institute Japan</dcc:content>
+                    <dcc:content lang="en">Physikalisch Technische Bundesanstalt</dcc:content>
                 </dcc:name>
-                <dcc:eMail>info@nmij.jp</dcc:eMail>
+                <dcc:eMail>info@ptb.de</dcc:eMail>
                 <dcc:location>
-                    <dcc:city>Tokyo</dcc:city>
+                    <dcc:city>Brunswick</dcc:city>
                 </dcc:location>
             </dcc:contact>
         </dcc:calibrationLaboratory>
@@ -67,11 +91,17 @@
         </dcc:respPersons>
         <dcc:customer>
             <dcc:name>
-                <dcc:content lang="en">Kenichi Fuji</dcc:content>
+                <dcc:content lang="en">Consultative Committee for Mass (CCM)</dcc:content>
             </dcc:name>
-            <dcc:eMail>k.f@NMILJ.jp</dcc:eMail>
             <dcc:location>
-                <dcc:city>Tokyo</dcc:city>
+                <dcc:city>Brunswick</dcc:city>
+                <dcc:countryCode>DE</dcc:countryCode>
+                <dcc:postCode>D-92312 Sevres Cedex</dcc:postCode>
+                <dcc:street>Bundesalle</dcc:street>
+                <dcc:streetNo>100</dcc:streetNo>
+                <dcc:further>
+                    <dcc:content lang="en">Working Group 1.11 Mass</dcc:content>
+                </dcc:further>
             </dcc:location>
         </dcc:customer>
     </dcc:administrativeData>
