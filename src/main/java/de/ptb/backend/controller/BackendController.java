@@ -107,6 +107,7 @@ public class BackendController {
 //            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
             pidDccFileSystemReaderService.setMessage(request);
             List<SiReal> SiReals = pidDccFileSystemReaderService.readFiles();
+            System.out.println(SiReals);
             DKCRResponseMessage response = null;
             if(smartStandard.equals("energyComparison")) {
                 /*
@@ -198,6 +199,7 @@ public class BackendController {
                 Vector<RunResult> Results = objRunfDKCR.getRunResults();
                 SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 1, 0.0));
                 List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal);
+                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal));
                 PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
                 dccWriter.setPid(pidReport);
                 dccWriter.setParticipants(participantList);

@@ -82,7 +82,6 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
         if (!urlListPid.isEmpty()) {
             for (Participant participant : this.message.getParticipantList()) {
                 for (String pid : pidList) {
-                    System.out.println("participant:" + participant.getDccPid().substring(1, participant.getDccPid().length() - 1));
                     if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
                         try {
                             String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
@@ -93,9 +92,20 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
                             builder = factory.newDocumentBuilder();
                             Document document = builder.parse(new InputSource(new StringReader(decodedXml)));
 //                          System.out.println("decoded" + decodedXml);
+                            String name = "";
                             XPath xPath = XPathFactory.newInstance().newXPath();
-                            String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
+                            String expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
                             NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    name = eElement.getElementsByTagName("dcc:content").item(0).getTextContent();
+                                }
+                            }
+                            xPath = XPathFactory.newInstance().newXPath();
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
+                            nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
                             for (int i = 0; i < nodeList.getLength(); i++) {
                                 Node nNode = nodeList.item(i);
                                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -107,7 +117,7 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
                                     int coverageFactor = Integer.parseInt(eElement.getElementsByTagName("si:coverageFactor").item(0).getTextContent());
                                     Double coverageProbability = Double.valueOf(eElement.getElementsByTagName("si:coverageProbability").item(0).getTextContent());
                                     SiExpandedUnc expUnc = new SiExpandedUnc(uncertainty, coverageFactor, coverageProbability);
-                                    siReals.add(new SiReal(value, unit, dateTime, expUnc));
+                                    siReals.add(new SiReal(name, value, unit, dateTime, expUnc));
                                 }
                             }
                         } catch (XPathExpressionException e) {

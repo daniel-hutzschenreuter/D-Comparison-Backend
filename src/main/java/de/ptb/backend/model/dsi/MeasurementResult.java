@@ -22,7 +22,6 @@ import lombok.Data;
 
 @Data
 public class MeasurementResult {
-    String name = "";
     SiReal massValue;
     Double massDifference;
     Double kcMassValue;
@@ -101,7 +100,7 @@ public class MeasurementResult {
         if(this.grubsValue == null){
             this.result = "<dcc:measurementResult refId=\"PTB\">\n" +
                     "      <dcc:name>\n" +
-                    "        <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
+                    "        <dcc:content lang=\"en\">Comparison results of participant laboratory "+this.massValue.getName()+"</dcc:content>\n" +
                     "      </dcc:name>\n" +
                     "      <dcc:results>\n" +
                     "        <dcc:result refType=\"mass_mass\">\n" +
@@ -148,7 +147,7 @@ public class MeasurementResult {
         } else if (this.energyValue == null) {
             this.result = "<dcc:measurementResult refId=\"PTB\">\n" +
                     "      <dcc:name>\n" +
-                    "        <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
+                    "        <dcc:content lang=\"en\">Comparison results of participant laboratory "+this.massValue.getName()+"</dcc:content>\n" +
                     "      </dcc:name>\n" +
                     "      <dcc:results>\n" +
                     "        <dcc:result refType=\"mass_mass\">\n" +
@@ -211,7 +210,7 @@ public class MeasurementResult {
         } else{
             this.result = "         <dcc:measurementResult refId=\"PTB\">\n" +
                     "       <dcc:name>\n" +
-                    "           <dcc:content lang=\"en\">"+this.name+"</dcc:content>\n" +
+                    "           <dcc:content lang=\"en\"> Comparison results of participant laboratory "+this.massValue.getName()+"</dcc:content>\n" +
                     "       </dcc:name>\n" +
                     "       <dcc:results>\n" +
                     "           <dcc:result refType=\"mass_mass\">\n" +
@@ -411,7 +410,7 @@ public class MeasurementResult {
                     "                       </si:real>\n" +
                     "                   </dcc:quantity>\n" +
                     "                </dcc:data>\n" +
-                    "       </dcc:result>\n" +
+                    "           </dcc:result>\n" +
                     "       </dcc:results>\n" +
                     "    </dcc:measurementResult>\n";
         }

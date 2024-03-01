@@ -21,6 +21,7 @@ import lombok.Data;
 
 @Data
 public class SiReal {
+    String name;
     Double value;
     String unit;
     String dateTime;
@@ -40,7 +41,13 @@ public class SiReal {
         this.dateTime = dateTime;
         this.expUnc = expUnc;
     }
-
+    public SiReal(String name, Double value, String unit, String dateTime, SiExpandedUnc expUnc) {
+        this.name = name;
+        this.value = value;
+        this.unit = unit;
+        this.dateTime = dateTime;
+        this.expUnc = expUnc;
+    }
     public void setValue(Double value) {
         this.value = value;
     }
@@ -65,6 +72,7 @@ public class SiReal {
     @Override
     public String toString() {
         return "SiReal{" +
+                "name=" + name +
                 "value=" + value +
                 ", unit='" + unit + '\'' +
                 ", dateTime='" + dateTime + '\'' +
