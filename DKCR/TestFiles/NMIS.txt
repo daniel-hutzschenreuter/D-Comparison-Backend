@@ -1,0 +1,10 @@
+N0001,BIPM,International
+N0002,PTB,Germany
+N0003,LNE,France
+N0004,CENAM,Mexico
+N0005,NMIJ-AIST,Japan
+N0006,CEM,Spain
+N0007,CNR-IMGC,Italy
+N0008,KRISS,Republic of Korea
+N0009,METAS,Switzerland
+N0010,NRC,Canada
