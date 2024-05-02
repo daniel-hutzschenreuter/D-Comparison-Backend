@@ -12,15 +12,15 @@
             <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>
             <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
             <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>
-            <dcc:uniqueIdentifier>Mass_Report_2024-03-21</dcc:uniqueIdentifier>
+            <dcc:uniqueIdentifier>CCM-KC1_30-04-2024</dcc:uniqueIdentifier>
             <dcc:identifications>
                 <dcc:identification>
                     <dcc:issuer>calibrationLaboratory</dcc:issuer>
                     <dcc:value>International Mass Comparison</dcc:value>
                 </dcc:identification>
             </dcc:identifications>
-            <dcc:beginPerformanceDate>2024-03-21</dcc:beginPerformanceDate>
-            <dcc:endPerformanceDate>2024-03-21</dcc:endPerformanceDate>
+            <dcc:beginPerformanceDate>2024-04-30</dcc:beginPerformanceDate>
+            <dcc:endPerformanceDate>2024-04-30</dcc:endPerformanceDate>
             <dcc:performanceLocation>laboratory</dcc:performanceLocation>
         </dcc:coreData>
         <dcc:items>
@@ -106,9 +106,9 @@
         </dcc:customer>
     </dcc:administrativeData>
     <dcc:measurementResults>
-<dcc:measurementResult refId="Mass_Comparison_UME">
+<dcc:measurementResult refId="CCM.M-K1-PTB9608">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: TÜBİTAK Ulusal Metroloji Enstitüsü (UME)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: Physikalish-Technische Bundesanstalt</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -122,10 +122,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000271</si:value>
+                <si:value>4.669999999999952E-4</si:value>
                 <si:unit>\kilogram</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>1.0E-7</si:uncertainty>
+                   <si:uncertainty>2.4E-5</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -144,7 +144,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.11576998818348287</si:value>
+                <si:value>2.43865445755987E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -160,7 +160,7 @@
                 <dcc:content lang="en">Grubbs test value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.039655666996288384</si:value>
+                <si:value>2.43865445755987E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -168,9 +168,9 @@
         </dcc:result>
       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_NRC">
+ <dcc:measurementResult refId="CCM.M-K1-KRISS9703">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: National Research Council of Canada (NRC)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: KRISS</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -184,10 +184,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000249</si:value>
+                <si:value>4.6799999999991293E-4</si:value>
                 <si:unit>\kilogram</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>5.7E-8</si:uncertainty>
+                   <si:uncertainty>2.8E-5</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -206,7 +206,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.19422964671828374</si:value>
+                <si:value>1.6150094573675712E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -222,7 +222,7 @@
                 <dcc:content lang="en">Grubbs test value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.3300114826571221</si:value>
+                <si:value>1.6150094573675712E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -230,9 +230,9 @@
         </dcc:result>
       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_PTB_Ausreisser">
+ <dcc:measurementResult refId="CCM.M-K1-NPL9507">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: NPL</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -246,10 +246,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000324</si:value>
+                <si:value>4.7799999999997844E-4</si:value>
                 <si:unit>\kilogram</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>4.6E-8</si:uncertainty>
+                   <si:uncertainty>3.2E-5</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -268,7 +268,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>1.3162936565474541</si:value>
+                <si:value>1.7160440733946006E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -284,7 +284,7 @@
                 <dcc:content lang="en">Grubbs test value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>1.316293661135361</si:value>
+                <si:value>1.7160440733946006E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -292,9 +292,9 @@
         </dcc:result>
       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_KRISS">
+ <dcc:measurementResult refId="CCM.M-K1-BIPM9502">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Korea Research Institute of Standards and Science (KRISS)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: BIPM</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -308,10 +308,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000259</si:value>
+                <si:value>4.7799999999997844E-4</si:value>
                 <si:unit>\kilogram</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>4.5E-8</si:uncertainty>
+                   <si:uncertainty>2.4E-5</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -330,7 +330,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.014011203864403583</si:value>
+                <si:value>2.4964490582712736E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -346,7 +346,7 @@
                 <dcc:content lang="en">Grubbs test value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.19166965789639792</si:value>
+                <si:value>2.4964490582712736E16</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -354,491 +354,31 @@
         </dcc:result>
       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_MSL">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Measurement Standards Laboratory of New Zealand (MSL)</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.00000023</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>5.7E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.5428539885322623</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.676747010173296</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
+          <dcc:measurementResult refId="comparison_referenceValues">
+       <dcc:name>
+           <dcc:content lang="en"> Mass of stainless steel cylinder Output Reference Value</dcc:content>
+       </dcc:name>
+       <dcc:results>
+           <dcc:result refType="RefMassUnc">
+           <dcc:name>
+               <dcc:content lang="en">Reference Output Values</dcc:content>
+           </dcc:name>
+           <dcc:data>
+               <dcc:quantity>
+                   <si:real>
+                       <si:value>4.246039330799039E13</si:value>
+                       <si:unit>/gram</si:unit>
+                       <si:expandedUnc>
+                           <si:uncertainty>0.00002535</si:uncertainty>
+                           <si:coverageFactor>2</si:coverageFactor>
+                           <si:coverageProbability>0.95</si:coverageProbability>
+                           <si:distribution>normal</si:distribution>
+                       </si:expandedUnc>
+                   </si:real>
+               </dcc:quantity>
+           </dcc:data>
+           </dcc:result>
+       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_NPL">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: National Physical Laboratory (NPL)</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.000000283</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>4.6E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.546262929228763</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.3680956565032901</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_NIM">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: National Institute of Metrology</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.000000254</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>5.0E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.11851251731335238</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.2756000884165925</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_INRIM">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: INRIM</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.000000256</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>4.9E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.07783096266572694</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.23877424309967754</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_CENAM">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Centro Nacional de Metrología (CENAM)</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.000000232</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>5.0E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.5853059854058184</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.7390209451303418</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_PTB">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.000000287</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>4.6E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.6395833813898373</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.4606027766519511</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_NMIJ">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: National Metrology Institute of Japan (NMIJ)</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.00000027</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>6.8E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.15799066096066683</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueGrubbsTest">
-              <dcc:name>
-                <dcc:content lang="en">Grubbs test value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.044078640016809945</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="comparison_referenceValues">
-			<dcc:name>
-				<dcc:content lang="en">Mass of stainless steel cylinder Output Reference Values</dcc:content>
-			</dcc:name>
-			<dcc:results>
-				<dcc:result refType="mass_mass">
-					<dcc:name>
-						<dcc:content lang="en">Mass Reference Value</dcc:content>
-					</dcc:name>
-					<dcc:data>
-						<dcc:quantity refType="comparison_referenceValueEnCriterion">
-							<dcc:name>
-								<dcc:content lang="en">Comparison Reference Value En Criterion</dcc:content>
-							</dcc:name>
-							<si:real>
-								<si:label>Mass Reference Value</si:label>
-								<si:value>1.0000002595855009</si:value>
-								<si:unit>\kilogram</si:unit>
-								<si:expandedUnc>
-									<si:uncertainty>1.6696057024196142E-8</si:uncertainty>
-									<si:coverageFactor>2</si:coverageFactor>
-									<si:coverageProbability>0.95</si:coverageProbability>
-									<si:distribution>normal</si:distribution>
-								</si:expandedUnc>
-							</si:real>
-						</dcc:quantity>
-					</dcc:data>
-				</dcc:result>
-				<dcc:result refType="mass_mass">
-					<dcc:name>
-						<dcc:content lang="en">Mass Reference Value</dcc:content>
-					</dcc:name>
-					<dcc:data>
-						<dcc:quantity refType="comparison_referenceValueGrubbsTest">
-							<dcc:name>
-								<dcc:content lang="en">Comparison Reference Value Grubbs</dcc:content>
-							</dcc:name>
-							<si:real>
-								<si:label>Mass Reference Value</si:label>
-								<si:value>1.0000002670835757</si:value>
-								<si:unit>\kilogram</si:unit>
-								<si:expandedUnc>
-									<si:uncertainty>1.5694262259905643E-8</si:uncertainty>
-									<si:coverageFactor>2</si:coverageFactor>
-									<si:coverageProbability>0.95</si:coverageProbability>
-									<si:distribution>normal</si:distribution>
-								</si:expandedUnc>
-							</si:real>
-						</dcc:quantity>
-					</dcc:data>
-				</dcc:result>
-			</dcc:results>
-		</dcc:measurementResult></dcc:measurementResults>
+</dcc:measurementResults>
 </dcc:digitalCalibrationCertificate>

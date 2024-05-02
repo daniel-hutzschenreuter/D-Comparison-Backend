@@ -52,13 +52,15 @@ public class MeasurementResult {
      * @param energyValue SiReal
      * @param grubsValue GEO
      */
-    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue) {
+    public MeasurementResult(SiReal massValue, Double kcMassValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue,String pid) {
+
         this.massValue = massValue;
         this.kcMassValue = kcMassValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
         this.energyValue = energyValue;
         this.grubsValue = grubsValue;
+        this.pidParticipant= pid;
         generateMeasurementResult();
     }
 
@@ -67,7 +69,7 @@ public class MeasurementResult {
         this.kcMassValue = kcMassValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
-        //Change Fuction when not having grubsvalues
+        //Change Function when not having grubsvalues
         generateMeasurementResult();
 
     }
@@ -85,6 +87,7 @@ public class MeasurementResult {
         this.massDifference = massDifference;
         this.grubsComparisonValue = grubsValue;
         this.grubsUncertainty = grubsUncertainty;
+
         generateKCMeasurement();
     }
     public MeasurementResult(Double massDifference, Double kcMassValue, SiReal kcValue){
@@ -189,7 +192,6 @@ public class MeasurementResult {
                         "      </dcc:results>\n" +
                         "    </dcc:measurementResult>\n ";
             } else if (this.energyValue == null) {
-
                 this.result = "<dcc:measurementResult refId=\"" + pid + "\">\n" +
                         "      <dcc:name>\n" +
                         "        <dcc:content lang=\"en\">Comparison results of participant laboratory: " + this.massValue.getName() + "</dcc:content>\n" +
@@ -234,22 +236,22 @@ public class MeasurementResult {
                         "            </dcc:quantity>\n" +
                         "          </dcc:data>\n" +
                         "        </dcc:result>\n" +
-                        "        <dcc:result refType=\"comparison_equivalenceValue\">\n" +
-                        "          <dcc:name>\n" +
-                        "            <dcc:content lang=\"en\">Equivalence value</dcc:content>\n" +
-                        "          </dcc:name>\n" +
-                        "          <dcc:data>\n" +
-                        "            <dcc:quantity refType=\"comparison_equivalenceValueGrubbsTest\">\n" +
-                        "              <dcc:name>\n" +
-                        "                <dcc:content lang=\"en\">Grubbs test value</dcc:content>\n" +
-                        "              </dcc:name>\n" +
-                        "              <si:real>\n" +
-                        "                <si:value>" + this.enValueGrubbsTest.getValue() + "</si:value>\n" +
-                        "                <si:unit>" + this.enValueGrubbsTest.getUnit() + "</si:unit>\n" +
-                        "              </si:real>\n" +
-                        "            </dcc:quantity>\n" +
-                        "          </dcc:data>\n" +
-                        "        </dcc:result>\n" +
+//                        "        <dcc:result refType=\"comparison_equivalenceValue\">\n" +
+//                        "          <dcc:name>\n" +
+//                        "            <dcc:content lang=\"en\">Equivalence value</dcc:content>\n" +
+//                        "          </dcc:name>\n" +
+//                        "          <dcc:data>\n" +
+//                        "            <dcc:quantity refType=\"comparison_equivalenceValueGrubbsTest\">\n" +
+//                        "              <dcc:name>\n" +
+//                        "                <dcc:content lang=\"en\">Grubbs test value</dcc:content>\n" +
+//                        "              </dcc:name>\n" +
+//                        "              <si:real>\n" +
+//                        "                <si:value>" + this.enValueGrubbsTest.getValue() + "</si:value>\n" +
+//                        "                <si:unit>" + this.enValueGrubbsTest.getUnit() + "</si:unit>\n" +
+//                        "              </si:real>\n" +
+//                        "            </dcc:quantity>\n" +
+//                        "          </dcc:data>\n" +
+//                        "        </dcc:result>\n" +
                         "      </dcc:results>\n" +
                         "    </dcc:measurementResult>\n ";
 
@@ -380,29 +382,29 @@ public class MeasurementResult {
                     "\t\t\t\t\t\t</dcc:quantity>\n" +
                     "\t\t\t\t\t</dcc:data>\n" +
                     "\t\t\t\t</dcc:result>\n" +
-                    "\t\t\t\t<dcc:result refType=\"mass_mass\">\n" +
-                    "\t\t\t\t\t<dcc:name>\n" +
-                    "\t\t\t\t\t\t<dcc:content lang=\"en\">Mass Reference Value</dcc:content>\n" +
-                    "\t\t\t\t\t</dcc:name>\n" +
-                    "\t\t\t\t\t<dcc:data>\n" +
-                    "\t\t\t\t\t\t<dcc:quantity refType=\"comparison_referenceValueGrubbsTest\">\n" +
-                    "\t\t\t\t\t\t\t<dcc:name>\n" +
-                    "\t\t\t\t\t\t\t\t<dcc:content lang=\"en\">Comparison Reference Value Grubbs</dcc:content>\n" +
-                    "\t\t\t\t\t\t\t</dcc:name>\n" +
-                    "\t\t\t\t\t\t\t<si:real>\n" +
-                    "\t\t\t\t\t\t\t\t<si:label>Mass Reference Value</si:label>\n" +
-                    "\t\t\t\t\t\t\t\t<si:value>"+this.refValueGrubbsTest.getValue()+"</si:value>\n" +
-                    "\t\t\t\t\t\t\t\t<si:unit>"+this.refValueGrubbsTest.getUnit()+"</si:unit>\n" +
-                    "\t\t\t\t\t\t\t\t<si:expandedUnc>\n" +
-                    "\t\t\t\t\t\t\t\t\t<si:uncertainty>"+this.refValueGrubbsTest.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
-                    "\t\t\t\t\t\t\t\t\t<si:coverageFactor>"+this.refValueGrubbsTest.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
-                    "\t\t\t\t\t\t\t\t\t<si:coverageProbability>"+this.refValueGrubbsTest.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
-                    "\t\t\t\t\t\t\t\t\t<si:distribution>normal</si:distribution>\n" +
-                    "\t\t\t\t\t\t\t\t</si:expandedUnc>\n" +
-                    "\t\t\t\t\t\t\t</si:real>\n" +
-                    "\t\t\t\t\t\t</dcc:quantity>\n" +
-                    "\t\t\t\t\t</dcc:data>\n" +
-                    "\t\t\t\t</dcc:result>\n" +
+//                    "\t\t\t\t<dcc:result refType=\"mass_mass\">\n" +
+//                    "\t\t\t\t\t<dcc:name>\n" +
+//                    "\t\t\t\t\t\t<dcc:content lang=\"en\">Mass Reference Value</dcc:content>\n" +
+//                    "\t\t\t\t\t</dcc:name>\n" +
+//                    "\t\t\t\t\t<dcc:data>\n" +
+//                    "\t\t\t\t\t\t<dcc:quantity refType=\"comparison_referenceValueGrubbsTest\">\n" +
+//                    "\t\t\t\t\t\t\t<dcc:name>\n" +
+//                    "\t\t\t\t\t\t\t\t<dcc:content lang=\"en\">Comparison Reference Value Grubbs</dcc:content>\n" +
+//                    "\t\t\t\t\t\t\t</dcc:name>\n" +
+//                    "\t\t\t\t\t\t\t<si:real>\n" +
+//                    "\t\t\t\t\t\t\t\t<si:label>Mass Reference Value</si:label>\n" +
+//                    "\t\t\t\t\t\t\t\t<si:value>"+this.refValueGrubbsTest.getValue()+"</si:value>\n" +
+//                    "\t\t\t\t\t\t\t\t<si:unit>"+this.refValueGrubbsTest.getUnit()+"</si:unit>\n" +
+//                    "\t\t\t\t\t\t\t\t<si:expandedUnc>\n" +
+//                    "\t\t\t\t\t\t\t\t\t<si:uncertainty>"+this.refValueGrubbsTest.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
+//                    "\t\t\t\t\t\t\t\t\t<si:coverageFactor>"+this.refValueGrubbsTest.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+//                    "\t\t\t\t\t\t\t\t\t<si:coverageProbability>"+this.refValueGrubbsTest.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+//                    "\t\t\t\t\t\t\t\t\t<si:distribution>normal</si:distribution>\n" +
+//                    "\t\t\t\t\t\t\t\t</si:expandedUnc>\n" +
+//                    "\t\t\t\t\t\t\t</si:real>\n" +
+//                    "\t\t\t\t\t\t</dcc:quantity>\n" +
+//                    "\t\t\t\t\t</dcc:data>\n" +
+//                    "\t\t\t\t</dcc:result>\n" +
                     "\t\t\t</dcc:results>\n" +
                     "\t\t</dcc:measurementResult>";
         }
@@ -477,7 +479,6 @@ public class MeasurementResult {
                     "                   </dcc:quantity>\n" +
                     "                </dcc:data>\n" +
                     "           </dcc:result>\n" +
-
                     "       </dcc:results>\n" +
                     "    </dcc:measurementResult>\n";
         }

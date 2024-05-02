@@ -26,8 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.validation.annotation.Validated;
 
 @SpringBootApplication
-@Validated
-@OpenAPIDefinition(info =@Info(title = "DKCRBackend",version = "1.0", description = "DKCR_Backend"), servers = {@Server(url="http://localhost:8083",description = "local system")})
+//@Validated
+//@OpenAPIDefinition(info =@Info(title = "DKCRBackend",version = "1.0", description = "DKCR_Backend"), servers = {@Server(url="http://localhost:8083",description = "local system")})
 public class BackendApplication {
 
     public static void main(String[] args) {

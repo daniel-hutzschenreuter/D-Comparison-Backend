@@ -31,20 +31,44 @@ import de.ptb.backend.model.formula.EEqualsMC2;
 import de.ptb.backend.services.I_PidDccFileSystemReader;
 import de.ptb.backend.services.PidConstantWebReaderService;
 import de.ptb.backend.services.PidReportFileSystemWriterService;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+@OpenAPIDefinition(
+        info = @Info(
+                title = "D-Comparison Service Backend API",
+                termsOfService = "https://d-si.ptb.de/#/d-comparison",
+                description = "This API exposes endpoints to manage D-Comparison.",
+                version = "0.3",
+                contact = @Contact(
+                        name = "D-SI Services",
+                        url = "https://d-si.ptb.de",
+                        email = "Daniel.Hutzschenreuter@ptb.de")),
+        servers = {
+                @Server(url = "https://d-si.ptb.de", description = "Server URL in production environment"),
+                @Server(url ="http://localhost:8083", description = "Server URL in development environment")
+        })
+@Tag(name = "D-Comparison Controller")
 @RestController
 @RequestMapping(path = "/api/d-comparison")
 @Data
 @AllArgsConstructor
+
 public class BackendController {
     private I_PidDccFileSystemReader pidDccFileSystemReaderService;
 
@@ -55,6 +79,7 @@ public class BackendController {
      * @return always the string "Hello World"
      */
     @GetMapping("/sayHello")
+    @Hidden
     public String sayHelloWorld() {
         return "Hello World!";
     }
@@ -68,28 +93,32 @@ public class BackendController {
      * @return ResponseEntity, which consists of the HTTPStatus and the message. The message can be an error message or the created DCCs as a base64 string.
      */
     @PostMapping("/evaluateComparison")
-    public ResponseEntity evaluateDKCR(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "A Json Node contain all participants and the PIDDCC", content = @Content(schema = @Schema(example = "{\"keyComparisonData\":\n" +
-            " {\n" +
-            "  \"pidReport\" : \"NMIJ_All\",\n" +
-            "  \"participantList\" : \n" +
-            "        [ \n" +
-            "            { \"participant\" : \n" +
-            "                { \"name\" : \"BIPM\", \"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-BIPM9502\" } \n" +
-            "            },  \n" +
-            "            { \"participant\" : \n" +
-            "                { \"name\" : \"Physikalisch-Technische Bundesanstalt\", \"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-PTB9608\" } \n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"participant\" :\n" +
-            "                {\"name\": \"KRISS\", \"pidDCC\": \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-KRISS9703\"}\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"participant\" :\n" +
-            "                {\"name\": \"NPL\", \"pidDCC\": \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-NPL9507\"}\n" +
-            "            }\n" +
-            "        ] \n" +
-            "    } \n" +
-            "}\n"))) JsonNode payload) {
+    public ResponseEntity evaluateDKCR(
+            @RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "A Json Node contain all participants and the PIDDCC", content = @Content(schema = @Schema(example = "{\n" +
+            "\"keyComparisonData\" : {\n" +
+            "\"pidReport\" : \"CCM-KC1\",\n" +
+            "\"smartStandardEvaluationMethod\" : \"energyComparison\",\n" +
+            "\"participantList\" : [ {\n" +
+            "\"participant\" : {\n" +
+            "\n" +
+            "\"name\" : \"Physikalisch-Technische Bundesanstalt (PTB)\",\n" +
+            "\"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-PTB9608\"\n" +
+            "}\n" +
+            "}, {\n" +
+            "\"participant\" : {\n" +
+            "\n" +
+            "\"name\" : \"bipm\",\n" +
+            "\"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-BIPM9502\"\n" +
+            "}\n" +
+            "}, {\n" +
+            "\"participant\" : {\n" +
+            "\n" +
+            "\"name\" : \"kriss\",\n" +
+            "\"pidDCC\" : \"https://d-si.ptb.de/api/d-dcc/dcc/CCM.M-K1-KRISS9703\"\n" +
+            "}\n" +
+            "} ]\n" +
+            "}\n" +
+            "}"))) JsonNode payload) {
         try{
             /*
              *This part of the function reads the passed data from the payload
@@ -122,7 +151,7 @@ public class BackendController {
                 List<SiReal> ergebnisse = equalsMC.calculate();
                 /*
                  *The generated energy values are now used to calculate the En and KC values.
-                 * Subsequently, the energy values are used to perform the Grubstest.
+                 * Subsequently, the energy values are used to perform the Grubbstest.
                  */
                 fDKCR fdkcr = new fDKCR();
                 RunfDKCR objRunfDKCR = new RunfDKCR();
@@ -146,7 +175,7 @@ public class BackendController {
                  *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
                  * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
                  */
-                List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal, ergebnisse, gRunResults);
+                List<MeasurementResult> mResults = generateMResults(participantList,SiReals, Results, kcVal, ergebnisse, gRunResults);
                 mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
                 PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
                 dccWriter.setPid(pidReport);
@@ -222,7 +251,7 @@ public class BackendController {
                 objRunfDKCR.setNr(fdkcr.processDKCR());
                 Vector<RunResult> Results = objRunfDKCR.getRunResults();
                 SiReal kcVal = new SiReal(Results.get(0).getxRef(), "//one", "", new SiExpandedUnc(0.0, 1, 0.0));
-                List<MeasurementResult> mResults = generateMResults(SiReals, Results, kcVal);
+                List<MeasurementResult> mResults = generateMResults(participantList,SiReals, Results, kcVal);
                 mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal));
                 PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
                 dccWriter.setPid(pidReport);
@@ -263,11 +292,13 @@ public class BackendController {
      * @param grubsValues  Vector<GRunResult> containing all the calculated Grubstest values
      * @return List<MeasurementResult> which contains every measurementresult entry in the new DCC
      */
-    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy, Vector<GRunResult> grubsValues) {
+    public List<MeasurementResult> generateMResults(List<Participant> participantList,List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue, List<SiReal> energy, Vector<GRunResult> grubsValues) {
         List<MeasurementResult> results = new ArrayList<>();
         RunResult runResult = enMassValues.get(0);
         for (int i = 0; i < mass.size(); i++) {
-            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), kcValue, runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i), grubsValues.get(0).getGEOResults().get(i)));
+            MeasurementResult result =new MeasurementResult();
+            String pid = participantList.get(i).getDccPid();
+            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), kcValue, runResult.getEOResults().get(i).getEquivalenceValue(), energy.get(i), grubsValues.get(0).getGEOResults().get(i),pid));
         }
         return results;
     }
@@ -298,19 +329,20 @@ public class BackendController {
 
 
 //deprecated instead use generateMassResults
-    public List<MeasurementResult> generateMResults(List<SiReal> mass,  Vector<RunResult> enMassValues, SiReal kcValue, Vector<GRunResult> grubsValues) {
-        List<MeasurementResult> results = new ArrayList<>();
-        RunResult runResult = enMassValues.get(0);
-        for (int i = 0; i < mass.size(); i++) {
-            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), kcValue, grubsValues.get(0).getGEOResults().get(i)));
-        }
-        return results;
-    }
+//    public List<MeasurementResult> generateMResults(List<Participant> participantList,  List<SiReal> mass,  Vector<RunResult> enMassValues, SiReal kcValue, Vector<GRunResult> grubsValues) {
+//        List<MeasurementResult> results = new ArrayList<>();
+//        RunResult runResult = enMassValues.get(0);
+//        for (int i = 0; i < mass.size(); i++) {
+//            results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), kcValue, grubsValues.get(0).getGEOResults().get(i)));
+//        }
+//        return results;
+//    }
 
-    public List<MeasurementResult> generateMResults(List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue) {
+    public List<MeasurementResult> generateMResults(List<Participant> participantList, List<SiReal> mass, Vector<RunResult> enMassValues, SiReal kcValue) {
         List<MeasurementResult> results = new ArrayList<>();
         RunResult runResult = enMassValues.get(0);
         for (int i = 0; i < mass.size(); i++) {
+            String pid = new String(participantList.get(i).getDccPid());
             results.add(new MeasurementResult(mass.get(i), runResult.getxRef(), runResult.getEOResults().get(i).getEquivalenceValue(), kcValue));
         }
         return results;
