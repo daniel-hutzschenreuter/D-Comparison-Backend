@@ -48,7 +48,7 @@ import java.util.List;
 
 @Service
 @Data
-public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
+public class PidDccFileSystemReaderTemperatureService implements I_PidDccFileSystemReader {
 
     DKCRRequestMessage message;
 
@@ -104,7 +104,6 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
                                 }
                             }
                             xPath = XPathFactory.newInstance().newXPath();
-//                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
                             expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\"]/real";
 
                             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);

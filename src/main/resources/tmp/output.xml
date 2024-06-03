@@ -12,15 +12,15 @@
             <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>
             <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
             <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>
-            <dcc:uniqueIdentifier>temparaturReoort</dcc:uniqueIdentifier>
+            <dcc:uniqueIdentifier>temp</dcc:uniqueIdentifier>
             <dcc:identifications>
                 <dcc:identification>
                     <dcc:issuer>calibrationLaboratory</dcc:issuer>
                     <dcc:value>International Mass Comparison</dcc:value>
                 </dcc:identification>
             </dcc:identifications>
-            <dcc:beginPerformanceDate>2024-05-31</dcc:beginPerformanceDate>
-            <dcc:endPerformanceDate>2024-05-31</dcc:endPerformanceDate>
+            <dcc:beginPerformanceDate>2024-06-03</dcc:beginPerformanceDate>
+            <dcc:endPerformanceDate>2024-06-03</dcc:endPerformanceDate>
             <dcc:performanceLocation>laboratory</dcc:performanceLocation>
         </dcc:coreData>
         <dcc:items>
@@ -106,9 +106,9 @@
         </dcc:customer>
     </dcc:administrativeData>
     <dcc:measurementResults>
-<dcc:measurementResult refId="Mass_Comparison_NPL">
+<dcc:measurementResult refId="Temp_Comparison_PTB_1">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: National Physical Laboratory (NPL)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: Physikalish-Technische Bundesanstalt</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -122,10 +122,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000283</si:value>
-                <si:unit>\kilogram</si:unit>
+                <si:value>34.628</si:value>
+                <si:unit>\degreecelsius</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>4.6E-8</si:uncertainty>
+                   <si:uncertainty>0.009</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -144,7 +144,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.4475141683498238</si:value>
+                <si:value>0.223392398341704</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -152,9 +152,9 @@
         </dcc:result>
       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_KRISS">
+ <dcc:measurementResult refId="Temp_Comparison_PTB_2">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Korea Research Institute of Standards and Science (KRISS)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: Physikalish-Technische Bundesanstalt</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -168,10 +168,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000259</si:value>
-                <si:unit>\kilogram</si:unit>
+                <si:value>34.62</si:value>
+                <si:unit>\degreecelsius</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>4.5E-8</si:uncertainty>
+                   <si:uncertainty>0.009</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -190,7 +190,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>0.20226731267530637</si:value>
+                <si:value>0.8437850017357996</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -198,9 +198,9 @@
         </dcc:result>
       </dcc:results>
     </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_PTB_Ausreisser">
+ <dcc:measurementResult refId="Temp_Comparison_PTB_3">
       <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
+        <dcc:content lang="en">Comparison results of participant laboratory: Physikalish-Technische Bundesanstalt</dcc:content>
       </dcc:name>
       <dcc:results>
         <dcc:result refType="mass_mass">
@@ -214,10 +214,10 @@
               </dcc:name>
               <si:real>
                 <si:label>Mass</si:label>
-                <si:value>1.000000324</si:value>
-                <si:unit>\kilogram</si:unit>
+                <si:value>34.63</si:value>
+                <si:unit>\degreecelsius</si:unit>
                 <si:expandedUnc>
-                   <si:uncertainty>4.6E-8</si:uncertainty>
+                   <si:uncertainty>0.008</si:uncertainty>
                    <si:coverageFactor>2</si:coverageFactor>
                    <si:coverageProbability>0.95</si:coverageProbability>
                    <si:distribution>normal</si:distribution>
@@ -236,53 +236,7 @@
                 <dcc:content lang="en">En criterion value</dcc:content>
               </dcc:name>
               <si:real>
-                <si:value>1.0829252101334097</si:value>
-                <si:unit>\one</si:unit>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-      </dcc:results>
-    </dcc:measurementResult>
- <dcc:measurementResult refId="Mass_Comparison_INRIM">
-      <dcc:name>
-        <dcc:content lang="en">Comparison results of participant laboratory: INRIM</dcc:content>
-      </dcc:name>
-      <dcc:results>
-        <dcc:result refType="mass_mass">
-          <dcc:name>
-            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="basic_measuredValue">
-              <dcc:name>
-                <dcc:content lang="en">Measured value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:label>Mass</si:label>
-                <si:value>1.000000256</si:value>
-                <si:unit>\kilogram</si:unit>
-                <si:expandedUnc>
-                   <si:uncertainty>4.9E-8</si:uncertainty>
-                   <si:coverageFactor>2</si:coverageFactor>
-                   <si:coverageProbability>0.95</si:coverageProbability>
-                   <si:distribution>normal</si:distribution>
-                </si:expandedUnc>
-              </si:real>
-            </dcc:quantity>
-          </dcc:data>
-        </dcc:result>
-        <dcc:result refType="comparison_equivalenceValue">
-          <dcc:name>
-            <dcc:content lang="en">Equivalence value</dcc:content>
-          </dcc:name>
-          <dcc:data>
-            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
-              <dcc:name>
-                <dcc:content lang="en">En criterion value</dcc:content>
-              </dcc:name>
-              <si:real>
-                <si:value>0.2514071007208682</si:value>
+                <si:value>0.5869391856540472</si:value>
                 <si:unit>\one</si:unit>
               </si:real>
             </dcc:quantity>
@@ -306,10 +260,10 @@
 							</dcc:name>
 							<si:real>
 								<si:label>Mass Reference Value</si:label>
-								<si:value>1.000000266298143</si:value>
-								<si:unit>\kilogram</si:unit>
+								<si:value>34.62632535885167</si:value>
+								<si:unit>\kelvin</si:unit>
 								<si:expandedUnc>
-									<si:uncertainty>2.689075703980236E-8</si:uncertainty>
+									<si:uncertainty>0.004980344139835737</si:uncertainty>
 									<si:coverageFactor>2</si:coverageFactor>
 									<si:coverageProbability>0.95</si:coverageProbability>
 									<si:distribution>normal</si:distribution>

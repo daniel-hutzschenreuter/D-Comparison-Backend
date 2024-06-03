@@ -71,7 +71,7 @@ import java.util.Vector;
 
 public class BackendController {
     private I_PidDccFileSystemReader pidDccFileSystemReaderService;
-
+    private I_PidDccFileSystemReader pidDccFileSystemReaderTemperatureService;
 
     /**
      * This is a test function to check if the DKCR backend is running on the server.
@@ -139,6 +139,7 @@ public class BackendController {
             System.out.println(SiReals);
             DKCRResponseMessage response = null;
             if(smartStandard.equals("energyComparison")) {
+
                 /*
                  *In this part of the function, the dimension values in the SiReal objects are decreased by 1.
                  * Then the speed of light is read from the d-constant backend and afterwards energy values are generated from the mass values by means of E=MC^2.
@@ -242,20 +243,23 @@ public class BackendController {
             }
             else if(smartStandard.equals("radiationTempComparison")) {
 
+                pidDccFileSystemReaderTemperatureService.setMessage(request);
+                List<SiReal> siRealsTemp = pidDccFileSystemReaderTemperatureService.readFiles();
+
                 Vector<DIR> inputs = new Vector<DIR>();
-                for (SiReal SiReal : SiReals) {
-                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+                for (SiReal siReal : siRealsTemp) {
+                    DIR sirealAsDIR = new DIR(siReal.getValue(), siReal.getExpUnc().getUncertainty());
                     inputs.add(sirealAsDIR);
                 }
                 Vector<RunResult> runResults = new Vector<RunResult>();
                 fDKCR fdkcr = new fDKCR();
                 fdkcr.setData("comparison Title",
                         "Report_pid",
-                        SiReals.size(),
+                        siRealsTemp.size(),
                         "PTB",
-                        "temp",
-                        "kg",
-                        SiReals.size(),
+                        "temperature",
+                        "Kelvin",
+                        siRealsTemp.size(),
                         inputs,
                         runResults);
                 fdkcr.processDKCR();
@@ -266,7 +270,7 @@ public class BackendController {
 //                Vector<RunResult> Results = objRunfDKCR.getRunResults();
                 int iterationNr= runResults.size();
                 RunResult enCriterionResult=  runResults.get(iterationNr-1);
-                SiReal enCriterionRefeVal = new SiReal(enCriterionResult.getxRef(), "\\kilogram", "", new SiExpandedUnc(enCriterionResult.getURef(), 2, 0.95));
+                SiReal enCriterionRefeVal = new SiReal(enCriterionResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(enCriterionResult.getURef(), 2, 0.95));
 
                 DKCR grubsTestDKCR = new DKCR(inputs);
                 double mean = grubsTestDKCR.CalcMean();
@@ -274,20 +278,20 @@ public class BackendController {
                 Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
                 iterationNr = gRunResults.size();
                 GRunResult grubbsTestResult = gRunResults.get(iterationNr-1);
-                SiReal grubbsTestRefValue = new SiReal(grubbsTestResult.getxRef(), "\\kilogram", "", new SiExpandedUnc(grubbsTestResult.getURef(), 2, 0.95));
+                SiReal grubbsTestRefValue = new SiReal(grubbsTestResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(grubbsTestResult.getURef(), 2, 0.95));
                 /*
                  *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
                  * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
                  */
                 List<MeasurementResult> mResults = generateMassResults(
                         participantList,
-                        SiReals,
+                        siRealsTemp,
                         enCriterionResult,
                         grubbsTestResult,
                         enCriterionRefeVal,
                         grubbsTestRefValue
                 );
-//                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
+//                mResults.add(new MeasurementResult(siRealsTemp.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
                 PidReportFileSystemWriterService dccWriter = new PidReportFileSystemWriterService();
                 dccWriter.setPid(pidReport);
                 dccWriter.setParticipants(participantList);
