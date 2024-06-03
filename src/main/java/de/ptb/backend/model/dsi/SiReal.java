@@ -28,6 +28,7 @@ public class SiReal {
     String unit;
     String dateTime;
     SiExpandedUnc expUnc;
+    //Deprecated
     Double massDifference = 0.0;
 
     /**

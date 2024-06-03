@@ -29,6 +29,8 @@ import java.util.regex.Pattern;
 public class MeasurementResult {
     String pidParticipant;
     SiReal massValue;
+//    TODO massDifference ablöst
+//  SiReal massDifference;
     SiReal enValueEnCriterion;
     SiReal enValueGrubbsTest;
     SiReal refValueEnCriterion;
@@ -82,9 +84,11 @@ public class MeasurementResult {
      * @param grubsUncertainty Double
      */
     public MeasurementResult(Double massDifference, Double kcMassValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
+//          public MeasurementResult(SiReal massDifference,SiReal energyValue,  Double kcMassValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
         this.kcValue = kcValue;
         this.kcMassValue = kcMassValue;
         this.massDifference = massDifference;
+//        this.energyValue= energyValue;
         this.grubsComparisonValue = grubsValue;
         this.grubsUncertainty = grubsUncertainty;
 
@@ -236,26 +240,11 @@ public class MeasurementResult {
                         "            </dcc:quantity>\n" +
                         "          </dcc:data>\n" +
                         "        </dcc:result>\n" +
-//                        "        <dcc:result refType=\"comparison_equivalenceValue\">\n" +
-//                        "          <dcc:name>\n" +
-//                        "            <dcc:content lang=\"en\">Equivalence value</dcc:content>\n" +
-//                        "          </dcc:name>\n" +
-//                        "          <dcc:data>\n" +
-//                        "            <dcc:quantity refType=\"comparison_equivalenceValueGrubbsTest\">\n" +
-//                        "              <dcc:name>\n" +
-//                        "                <dcc:content lang=\"en\">Grubbs test value</dcc:content>\n" +
-//                        "              </dcc:name>\n" +
-//                        "              <si:real>\n" +
-//                        "                <si:value>" + this.enValueGrubbsTest.getValue() + "</si:value>\n" +
-//                        "                <si:unit>" + this.enValueGrubbsTest.getUnit() + "</si:unit>\n" +
-//                        "              </si:real>\n" +
-//                        "            </dcc:quantity>\n" +
-//                        "          </dcc:data>\n" +
-//                        "        </dcc:result>\n" +
                         "      </dcc:results>\n" +
                         "    </dcc:measurementResult>\n ";
 
             } else {
+//                E=mc2
                 this.result = "<dcc:measurementResult refId=\"" + pid + "\">\n" +
                         "      <dcc:name>\n" +
                         "        <dcc:content lang=\"en\">Comparison results of participant laboratory: " + this.massValue.getName() + "</dcc:content>\n" +
@@ -263,7 +252,8 @@ public class MeasurementResult {
                         "      <dcc:results>\n" +
                         "        <dcc:result refType=\"mass_mass\">\n" +
                         "          <dcc:name>\n" +
-                        "            <dcc:content lang=\"en\">Mass of stainless steel cylinder</dcc:content>\n" +
+                        "            <dcc:content lang=\"en\"> Mass of Silicon Sphere</dcc:content>\n" +
+//                        "            <dcc:content lang=\"en\">Mass of stainless steel cylinder</dcc:content>\n" +
                         "          </dcc:name>\n" +
                         "          <dcc:data>\n" +
                         "            <dcc:quantity refType=\"basic_measuredValue\">\n" +
@@ -284,6 +274,55 @@ public class MeasurementResult {
                         "            </dcc:quantity>\n" +
                         "          </dcc:data>\n" +
                         "        </dcc:result>\n" +
+                        "        <dcc:result refType=\"mass_mass\">\n" +
+                        "          <dcc:name>\n" +
+                        "            <dcc:content lang=\"en\">Delta Mass</dcc:content>\n" +
+                        "          </dcc:name>\n" +
+                        "          <dcc:data>\n" +
+                        "            <dcc:quantity refType=\"mass_deltaMass\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">Mass value minus 1 kg</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Mass</si:label>\n" +
+//                        TODO berechnung nutze siReal massDifference
+                        "                <si:value>" + this.massValue.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.massValue.getUnit() + "</si:unit>\n" +
+                        "                <si:expandedUnc>\n" +
+                        "                   <si:uncertainty>" + this.massValue.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>" + this.massValue.getExpUnc().getCoverageFactor() + "</si:coverageFactor>\n" +
+                        "                   <si:coverageProbability>" + this.massValue.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
+                        "                   <si:distribution>normal</si:distribution>\n" +
+                        "                </si:expandedUnc>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                       "          </dcc:data>\n" +
+                        "        </dcc:result>\n" +
+                        "        <dcc:result refType=\"energy_energy\">\n" +
+                        "          <dcc:name>\n" +
+                        "            <dcc:content lang=\"en\">Calculated Energy</dcc:content>\n" +
+                        "          </dcc:name>\n" +
+                        "          <dcc:data>\n" +
+                        "            <dcc:quantity refType=\"energy_eemcsqValue\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">E=mc² value</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Energy</si:label>\n" +
+                        //TODO
+                        "                <si:value> this.energyValue.getValue()</si:value>\n" +
+                        "                <si:unit> this.energyValue.getUnit()</si:unit>\n" +
+                        "                <si:expandedUnc>\n" +
+//                        TODO brechnung
+                        "                   <si:uncertainty> this.energyValue.getExpUnc().getUncertainty()</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>this.energyValue.getExpUnc().getCoverageFactor() </si:coverageFactor>\n" +
+                        "                   <si:coverageProbability> this.energyValue.getExpUnc().getCoverageProbability()</si:coverageProbability>\n" +
+                        "                   <si:distribution>normal</si:distribution>\n" +
+                        "                </si:expandedUnc>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                        "          </dcc:data>\n" +
+                        "        </dcc:result>\n" +
                         "        <dcc:result refType=\"comparison_equivalenceValue\">\n" +
                         "          <dcc:name>\n" +
                         "            <dcc:content lang=\"en\">Equivalence value</dcc:content>\n" +
@@ -293,10 +332,10 @@ public class MeasurementResult {
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">En criterion value</dcc:content>\n" +
                         "              </dcc:name>\n" +
-                        "              <si:real>\n" +
-                        "                <si:value>" + this.enValue + "</si:value>\n" +
-                        "                <si:unit>\\one</si:unit>\n" +
-                        "              </si:real>\n" +
+//                        "              <si:real>\n" +
+//                        "                <si:value>" + this.enValueEnCriterion.getValue() + "</si:value>\n" +
+//                        "                <si:unit>" + this.enValueEnCriterion.getUnit() + "</si:unit>\n" +
+//                        "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
                         "          </dcc:data>\n" +
                         "        </dcc:result>\n" +
@@ -309,10 +348,10 @@ public class MeasurementResult {
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">Grubbs test value</dcc:content>\n" +
                         "              </dcc:name>\n" +
-                        "              <si:real>\n" +
-                        "                <si:value>" + this.grubsValue.getEquivalenceValue() + "</si:value>\n" +
-                        "                <si:unit>\\one</si:unit>\n" +
-                        "              </si:real>\n" +
+//                        "              <si:real>\n" +
+//                        "                <si:value>" + this.enValueGrubbsTest.getValue() + "</si:value>\n" +
+//                        "                <si:unit>" + this.enValueGrubbsTest.getUnit() + "</si:unit>\n" +
+//                        "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
                         "          </dcc:data>\n" +
                         "        </dcc:result>\n" +

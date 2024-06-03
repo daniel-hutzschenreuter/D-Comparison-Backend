@@ -49,7 +49,9 @@ public class EEqualsMC2 {
         Double value = massSiReal.getValue() * this.c.getValue() * this.c.getValue();
         String unit = "\\joule";
         String dateTime = LocalDateTime.now().toString();
-        Double uncertainty = massSiReal.getExpUnc().getUncertainty();
+//        Double uncertainty = massSiReal.getExpUnc().getUncertainty();
+        //Cliff
+        Double uncertainty = massSiReal.getExpUnc().getUncertainty() * this.c.getValue() * this.c.getValue();
         int coverageFactor = massSiReal.getExpUnc().getCoverageFactor();
         Double coverageProbability = massSiReal.getExpUnc().getCoverageProbability();
 
