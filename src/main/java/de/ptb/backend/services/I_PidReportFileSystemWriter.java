@@ -17,6 +17,7 @@
 package de.ptb.backend.services;
 
 import de.ptb.backend.model.dsi.MeasurementResult;
+import de.ptb.backend.model.dsi.TempMeasurementResult;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,6 +46,8 @@ public interface I_PidReportFileSystemWriter {
      * @param mResults List<MeasurementResult>
      */
     void setMResults(List<MeasurementResult> mResults);
+
+    void setTempMResults(List<TempMeasurementResult> mResults);
 
     /**
      * This function generates the new DCC file from the Measurement results.

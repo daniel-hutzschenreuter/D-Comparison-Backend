@@ -42,14 +42,15 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+
 @Data
 @Service
-public class PidReportFileSystemWriterService implements I_PidReportFileSystemWriter{
+public class PidReportFileSystemTempWriterService implements I_PidReportFileSystemWriter{
     String pid;
     List<Participant> participants;
     List<MeasurementResult> mResults;
+    List<TempMeasurementResult> tempMResults;
     String dccTemplatePath;
 
     /**
@@ -73,20 +74,14 @@ public class PidReportFileSystemWriterService implements I_PidReportFileSystemWr
      * @param mResults List<MeasurementResult>
      */
     @Override
-    public void setMResults(List<MeasurementResult> mResults){
-        this.mResults = mResults;
+    public void setTempMResults(List<TempMeasurementResult> mResults){
+        this.tempMResults = mResults;
         if(System.getProperty("os.name").contains("Windows")) {
-            this.dccTemplatePath = "src\\main\\resources\\TestFiles\\DCCTemplate.xml";
+            this.dccTemplatePath = "src\\main\\resources\\TestFiles\\DCCTemperaturTemplate.xml";
         }else{
-            this.dccTemplatePath = "DCCTemplate.xml";
+            this.dccTemplatePath = "DCCTemperaturTemplate.xml";
         }
     }
-
-    @Override
-    public void setTempMResults(List<TempMeasurementResult> mResults) {
-
-    }
-
     /**
      * This function creates a new DCC file out of the measurement results and a template dcc file.
      * @return File which contains the newly generated Dcc file
@@ -121,6 +116,62 @@ public class PidReportFileSystemWriterService implements I_PidReportFileSystemWr
         }
          expression = "/digitalCalibrationCertificate/administrativeData/coreData/beginPerformanceDate";
          nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(String.valueOf(LocalDate.now()));
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/coreData/endPerformanceDate";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(String.valueOf(LocalDate.now()));
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name/content";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent("Pilot Laboratory");
+
+        }
+        DOMSource source = new DOMSource(newDoc);
+        String tmpPath;
+        if(System.getProperty("os.name").contains("Windows")) {
+            tmpPath = "src\\main\\resources\\tmp\\output.xml";
+        }else{
+            tmpPath = "src/main/resources/tmp/output.xml";
+        }
+        FileWriter writer = new FileWriter(tmpPath);
+        StreamResult result = new StreamResult(writer);
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.transform(source, result);
+        return new File(tmpPath);
+    }
+    public File writeTempDataIntoDCC() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
+        File dccFile = new File(this.dccTemplatePath);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(dccFile);
+        doc.getDocumentElement().normalize();
+        String content = convertDocumentToString(doc);
+        StringBuilder results = new StringBuilder();
+        for (TempMeasurementResult mResult : tempMResults){
+            results.append(mResult);
+        }
+        assert content != null;
+        content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
+        Document newDoc = convertStringToDocument(content);
+        //write Participants and unique identifier
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        String expression = "/digitalCalibrationCertificate/administrativeData/coreData/uniqueIdentifier";
+        NodeList nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(pid);
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/coreData/beginPerformanceDate";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
         for (int idx = 0; idx < nodeList.getLength(); idx++) {
             Node value = nodeList.item(idx);
             value.setTextContent(String.valueOf(LocalDate.now()));
