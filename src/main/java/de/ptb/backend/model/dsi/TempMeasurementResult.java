@@ -25,7 +25,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TempMeasurementResult {
     String pidParticipant;
-    SiReal tempValue;
+    SiReal radTempValue;
+    SiReal nomTempValue;
+    SiReal sensor1Value;
+    SiReal sensor2Value;
+    SiReal indicatedTempValue;
 //    TODO massDifference ablöst
 //  SiReal massDifference;
     SiReal enValueEnCriterion;
@@ -44,16 +48,16 @@ public class TempMeasurementResult {
 
     /**
      * This constructor is for every normal measurement result entry in the new DCC.
-     * @param tempValue SiReal
+     * @param radTempValue SiReal
      * @param kcTempValue Double
      * @param kcValue SiReal
      * @param enValue Double
      * @param energyValue SiReal
      * @param grubsValue GEO
      */
-    public TempMeasurementResult(SiReal tempValue, Double kcTempValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue, String pid) {
+    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue, String pid) {
 
-        this.tempValue = tempValue;
+        this.radTempValue = radTempValue;
         this.kcTempValue = kcTempValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
@@ -63,8 +67,8 @@ public class TempMeasurementResult {
         generateTempMeasurementResult();
     }
 
-    public TempMeasurementResult(SiReal tempValue, Double kcTempValue, Double enValue, SiReal kcValue){
-        this.tempValue = tempValue;
+    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, Double enValue, SiReal kcValue){
+        this.radTempValue = radTempValue;
         this.kcTempValue = kcTempValue;
         this.kcValue = kcValue;
         this.enValue = enValue;
@@ -98,8 +102,8 @@ public class TempMeasurementResult {
         generateTempKCMeasurement();
     }
 
-    public TempMeasurementResult(SiReal tempValue, Double kcTempValue, Double enValue, SiReal kcValue, GEO grubsValue) {
-        this.tempValue = tempValue;
+    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, Double enValue, SiReal kcValue, GEO grubsValue) {
+        this.radTempValue = radTempValue;
         this.kcTempValue = kcTempValue;
         this.enValue = enValue;
         this.kcValue = kcValue;
@@ -109,16 +113,22 @@ public class TempMeasurementResult {
     /**
      *
      */
-    public void setParticpantMass(SiReal tempValue, SiReal enValueEnCriterion,SiReal enValueGrubbsTest, String pid){
-        this.tempValue = tempValue;
+    public void setParticpantTemp(SiReal radTempValue, SiReal enValueEnCriterion,SiReal enValueGrubbsTest, String pid,
+                                  SiReal nominalTempValue, SiReal sensor1Value, SiReal sensor2Value, SiReal indicatedTempValue){
+        this.radTempValue = radTempValue;
         this.enValueEnCriterion= enValueEnCriterion;
         this.enValueGrubbsTest=enValueGrubbsTest;
         this.energyValue= null;
         this.grubsValue = new GEO();
         this.pidParticipant= pid;
+        this.nomTempValue = nominalTempValue;
+        this.sensor1Value = sensor1Value;
+        this.sensor2Value = sensor2Value;
+        this.indicatedTempValue = indicatedTempValue;
         this.generateTempMeasurementResult();
 
     }
+
     public void setReferenceValues( SiReal refValueEnCriterion,SiReal refValueGrubbsTest){
         this.refValueEnCriterion= refValueEnCriterion;
         this.refValueGrubbsTest= refValueGrubbsTest;
@@ -141,7 +151,7 @@ public class TempMeasurementResult {
 
                 this.result = "<dcc:measurementResult refId=\"" + pid + "\">\n" +
                         "      <dcc:name>\n" +
-                        "        <dcc:content lang=\"en\">Comparison results of participant laboratory: " + this.tempValue.getName() + "</dcc:content>\n" +
+                        "        <dcc:content lang=\"en\">Comparison results of participant laboratory: " + this.radTempValue.getName() + "</dcc:content>\n" +
                         "      </dcc:name>\n" +
                         "      <dcc:results>\n" +
                         "        <dcc:result refType=\"temperature_radianceTemperature\">\n" +
@@ -149,18 +159,78 @@ public class TempMeasurementResult {
                         "            <dcc:content lang=\"en\">Temperatur of .....</dcc:content>\n" +
                         "          </dcc:name>\n" +
                         "          <dcc:data>\n" +
-                        "            <dcc:quantity refType=\"basic_measuredValue\">\n" +
+                        "            <dcc:quantity refType=\"basic_nominalValue\">\n" +
                         "              <dcc:name>\n" +
-                        "                <dcc:content lang=\"en\">Measured value</dcc:content>\n" +
+                        "                <dcc:content lang=\"en\">Set temperature</dcc:content>\n" +
                         "              </dcc:name>\n" +
                         "              <si:real>\n" +
                         "                <si:label>Temperatur</si:label>\n" +
-                        "                <si:value>" + this.tempValue.getValue() + "</si:value>\n" +
-                        "                <si:unit>" + this.tempValue.getUnit() + "</si:unit>\n" +
+                        "                <si:value>" + this.nomTempValue.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.nomTempValue.getUnit() + "</si:unit>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                        "          </dcc:data>\n" +
+                        "          <dcc:data>\n" +
+                        "            <dcc:quantity refType=\"basic_measuredValueSensor1\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">average resistance of monitor PRT</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Temperatur</si:label>\n" +
+                        "                <si:value>" + this.sensor1Value.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.sensor1Value.getUnit() + "</si:unit>\n" +
                         "                <si:expandedUnc>\n" +
-                        "                   <si:uncertainty>" + this.tempValue.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
-                        "                   <si:coverageFactor>" + this.tempValue.getExpUnc().getCoverageFactor() + "</si:coverageFactor>\n" +
-                        "                   <si:coverageProbability>" + this.tempValue.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
+                        "                   <si:uncertainty>" + this.sensor1Value.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>" + this.sensor1Value.getExpUnc().getCoverageFactor() + "</si:coverageFactor>\n" +
+                        "                   <si:coverageProbability>" + this.sensor1Value.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
+                        "                   <si:distribution>normal</si:distribution>\n" +
+                        "                </si:expandedUnc>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                        "          </dcc:data>\n" +
+                        "          <dcc:data>\n" +
+                        "            <dcc:quantity refType=\"basic_measuredValueSensor2\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">average resistance of monitor NTC Thermistor</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Temperatur</si:label>\n" +
+                        "                <si:value>" + this.sensor2Value.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.sensor2Value.getUnit() + "</si:unit>\n" +
+                        "                <si:expandedUnc>\n" +
+                        "                   <si:uncertainty>" + this.sensor2Value.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>" + this.sensor2Value.getExpUnc().getCoverageFactor() + "</si:coverageFactor>\n" +
+                        "                   <si:coverageProbability>" + this.sensor2Value.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
+                        "                   <si:distribution>normal</si:distribution>\n" +
+                        "                </si:expandedUnc>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                        "          </dcc:data>\n" +
+                        "          <dcc:data>\n" +
+                        "            <dcc:quantity refType=\"temperature_referenceValue\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">average indicated temperature</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Temperatur</si:label>\n" +
+                        "                <si:value>" + this.indicatedTempValue.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.indicatedTempValue.getUnit() + "</si:unit>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                        "          </dcc:data>\n" +
+                        "          <dcc:data>\n" +
+                        "            <dcc:quantity refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">average radiance temperature</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Temperatur</si:label>\n" +
+                        "                <si:value>" + this.radTempValue.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.radTempValue.getUnit() + "</si:unit>\n" +
+                        "                <si:expandedUnc>\n" +
+                        "                   <si:uncertainty>" + this.radTempValue.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>" + this.radTempValue.getExpUnc().getCoverageFactor() + "</si:coverageFactor>\n" +
+                        "                   <si:coverageProbability>" + this.radTempValue.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
                         "                   <si:distribution>normal</si:distribution>\n" +
                         "                </si:expandedUnc>\n" +
                         "              </si:real>\n" +

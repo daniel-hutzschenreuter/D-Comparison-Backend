@@ -36,4 +36,10 @@ public interface I_PidDccFileSystemReader {
      * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
     List<SiReal> readFiles() throws ParserConfigurationException, JSONException;
+
+    List<SiReal> readRadianceTemperature() throws ParserConfigurationException, JSONException;
+    List<SiReal> readNominalTemperature() throws ParserConfigurationException, JSONException;
+    List<SiReal> readValueSensor1() throws ParserConfigurationException, JSONException;
+    List<SiReal> readValueSensor2() throws ParserConfigurationException, JSONException;
+    List<SiReal> readIndicatedTemperature() throws ParserConfigurationException, JSONException;
 }

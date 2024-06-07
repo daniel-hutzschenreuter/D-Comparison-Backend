@@ -21,6 +21,7 @@ import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
+import de.ptb.backend.model.dsi.TempMeasurementResult;
 import lombok.Data;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,8 +69,12 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
      * @return List<SiReal> which contains the mass values of the participant dcc files
      * @throws ParserConfigurationException Throws exception if the DocumentBuilderFactory is not set up properly.
      */
+
     @Override
-    public List<SiReal> readFiles() throws ParserConfigurationException, JSONException{
+    public List<SiReal> readFiles() {return null;}
+
+    @Override
+    public List<SiReal> readRadianceTemperature() throws ParserConfigurationException, JSONException{
         String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
 //        String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
         RestTemplate restTemplate = new RestTemplate();
@@ -104,6 +109,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
                                     name = eElement.getElementsByTagName("dcc:content").item(0).getTextContent();
                                 }
                             }
+
                             xPath = XPathFactory.newInstance().newXPath();
                             expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\"]/real";
                             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
@@ -132,4 +138,257 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
         }
         return siReals;
     }
+
+    @Override
+    public List<SiReal> readNominalTemperature() throws ParserConfigurationException, JSONException{
+        String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
+//        String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
+        RestTemplate restTemplate = new RestTemplate();
+        String dccPidList = restTemplate.getForObject(urlListPid, String.class, 200);
+        JSONArray PidListArray = new JSONArray(dccPidList);
+        String[] pidList = new String[PidListArray.length()];
+        for (int i = 0; i < PidListArray.length(); i++) {
+            pidList[i] = PidListArray.getString(i);
+        }
+        List<SiReal> siReals = new ArrayList<>();
+        if (!urlListPid.isEmpty()) {
+            for (Participant participant : this.message.getParticipantList()) {
+                for (String pid : pidList) {
+                    if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
+                        try {
+                            String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
+                            byte[] byteBase64 = Base64.getDecoder().decode(result);
+                            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                            DocumentBuilder builder;
+                            String decodedXml = new String(byteBase64);
+                            builder = factory.newDocumentBuilder();
+                            Document document = builder.parse(new InputSource(new StringReader(decodedXml)));
+//                          System.out.println("decoded" + decodedXml);
+                            String name = "";
+                            XPath xPath = XPathFactory.newInstance().newXPath();
+                            String expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
+                            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    name = eElement.getElementsByTagName("dcc:content").item(0).getTextContent();
+                                }
+                            }
+
+                            xPath = XPathFactory.newInstance().newXPath();
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_nominalValue\"]/real";
+                            nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    Double value = Double.valueOf(eElement.getElementsByTagName("si:value").item(0).getTextContent());
+                                    String unit = eElement.getElementsByTagName("si:unit").item(0).getTextContent();
+                                    siReals.add(new SiReal(name, value, unit));
+                                }
+                            }
+                        } catch (XPathExpressionException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException | SAXException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+        }
+        return siReals;
+    }
+    @Override
+    public List<SiReal> readValueSensor1() throws ParserConfigurationException, JSONException{
+        String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
+//        String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
+        RestTemplate restTemplate = new RestTemplate();
+        String dccPidList = restTemplate.getForObject(urlListPid, String.class, 200);
+        JSONArray PidListArray = new JSONArray(dccPidList);
+        String[] pidList = new String[PidListArray.length()];
+        for (int i = 0; i < PidListArray.length(); i++) {
+            pidList[i] = PidListArray.getString(i);
+        }
+        List<SiReal> siReals = new ArrayList<>();
+        if (!urlListPid.isEmpty()) {
+            for (Participant participant : this.message.getParticipantList()) {
+                for (String pid : pidList) {
+                    if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
+                        try {
+                            String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
+                            byte[] byteBase64 = Base64.getDecoder().decode(result);
+                            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                            DocumentBuilder builder;
+                            String decodedXml = new String(byteBase64);
+                            builder = factory.newDocumentBuilder();
+                            Document document = builder.parse(new InputSource(new StringReader(decodedXml)));
+//                          System.out.println("decoded" + decodedXml);
+                            String name = "";
+                            XPath xPath = XPathFactory.newInstance().newXPath();
+                            String expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
+                            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    name = eElement.getElementsByTagName("dcc:content").item(0).getTextContent();
+                                }
+                            }
+
+                            xPath = XPathFactory.newInstance().newXPath();
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_measuredValueSensor1\"]/real";
+                            nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    Double value = Double.valueOf(eElement.getElementsByTagName("si:value").item(0).getTextContent());
+                                    String unit = eElement.getElementsByTagName("si:unit").item(0).getTextContent();
+                                    String dateTime = "nicht existent";//eElement.getElementsByTagName("si:dateTime").item(0).getTextContent();
+                                    Double uncertainty = Double.valueOf(eElement.getElementsByTagName("si:uncertainty").item(0).getTextContent());
+                                    int coverageFactor = Integer.parseInt(eElement.getElementsByTagName("si:coverageFactor").item(0).getTextContent());
+                                    Double coverageProbability = Double.valueOf(eElement.getElementsByTagName("si:coverageProbability").item(0).getTextContent());
+                                    SiExpandedUnc expUnc = new SiExpandedUnc(uncertainty, coverageFactor, coverageProbability);
+                                    siReals.add(new SiReal(name, value, unit, dateTime, expUnc));
+                                }
+                            }
+                        } catch (XPathExpressionException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException | SAXException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+        }
+        return siReals;
+    }
+    @Override
+    public List<SiReal> readValueSensor2() throws ParserConfigurationException, JSONException{
+        String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
+//        String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
+        RestTemplate restTemplate = new RestTemplate();
+        String dccPidList = restTemplate.getForObject(urlListPid, String.class, 200);
+        JSONArray PidListArray = new JSONArray(dccPidList);
+        String[] pidList = new String[PidListArray.length()];
+        for (int i = 0; i < PidListArray.length(); i++) {
+            pidList[i] = PidListArray.getString(i);
+        }
+        List<SiReal> siReals = new ArrayList<>();
+        if (!urlListPid.isEmpty()) {
+            for (Participant participant : this.message.getParticipantList()) {
+                for (String pid : pidList) {
+                    if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
+                        try {
+                            String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
+                            byte[] byteBase64 = Base64.getDecoder().decode(result);
+                            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                            DocumentBuilder builder;
+                            String decodedXml = new String(byteBase64);
+                            builder = factory.newDocumentBuilder();
+                            Document document = builder.parse(new InputSource(new StringReader(decodedXml)));
+//                          System.out.println("decoded" + decodedXml);
+                            String name = "";
+                            XPath xPath = XPathFactory.newInstance().newXPath();
+                            String expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
+                            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    name = eElement.getElementsByTagName("dcc:content").item(0).getTextContent();
+                                }
+                            }
+
+                            xPath = XPathFactory.newInstance().newXPath();
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_measuredValueSensor2\"]/real";
+                            nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    Double value = Double.valueOf(eElement.getElementsByTagName("si:value").item(0).getTextContent());
+                                    String unit = eElement.getElementsByTagName("si:unit").item(0).getTextContent();
+                                    String dateTime = "nicht existent";//eElement.getElementsByTagName("si:dateTime").item(0).getTextContent();
+                                    Double uncertainty = Double.valueOf(eElement.getElementsByTagName("si:uncertainty").item(0).getTextContent());
+                                    int coverageFactor = Integer.parseInt(eElement.getElementsByTagName("si:coverageFactor").item(0).getTextContent());
+                                    Double coverageProbability = Double.valueOf(eElement.getElementsByTagName("si:coverageProbability").item(0).getTextContent());
+                                    SiExpandedUnc expUnc = new SiExpandedUnc(uncertainty, coverageFactor, coverageProbability);
+                                    siReals.add(new SiReal(name, value, unit, dateTime, expUnc));
+                                }
+                            }
+                        } catch (XPathExpressionException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException | SAXException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+        }
+        return siReals;
+    }
+    @Override
+    public List<SiReal> readIndicatedTemperature() throws ParserConfigurationException, JSONException{
+        String urlListPid = "http://localhost:8085/api/d-dcc/dccPidList";
+//        String urlListPid = "https://d-si.ptb.de/api/d-dcc/dccPidList";
+        RestTemplate restTemplate = new RestTemplate();
+        String dccPidList = restTemplate.getForObject(urlListPid, String.class, 200);
+        JSONArray PidListArray = new JSONArray(dccPidList);
+        String[] pidList = new String[PidListArray.length()];
+        for (int i = 0; i < PidListArray.length(); i++) {
+            pidList[i] = PidListArray.getString(i);
+        }
+        List<SiReal> siReals = new ArrayList<>();
+        if (!urlListPid.isEmpty()) {
+            for (Participant participant : this.message.getParticipantList()) {
+                for (String pid : pidList) {
+                    if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
+                        try {
+                            String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
+                            byte[] byteBase64 = Base64.getDecoder().decode(result);
+                            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                            DocumentBuilder builder;
+                            String decodedXml = new String(byteBase64);
+                            builder = factory.newDocumentBuilder();
+                            Document document = builder.parse(new InputSource(new StringReader(decodedXml)));
+//                          System.out.println("decoded" + decodedXml);
+                            String name = "";
+                            XPath xPath = XPathFactory.newInstance().newXPath();
+                            String expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name";
+                            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    name = eElement.getElementsByTagName("dcc:content").item(0).getTextContent();
+                                }
+                            }
+
+                            xPath = XPathFactory.newInstance().newXPath();
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_referenceValue\"]/real";
+                            nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                            for (int i = 0; i < nodeList.getLength(); i++) {
+                                Node nNode = nodeList.item(i);
+                                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element eElement = (Element) nNode;
+                                    Double value = Double.valueOf(eElement.getElementsByTagName("si:value").item(0).getTextContent());
+                                    String unit = eElement.getElementsByTagName("si:unit").item(0).getTextContent();
+                                    siReals.add(new SiReal(name, value, unit));
+                                }
+                            }
+                        } catch (XPathExpressionException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException | SAXException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+        }
+        return siReals;
+    }
+
 }
+

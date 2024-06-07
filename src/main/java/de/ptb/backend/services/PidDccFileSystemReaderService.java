@@ -133,4 +133,17 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
         }
         return siReals;
     }
+
+    @Override
+    public List<SiReal> readRadianceTemperature() {return null;}
+
+    @Override
+    public List<SiReal> readNominalTemperature() {return null;}
+    @Override
+    public List<SiReal> readValueSensor1() {return null;}
+    @Override
+    public List<SiReal> readValueSensor2() {return null;}
+    @Override
+    public List<SiReal> readIndicatedTemperature() {return null;}
+
 }

@@ -38,6 +38,7 @@ public class SiReal {
      * @param dateTime String
      * @param expUnc SiExpandedUnc contains uncertainty, coverageFactor and coveragePossibility
      */
+
     public SiReal(Double value, String unit, String dateTime, SiExpandedUnc expUnc) {
         this.value = value;
         this.unit = unit;
@@ -51,6 +52,13 @@ public class SiReal {
         this.dateTime = dateTime;
         this.expUnc = expUnc;
     }
+
+    public SiReal(String name, Double value, String unit) {
+        this.name = name;
+        this.value = value;
+        this.unit = unit;
+    }
+
     public void setValue(Double value) {
         this.value = value;
     }
