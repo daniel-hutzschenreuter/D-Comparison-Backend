@@ -30,86 +30,84 @@ public class TempMeasurementResult {
     SiReal sensor1Value;
     SiReal sensor2Value;
     SiReal indicatedTempValue;
-//    TODO massDifference ablöst
-//  SiReal massDifference;
     SiReal enValueEnCriterion;
     SiReal enValueGrubbsTest;
     SiReal refValueEnCriterion;
     SiReal refValueGrubbsTest;
     Double tempDifference;
-    Double kcTempValue;
-    SiReal kcValue = null;
-    Double enValue;
-    SiReal energyValue;
-    GEO grubsValue;
-    Double grubsUncertainty;
-    Double grubsComparisonValue;
+//    Double kcTempValue;
+//    SiReal kcValue = null;
+//    Double enValue;
+//    SiReal energyValue;
+//    GEO grubsValue;
+//    Double grubsUncertainty;
+//    Double grubsComparisonValue;
     String result = "";
 
-    /**
-     * This constructor is for every normal measurement result entry in the new DCC.
-     * @param radTempValue SiReal
-     * @param kcTempValue Double
-     * @param kcValue SiReal
-     * @param enValue Double
-     * @param energyValue SiReal
-     * @param grubsValue GEO
-     */
-    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue, String pid) {
-
-        this.radTempValue = radTempValue;
-        this.kcTempValue = kcTempValue;
-        this.kcValue = kcValue;
-        this.enValue = enValue;
-        this.energyValue = energyValue;
-        this.grubsValue = grubsValue;
-        this.pidParticipant= pid;
-        generateTempMeasurementResult();
-    }
-
-    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, Double enValue, SiReal kcValue){
-        this.radTempValue = radTempValue;
-        this.kcTempValue = kcTempValue;
-        this.kcValue = kcValue;
-        this.enValue = enValue;
-        //Change Function when not having grubsvalues
-        generateTempMeasurementResult();
-
-    }
-    /**
-     * This constructor is for the last measurement result entry in the new DCC.
-     * @param tempDifference Double which has the same value of the manipulator parameter of the function manipulateMassValues in BackendController.java
-     * @param kcTempValue Double
-     * @param kcValue Double
-     * @param grubsValue Double
-     * @param grubsUncertainty Double
-     */
-    public TempMeasurementResult(Double tempDifference, Double kcTempValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
-//          public MeasurementResult(SiReal massDifference,SiReal energyValue,  Double kcMassValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
-        this.kcValue = kcValue;
-        this.kcTempValue = kcTempValue;
-        this.tempDifference = tempDifference;
-//        this.energyValue= energyValue;
-        this.grubsComparisonValue = grubsValue;
-        this.grubsUncertainty = grubsUncertainty;
-
-        generateTempKCMeasurement();
-    }
-    public TempMeasurementResult(Double tempDifference, Double kcTempValue, SiReal kcValue){
-        this.kcValue = kcValue;
-        this.kcTempValue = kcTempValue;
-        this.tempDifference = tempDifference;
-        generateTempKCMeasurement();
-    }
-
-    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, Double enValue, SiReal kcValue, GEO grubsValue) {
-        this.radTempValue = radTempValue;
-        this.kcTempValue = kcTempValue;
-        this.enValue = enValue;
-        this.kcValue = kcValue;
-        this.grubsValue = grubsValue;
-        generateTempMeasurementResult();
-    }
+//    /**
+//     * This constructor is for every normal measurement result entry in the new DCC.
+//     * @param radTempValue SiReal
+//     * @param kcTempValue Double
+//     * @param kcValue SiReal
+//     * @param enValue Double
+//     * @param energyValue SiReal
+//     * @param grubsValue GEO
+//     */
+//    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, SiReal kcValue, Double enValue, SiReal energyValue, GEO grubsValue, String pid) {
+//
+//        this.radTempValue = radTempValue;
+//        this.kcTempValue = kcTempValue;
+//        this.kcValue = kcValue;
+//        this.enValue = enValue;
+//        this.energyValue = energyValue;
+//        this.grubsValue = grubsValue;
+//        this.pidParticipant= pid;
+//        generateTempMeasurementResult();
+//    }
+//
+//    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, Double enValue, SiReal kcValue){
+//        this.radTempValue = radTempValue;
+//        this.kcTempValue = kcTempValue;
+//        this.kcValue = kcValue;
+//        this.enValue = enValue;
+//        //Change Function when not having grubsvalues
+//        generateTempMeasurementResult();
+//
+//    }
+//    /**
+//     * This constructor is for the last measurement result entry in the new DCC.
+//     * @param tempDifference Double which has the same value of the manipulator parameter of the function manipulateMassValues in BackendController.java
+//     * @param kcTempValue Double
+//     * @param kcValue Double
+//     * @param grubsValue Double
+//     * @param grubsUncertainty Double
+//     */
+//    public TempMeasurementResult(Double tempDifference, Double kcTempValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
+////          public MeasurementResult(SiReal massDifference,SiReal energyValue,  Double kcMassValue, SiReal kcValue, Double grubsValue, Double grubsUncertainty){
+//        this.kcValue = kcValue;
+//        this.kcTempValue = kcTempValue;
+//        this.tempDifference = tempDifference;
+////        this.energyValue= energyValue;
+//        this.grubsComparisonValue = grubsValue;
+//        this.grubsUncertainty = grubsUncertainty;
+//
+//        generateTempKCMeasurement();
+//    }
+//    public TempMeasurementResult(Double tempDifference, Double kcTempValue, SiReal kcValue){
+//        this.kcValue = kcValue;
+//        this.kcTempValue = kcTempValue;
+//        this.tempDifference = tempDifference;
+//        generateTempKCMeasurement();
+//    }
+//
+//    public TempMeasurementResult(SiReal radTempValue, Double kcTempValue, Double enValue, SiReal kcValue, GEO grubsValue) {
+//        this.radTempValue = radTempValue;
+//        this.kcTempValue = kcTempValue;
+//        this.enValue = enValue;
+//        this.kcValue = kcValue;
+//        this.grubsValue = grubsValue;
+//        generateTempMeasurementResult();
+//    }
     /**
      *
      */
@@ -118,8 +116,8 @@ public class TempMeasurementResult {
         this.radTempValue = radTempValue;
         this.enValueEnCriterion= enValueEnCriterion;
         this.enValueGrubbsTest=enValueGrubbsTest;
-        this.energyValue= null;
-        this.grubsValue = new GEO();
+//        this.energyValue= null;
+//        this.grubsValue = new GEO();
         this.pidParticipant= pid;
         this.nomTempValue = nominalTempValue;
         this.sensor1Value = sensor1Value;
@@ -132,8 +130,8 @@ public class TempMeasurementResult {
     public void setReferenceValues( SiReal refValueEnCriterion,SiReal refValueGrubbsTest){
         this.refValueEnCriterion= refValueEnCriterion;
         this.refValueGrubbsTest= refValueGrubbsTest;
-        this.energyValue= null;
-        this.grubsValue = new GEO();
+//        this.energyValue= null;
+//        this.grubsValue = new GEO();
         this.generateTempKCMeasurement();
     }
     /**
@@ -255,34 +253,34 @@ public class TempMeasurementResult {
      * This function generates for the parameter result the content of the last measurement result entry of the new DCC file
      */
     public void generateTempKCMeasurement(){
-        if(this.grubsValue== null){
-            this.result = "         <dcc:measurementResult refId=\"comparison_referenceValues\">\n" +
-                    "       <dcc:name>\n" +
-                    "           <dcc:content lang=\"en\"> Temperatur of ......Output Reference Value</dcc:content>\n" +
-                    "       </dcc:name>\n" +
-                    "       <dcc:results>\n" +
-                    "           <dcc:result refType=\"RefMassUnc\">\n" +
-                    "           <dcc:name>\n" +
-                    "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
-                    "           </dcc:name>\n" +
-                    "           <dcc:data>\n" +
-                    "               <dcc:quantity>\n" +
-                    "                   <si:real>\n" +
-                    "                       <si:value>"+this.kcTempValue +"</si:value>\n" +
-                    "                       <si:unit>/gram</si:unit>\n" +
-                    "                       <si:expandedUnc>\n" +
-                    "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
-                    "                           <si:coverageFactor>2</si:coverageFactor>\n" +
-                    "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
-                    "                           <si:distribution>normal</si:distribution>\n" +
-                    "                       </si:expandedUnc>\n" +
-                    "                   </si:real>\n" +
-                    "               </dcc:quantity>\n" +
-                    "           </dcc:data>\n" +
-                    "           </dcc:result>\n" +
-                    "       </dcc:results>\n" +
-                    "    </dcc:measurementResult>\n";
-        }else if (this.energyValue == null) {
+//        if(this.grubsValue== null){
+//            this.result = "         <dcc:measurementResult refId=\"comparison_referenceValues\">\n" +
+//                    "       <dcc:name>\n" +
+//                    "           <dcc:content lang=\"en\"> Temperatur of ......Output Reference Value</dcc:content>\n" +
+//                    "       </dcc:name>\n" +
+//                    "       <dcc:results>\n" +
+//                    "           <dcc:result refType=\"RefMassUnc\">\n" +
+//                    "           <dcc:name>\n" +
+//                    "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
+//                    "           </dcc:name>\n" +
+//                    "           <dcc:data>\n" +
+//                    "               <dcc:quantity>\n" +
+//                    "                   <si:real>\n" +
+//                    "                       <si:value>"+this.kcTempValue +"</si:value>\n" +
+//                    "                       <si:unit>/gram</si:unit>\n" +
+//                    "                       <si:expandedUnc>\n" +
+//                    "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
+//                    "                           <si:coverageFactor>2</si:coverageFactor>\n" +
+//                    "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
+//                    "                           <si:distribution>normal</si:distribution>\n" +
+//                    "                       </si:expandedUnc>\n" +
+//                    "                   </si:real>\n" +
+//                    "               </dcc:quantity>\n" +
+//                    "           </dcc:data>\n" +
+//                    "           </dcc:result>\n" +
+//                    "       </dcc:results>\n" +
+//                    "    </dcc:measurementResult>\n";
+//        }else if (this.energyValue == null) {
             this.result="<dcc:measurementResult refType=\"comparison_referenceValues\">\n" +
                     "\t\t\t<dcc:name>\n" +
                     "\t\t\t\t<dcc:content lang=\"en\">Temperatur of ... Output Reference Values</dcc:content>\n" +
@@ -336,81 +334,81 @@ public class TempMeasurementResult {
 //                    "\t\t\t\t</dcc:result>\n" +
                     "\t\t\t</dcc:results>\n" +
                     "\t\t</dcc:measurementResult>";
-        }
-        else{
-            this.result = "         <dcc:measurementResult refId=\"comparison_referenceValues\">\n" +
-                    "       <dcc:name>\n" +
-                    "           <dcc:content lang=\"en\">Temperatur of Output Reference Values</dcc:content>\n" +
-                    "       </dcc:name>\n" +
-                    "       <dcc:results>\n" +
-                    "           <dcc:result refType=\"RefMassUnc\">\n" +
-                    "           <dcc:name>\n" +
-                    "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
-                    "           </dcc:name>\n" +
-                    "           <dcc:data>\n" +
-                    "               <dcc:quantity>\n" +
-                    "                   <si:real>\n" +
-                    "                       <si:value>"+this.kcTempValue +"</si:value>\n" +
-                    "                       <si:unit>/gram</si:unit>\n" +
-                    "                       <si:expandedUnc>\n" +
-                    "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
-                    "                           <si:coverageFactor>2</si:coverageFactor>\n" +
-                    "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
-                    "                           <si:distribution>normal</si:distribution>\n" +
-                    "                       </si:expandedUnc>\n" +
-                    "                   </si:real>\n" +
-                    "               </dcc:quantity>\n" +
-                    "           </dcc:data>\n" +
-                    "           </dcc:result>\n" +
-                    "           <dcc:result refType=\"Energy\">\n" +
-                    "               <dcc:name>\n" +
-                    "                   <dcc:content lang=\"en\">Energy</dcc:content>\n" +
-                    "               </dcc:name>\n" +
-                    "               <dcc:data>\n" +
-                    "                   <dcc:quantity refType=\"Energy\">\n" +
-                    "                   <dcc:name>\n" +
-                    "                       <dcc:content lang=\"en\">Energy</dcc:content>\n" +
-                    "                   </dcc:name>\n" +
-                    "                       <si:real>\n" +
-                    "                           <si:label>Energy</si:label>\n" +
-                    "                           <si:value>"+this.kcValue.getValue()+"</si:value>\n" +
-                    "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
-                    "                           <si:expandedUnc>\n" +
-                    "                               <si:uncertainty>"+this.kcValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
-                    "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
-                    "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
-                    "                               <si:distribution>normal</si:distribution>\n" +
-                    "                           </si:expandedUnc>\n" +
-                    "                       </si:real>\n" +
-                    "                   </dcc:quantity>\n" +
-                    "               </dcc:data>\n" +
-                    "           </dcc:result>\n" +
-                    "           <dcc:result refType=\"Energy (Grubs)\">\n" +
-                    "               <dcc:name>\n" +
-                    "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
-                    "               </dcc:name>\n" +
-                    "               <dcc:data>\n" +
-                    "                   <dcc:quantity refType=\"Energy (Grubs)\">\n" +
-                    "                       <dcc:name>\n" +
-                    "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
-                    "                       </dcc:name>\n" +
-                    "                       <si:real>\n" +
-                    "                           <si:label>Energy (Grubs)</si:label>\n" +
-                    "                           <si:value>"+this.grubsComparisonValue+"</si:value>\n" +
-                    "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
-                    "                           <si:expandedUnc>\n" +
-                    "                               <si:uncertainty>"+this.grubsUncertainty+"</si:uncertainty>\n" +
-                    "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
-                    "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
-                    "                               <si:distribution>normal</si:distribution>\n" +
-                    "                           </si:expandedUnc>\n" +
-                    "                       </si:real>\n" +
-                    "                   </dcc:quantity>\n" +
-                    "                </dcc:data>\n" +
-                    "           </dcc:result>\n" +
-                    "       </dcc:results>\n" +
-                    "    </dcc:measurementResult>\n";
-        }
+//        }
+//        else{
+//            this.result = "         <dcc:measurementResult refId=\"comparison_referenceValues\">\n" +
+//                    "       <dcc:name>\n" +
+//                    "           <dcc:content lang=\"en\">Temperatur of Output Reference Values</dcc:content>\n" +
+//                    "       </dcc:name>\n" +
+//                    "       <dcc:results>\n" +
+//                    "           <dcc:result refType=\"RefMassUnc\">\n" +
+//                    "           <dcc:name>\n" +
+//                    "               <dcc:content lang=\"en\">Reference Output Values</dcc:content>\n" +
+//                    "           </dcc:name>\n" +
+//                    "           <dcc:data>\n" +
+//                    "               <dcc:quantity>\n" +
+//                    "                   <si:real>\n" +
+//                    "                       <si:value>"+this.kcTempValue +"</si:value>\n" +
+//                    "                       <si:unit>/gram</si:unit>\n" +
+//                    "                       <si:expandedUnc>\n" +
+//                    "                           <si:uncertainty>0.00002535</si:uncertainty>\n" +
+//                    "                           <si:coverageFactor>2</si:coverageFactor>\n" +
+//                    "                           <si:coverageProbability>0.95</si:coverageProbability>\n" +
+//                    "                           <si:distribution>normal</si:distribution>\n" +
+//                    "                       </si:expandedUnc>\n" +
+//                    "                   </si:real>\n" +
+//                    "               </dcc:quantity>\n" +
+//                    "           </dcc:data>\n" +
+//                    "           </dcc:result>\n" +
+//                    "           <dcc:result refType=\"Energy\">\n" +
+//                    "               <dcc:name>\n" +
+//                    "                   <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+//                    "               </dcc:name>\n" +
+//                    "               <dcc:data>\n" +
+//                    "                   <dcc:quantity refType=\"Energy\">\n" +
+//                    "                   <dcc:name>\n" +
+//                    "                       <dcc:content lang=\"en\">Energy</dcc:content>\n" +
+//                    "                   </dcc:name>\n" +
+//                    "                       <si:real>\n" +
+//                    "                           <si:label>Energy</si:label>\n" +
+//                    "                           <si:value>"+this.kcValue.getValue()+"</si:value>\n" +
+//                    "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
+//                    "                           <si:expandedUnc>\n" +
+//                    "                               <si:uncertainty>"+this.kcValue.getExpUnc().getUncertainty()+"</si:uncertainty>\n" +
+//                    "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+//                    "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+//                    "                               <si:distribution>normal</si:distribution>\n" +
+//                    "                           </si:expandedUnc>\n" +
+//                    "                       </si:real>\n" +
+//                    "                   </dcc:quantity>\n" +
+//                    "               </dcc:data>\n" +
+//                    "           </dcc:result>\n" +
+//                    "           <dcc:result refType=\"Energy (Grubs)\">\n" +
+//                    "               <dcc:name>\n" +
+//                    "                   <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
+//                    "               </dcc:name>\n" +
+//                    "               <dcc:data>\n" +
+//                    "                   <dcc:quantity refType=\"Energy (Grubs)\">\n" +
+//                    "                       <dcc:name>\n" +
+//                    "                           <dcc:content lang=\"en\">Energy (Grubs)</dcc:content>\n" +
+//                    "                       </dcc:name>\n" +
+//                    "                       <si:real>\n" +
+//                    "                           <si:label>Energy (Grubs)</si:label>\n" +
+//                    "                           <si:value>"+this.grubsComparisonValue+"</si:value>\n" +
+//                    "                           <si:unit>"+this.kcValue.getUnit()+"</si:unit>\n" +
+//                    "                           <si:expandedUnc>\n" +
+//                    "                               <si:uncertainty>"+this.grubsUncertainty+"</si:uncertainty>\n" +
+//                    "                               <si:coverageFactor>"+this.kcValue.getExpUnc().getCoverageFactor()+"</si:coverageFactor>\n" +
+//                    "                               <si:coverageProbability>"+this.kcValue.getExpUnc().getCoverageProbability()+"</si:coverageProbability>\n" +
+//                    "                               <si:distribution>normal</si:distribution>\n" +
+//                    "                           </si:expandedUnc>\n" +
+//                    "                       </si:real>\n" +
+//                    "                   </dcc:quantity>\n" +
+//                    "                </dcc:data>\n" +
+//                    "           </dcc:result>\n" +
+//                    "       </dcc:results>\n" +
+//                    "    </dcc:measurementResult>\n";
+//        }
     }
 
 
