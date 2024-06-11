@@ -246,8 +246,18 @@ public class BackendController {
                 List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
                 List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
                 Vector<DIR> inputs = new Vector<DIR>();
-                for (SiReal SiReal : radianceTempSiReals) {
-                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+//                for (SiReal SiReal : radianceTempSiReals) {
+//                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+//                    inputs.add(sirealAsDIR);
+//                }
+                for (int i = 0; i < radianceTempSiReals.size(); i++) {
+                    double nomTemp = nominalTempSiReals.get(i).getValue();
+                    double radTemp = radianceTempSiReals.get(i).getValue();
+//                    double uncNomTemp = nominalTempSiReals.get(i).getExpUnc().getUncertainty() / nominalTempSiReals.get(i).getExpUnc().getCoverageFactor();
+                    double UndRadTemp = radianceTempSiReals.get(i).getExpUnc().getUncertainty() / radianceTempSiReals.get(i).getExpUnc().getCoverageFactor();
+                    double tempDiff = nomTemp - radTemp;
+                    double undTempDiff = Math.sqrt(UndRadTemp*UndRadTemp) * 2;
+                    DIR sirealAsDIR = new DIR(tempDiff, undTempDiff);
                     inputs.add(sirealAsDIR);
                 }
                 Vector<RunResult> runResults = new Vector<RunResult>();

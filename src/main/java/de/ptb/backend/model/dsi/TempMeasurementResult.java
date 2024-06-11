@@ -199,7 +199,7 @@ public class TempMeasurementResult {
                         "                </si:expandedUnc>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
-                        "            <dcc:quantity refType=\"temperature_referenceValue\">\n" +
+                        "            <dcc:quantity refType=\"temperature_indicatedValue\">\n" +
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">average indicated temperature</dcc:content>\n" +
                         "              </dcc:name>\n" +

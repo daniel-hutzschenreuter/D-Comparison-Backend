@@ -367,7 +367,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
                             }
 
                             xPath = XPathFactory.newInstance().newXPath();
-                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_referenceValue\"]/real";
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_indicatedValue\"]/real";
                             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
                             for (int i = 0; i < nodeList.getLength(); i++) {
                                 Node nNode = nodeList.item(i);
