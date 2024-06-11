@@ -149,7 +149,7 @@ public class TempMeasurementResult {
                 String pid= extracted.substring(0,extracted.length() -1);
                 System.out.println("pidNew: " + pid);
 
-                this.result = "<dcc:measurementResult refId=\"" + pid + "\">\n" +
+                this.result = "<dcc:measurementResult id=\"" + pid + "\">\n" + //TODO Hier klären ob refId oder id. refID gibt Fehler bei XML validierung
                         "      <dcc:name>\n" +
                         "        <dcc:content lang=\"en\">Comparison results of participant laboratory: " + this.radTempValue.getName() + "</dcc:content>\n" +
                         "      </dcc:name>\n" +
@@ -169,8 +169,6 @@ public class TempMeasurementResult {
                         "                <si:unit>" + this.nomTempValue.getUnit() + "</si:unit>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
-                        "          </dcc:data>\n" +
-                        "          <dcc:data>\n" +
                         "            <dcc:quantity refType=\"basic_measuredValueSensor1\">\n" +
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">average resistance of monitor PRT</dcc:content>\n" +
@@ -187,8 +185,6 @@ public class TempMeasurementResult {
                         "                </si:expandedUnc>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
-                        "          </dcc:data>\n" +
-                        "          <dcc:data>\n" +
                         "            <dcc:quantity refType=\"basic_measuredValueSensor2\">\n" +
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">average resistance of monitor NTC Thermistor</dcc:content>\n" +
@@ -205,8 +201,6 @@ public class TempMeasurementResult {
                         "                </si:expandedUnc>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
-                        "          </dcc:data>\n" +
-                        "          <dcc:data>\n" +
                         "            <dcc:quantity refType=\"temperature_referenceValue\">\n" +
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">average indicated temperature</dcc:content>\n" +
@@ -217,8 +211,6 @@ public class TempMeasurementResult {
                         "                <si:unit>" + this.indicatedTempValue.getUnit() + "</si:unit>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
-                        "          </dcc:data>\n" +
-                        "          <dcc:data>\n" +
                         "            <dcc:quantity refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\">\n" +
                         "              <dcc:name>\n" +
                         "                <dcc:content lang=\"en\">average radiance temperature</dcc:content>\n" +
@@ -247,8 +239,8 @@ public class TempMeasurementResult {
                         "                <dcc:content lang=\"en\">En criterion value</dcc:content>\n" +
                         "              </dcc:name>\n" +
                         "              <si:real>\n" +
-                        "                <si:value>" + this.enValue + "</si:value>\n" +
-                        "                <si:unit>\\one</si:unit>\n" +
+                        "                <si:value>" + this.enValueEnCriterion.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.enValueEnCriterion.getUnit() + "</si:unit>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
                         "          </dcc:data>\n" +
@@ -291,7 +283,7 @@ public class TempMeasurementResult {
                     "       </dcc:results>\n" +
                     "    </dcc:measurementResult>\n";
         }else if (this.energyValue == null) {
-            this.result="<dcc:measurementResult refId=\"comparison_referenceValues\">\n" +
+            this.result="<dcc:measurementResult refType=\"comparison_referenceValues\">\n" +
                     "\t\t\t<dcc:name>\n" +
                     "\t\t\t\t<dcc:content lang=\"en\">Temperatur of ... Output Reference Values</dcc:content>\n" +
                     "\t\t\t</dcc:name>\n" +

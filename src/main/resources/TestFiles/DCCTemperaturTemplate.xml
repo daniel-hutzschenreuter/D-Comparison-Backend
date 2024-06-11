@@ -28,15 +28,6 @@
                 <dcc:content lang="en">Temperature of ...</dcc:content>
             </dcc:name>
             <dcc:identifications>
-                <dcc:identification>
-                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
-                    <dcc:value>serialNo</dcc:value>
-                    <dcc:name>
-                        <dcc:content lang="en">serialNo</dcc:content>
-                    </dcc:name>
-                </dcc:identification>
-            </dcc:identifications>
-            <dcc:identifications>
                 <dcc:identification refType="basic_serialNo">
                     <dcc:issuer>calibrationLaboratory</dcc:issuer>
                     <dcc:value>serialNo</dcc:value>
