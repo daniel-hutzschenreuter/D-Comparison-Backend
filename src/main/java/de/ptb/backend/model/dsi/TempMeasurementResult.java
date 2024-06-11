@@ -30,6 +30,7 @@ public class TempMeasurementResult {
     SiReal sensor1Value;
     SiReal sensor2Value;
     SiReal indicatedTempValue;
+    SiReal referenceTempValue;
     SiReal enValueEnCriterion;
     SiReal enValueGrubbsTest;
     SiReal refValueEnCriterion;
@@ -112,7 +113,8 @@ public class TempMeasurementResult {
      *
      */
     public void setParticpantTemp(SiReal radTempValue, SiReal enValueEnCriterion,SiReal enValueGrubbsTest, String pid,
-                                  SiReal nominalTempValue, SiReal sensor1Value, SiReal sensor2Value, SiReal indicatedTempValue){
+                                  SiReal nominalTempValue, SiReal sensor1Value, SiReal sensor2Value, SiReal indicatedTempValue,
+                                  SiReal referenceTempValue){
         this.radTempValue = radTempValue;
         this.enValueEnCriterion= enValueEnCriterion;
         this.enValueGrubbsTest=enValueGrubbsTest;
@@ -123,6 +125,7 @@ public class TempMeasurementResult {
         this.sensor1Value = sensor1Value;
         this.sensor2Value = sensor2Value;
         this.indicatedTempValue = indicatedTempValue;
+        this.referenceTempValue = referenceTempValue;
         this.generateTempMeasurementResult();
 
     }
@@ -207,6 +210,22 @@ public class TempMeasurementResult {
                         "                <si:label>Temperatur</si:label>\n" +
                         "                <si:value>" + this.indicatedTempValue.getValue() + "</si:value>\n" +
                         "                <si:unit>" + this.indicatedTempValue.getUnit() + "</si:unit>\n" +
+                        "              </si:real>\n" +
+                        "            </dcc:quantity>\n" +
+                        "            <dcc:quantity refType=\"temperature_referenceValue\">\n" +
+                        "              <dcc:name>\n" +
+                        "                <dcc:content lang=\"en\">Temperature Reference calculated from pt-100 Resistance</dcc:content>\n" +
+                        "              </dcc:name>\n" +
+                        "              <si:real>\n" +
+                        "                <si:label>Temperatur</si:label>\n" +
+                        "                <si:value>" + this.referenceTempValue.getValue() + "</si:value>\n" +
+                        "                <si:unit>" + this.referenceTempValue.getUnit() + "</si:unit>\n" +
+                        "                <si:expandedUnc>\n" +
+                        "                   <si:uncertainty>" + this.referenceTempValue.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>" + this.referenceTempValue.getExpUnc().getCoverageFactor() + "</si:coverageFactor>\n" +
+                        "                   <si:coverageProbability>" + this.referenceTempValue.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
+                        "                   <si:distribution>normal</si:distribution>\n" +
+                        "                </si:expandedUnc>\n" +
                         "              </si:real>\n" +
                         "            </dcc:quantity>\n" +
                         "            <dcc:quantity refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\">\n" +

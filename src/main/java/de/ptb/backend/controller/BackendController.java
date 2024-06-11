@@ -68,6 +68,7 @@ public class BackendController {
     private I_PidDccFileSystemReader pidDccFileSystemReaderService;
     private I_PidDccFileSystemReader pidDccFileSystemTempReaderService;
     private I_SiRealDifferenceCalculator SiRealDifferenceCalculator;
+    private I_SiRealTemperaturFromResistanceCalculator SiRealTemperaturFromResistanceCalculator;
 
     /**
      * This is a test function to check if the DKCR backend is running on the server.
@@ -244,23 +245,11 @@ public class BackendController {
                 List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
                 List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
 
-                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(nominalTempSiReals, radianceTempSiReals);
+                // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
+                List<SiReal> referenceTempSiReals = SiRealTemperaturFromResistanceCalculator.calculatePt100Temperature(sensor1SiReals);
+                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(referenceTempSiReals, radianceTempSiReals);
 
                 Vector<DIR> inputs = new Vector<DIR>();
-//                for (SiReal SiReal : radianceTempSiReals) {
-//                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
-//                    inputs.add(sirealAsDIR);
-//                }
-//                for (int i = 0; i < radianceTempSiReals.size(); i++) {
-//                    double nomTemp = nominalTempSiReals.get(i).getValue();
-//                    double radTemp = radianceTempSiReals.get(i).getValue();
-////                    double uncNomTemp = nominalTempSiReals.get(i).getExpUnc().getUncertainty() / nominalTempSiReals.get(i).getExpUnc().getCoverageFactor();
-//                    double UndRadTemp = radianceTempSiReals.get(i).getExpUnc().getUncertainty() / radianceTempSiReals.get(i).getExpUnc().getCoverageFactor();
-//                    double tempDiff = nomTemp - radTemp;
-//                    double undTempDiff = Math.sqrt(UndRadTemp*UndRadTemp) * 2;
-//                    DIR sirealAsDIR = new DIR(tempDiff, undTempDiff);
-//                    inputs.add(sirealAsDIR);
-//                }
                 for (SiReal SiReal : tempDifferenceSiReals) {
                     DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
                     inputs.add(sirealAsDIR);
@@ -307,7 +296,8 @@ public class BackendController {
                         nominalTempSiReals,
                         sensor1SiReals,
                         sensor2SiReals,
-                        indicatedTempSiReals
+                        indicatedTempSiReals,
+                        referenceTempSiReals
                 );
 //                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
                 PidReportFileSystemTempWriterService dccWriter = new PidReportFileSystemTempWriterService();
@@ -409,7 +399,8 @@ public class BackendController {
                                                            RunResult enTempValuesEnCriterion, GRunResult enValuesGrubbsCriterion ,
                                                            SiReal refValEnCriterion, SiReal refValGrubbsTest,
                                                            List<SiReal> nominalTempValue, List<SiReal> sensor1Value,
-                                                           List<SiReal> sensor2Value, List<SiReal> indicatedTempValue) {
+                                                           List<SiReal> sensor2Value, List<SiReal> indicatedTempValue,
+                                                           List<SiReal> referenceTempSiReals) {
         List<TempMeasurementResult> results = new ArrayList<TempMeasurementResult>();
 
         for (int i = 0; i < participantRadTempValues.size(); i++) {
@@ -425,7 +416,7 @@ public class BackendController {
             String pid = new String(participantList.get(i).getDccPid());
             System.out.println("ListPid" + pid);
             result.setParticpantTemp(participantRadTempValues.get(i), enC, enG ,pid, nominalTempValue.get(i), sensor1Value.get(i),
-                    sensor2Value.get(i), indicatedTempValue.get(i));
+                    sensor2Value.get(i), indicatedTempValue.get(i), referenceTempSiReals.get(i));
             System.out.println("List" + participantList);
             results.add(result);
         }
