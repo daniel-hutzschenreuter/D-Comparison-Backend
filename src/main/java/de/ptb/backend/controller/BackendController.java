@@ -25,10 +25,7 @@ import de.ptb.backend.model.DKCRResponseMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.*;
 import de.ptb.backend.model.formula.EEqualsMC2;
-import de.ptb.backend.services.I_PidDccFileSystemReader;
-import de.ptb.backend.services.PidConstantWebReaderService;
-import de.ptb.backend.services.PidReportFileSystemTempWriterService;
-import de.ptb.backend.services.PidReportFileSystemWriterService;
+import de.ptb.backend.services.*;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -70,6 +67,7 @@ import java.util.Vector;
 public class BackendController {
     private I_PidDccFileSystemReader pidDccFileSystemReaderService;
     private I_PidDccFileSystemReader pidDccFileSystemTempReaderService;
+    private I_SiRealDifferenceCalculator SiRealDifferenceCalculator;
 
     /**
      * This is a test function to check if the DKCR backend is running on the server.
@@ -245,19 +243,26 @@ public class BackendController {
                 List<SiReal> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2();
                 List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
                 List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
+
+                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(nominalTempSiReals, radianceTempSiReals);
+
                 Vector<DIR> inputs = new Vector<DIR>();
 //                for (SiReal SiReal : radianceTempSiReals) {
 //                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
 //                    inputs.add(sirealAsDIR);
 //                }
-                for (int i = 0; i < radianceTempSiReals.size(); i++) {
-                    double nomTemp = nominalTempSiReals.get(i).getValue();
-                    double radTemp = radianceTempSiReals.get(i).getValue();
-//                    double uncNomTemp = nominalTempSiReals.get(i).getExpUnc().getUncertainty() / nominalTempSiReals.get(i).getExpUnc().getCoverageFactor();
-                    double UndRadTemp = radianceTempSiReals.get(i).getExpUnc().getUncertainty() / radianceTempSiReals.get(i).getExpUnc().getCoverageFactor();
-                    double tempDiff = nomTemp - radTemp;
-                    double undTempDiff = Math.sqrt(UndRadTemp*UndRadTemp) * 2;
-                    DIR sirealAsDIR = new DIR(tempDiff, undTempDiff);
+//                for (int i = 0; i < radianceTempSiReals.size(); i++) {
+//                    double nomTemp = nominalTempSiReals.get(i).getValue();
+//                    double radTemp = radianceTempSiReals.get(i).getValue();
+////                    double uncNomTemp = nominalTempSiReals.get(i).getExpUnc().getUncertainty() / nominalTempSiReals.get(i).getExpUnc().getCoverageFactor();
+//                    double UndRadTemp = radianceTempSiReals.get(i).getExpUnc().getUncertainty() / radianceTempSiReals.get(i).getExpUnc().getCoverageFactor();
+//                    double tempDiff = nomTemp - radTemp;
+//                    double undTempDiff = Math.sqrt(UndRadTemp*UndRadTemp) * 2;
+//                    DIR sirealAsDIR = new DIR(tempDiff, undTempDiff);
+//                    inputs.add(sirealAsDIR);
+//                }
+                for (SiReal SiReal : tempDifferenceSiReals) {
+                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
                     inputs.add(sirealAsDIR);
                 }
                 Vector<RunResult> runResults = new Vector<RunResult>();
