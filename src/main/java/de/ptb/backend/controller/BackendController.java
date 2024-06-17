@@ -122,12 +122,12 @@ public class BackendController {
              *and creates SiReal objects from the DCC files found from the pidDCC of the participantList.
              */
             JsonNode data = payload.get("keyComparisonData");
-            String smartStandard = data.get("smartStandardEvaluationMethod").toString().substring(1, data.get("smartStandardEvaluationMethod").toString().length() - 1);
-            String pidReport = data.get("pidReport").toString().substring(1, data.get("pidReport").toString().length() - 1);
+            String smartStandard = data.get("smartStandardEvaluationMethod").asText();
+            String pidReport = data.get("pidReport").asText();
             List<Participant> participantList = new ArrayList<>();
             for (JsonNode participant : data.get("participantList")) {
                 participant = participant.get("participant");
-                participantList.add(new Participant(participant.get("name").toString(), participant.get("pidDCC").toString()));
+                participantList.add(new Participant(participant.get("name").asText(), participant.get("pidDCC").asText()));
             }
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
 //            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
@@ -239,6 +239,7 @@ public class BackendController {
             }
             else if(smartStandard.equals("radiationTempComparison")) {
                 pidDccFileSystemTempReaderService.setMessage(request);
+                pidDccFileSystemTempReaderService.loadFiles();
                 List<SiReal> nominalTempSiReals =  pidDccFileSystemTempReaderService.readNominalTemperature();
                 List<SiReal> sensor1SiReals =  pidDccFileSystemTempReaderService.readValueSensor1();
                 List<SiReal> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2();

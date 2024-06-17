@@ -28,7 +28,7 @@ public interface I_PidDccFileSystemReader {
      * @param message DKCRRequestMessage which contains all the information from request of the frontend
      */
     void setMessage(DKCRRequestMessage message);
-
+    void loadFiles()  throws ParserConfigurationException;
     /**
      * This function iterates through the participantList of the Requestmessage and the dcc files on the system
      * and creates SiReals for every matching name containing the values of the respective dcc file.

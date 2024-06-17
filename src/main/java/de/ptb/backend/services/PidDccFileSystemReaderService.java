@@ -61,6 +61,8 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
         this.message = message;
     }
 
+    @Override
+    public void loadFiles(){}
     /**
      * This function iterates through the participantList of the Request-message and the dcc files on the DCC_Backend
      * and creates SiReals for every matching name containing the values of the respective dcc file.
