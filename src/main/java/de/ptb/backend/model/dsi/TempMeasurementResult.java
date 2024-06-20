@@ -302,7 +302,7 @@ public class TempMeasurementResult {
 //        }else if (this.energyValue == null) {
             this.result="<dcc:measurementResult refType=\"comparison_referenceValues\">\n" +
                     "\t\t\t<dcc:name>\n" +
-                    "\t\t\t\t<dcc:content lang=\"en\">Temperatur of ... Output Reference Values</dcc:content>\n" +
+                    "\t\t\t\t<dcc:content lang=\"en\">Mean deviation from reference Temperature</dcc:content>\n" +
                     "\t\t\t</dcc:name>\n" +
                     "\t\t\t<dcc:results>\n" +
                     "\t\t\t\t<dcc:result refType=\"temperature_radianceTemperature\">\n" +

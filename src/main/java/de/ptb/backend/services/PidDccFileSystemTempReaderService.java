@@ -55,7 +55,6 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
 
     DKCRRequestMessage message;
     List<Document> documets = new ArrayList<>();
-
     /**
      * This function sets the message which is used to read out all the requested DCC files.
      * @param message DKCRRequestMessage which contains all the information from request of the frontend
@@ -77,6 +76,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
 
     @Override
     public void loadFiles()  throws ParserConfigurationException {
+        this.documets = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
 
         List<Participant> participants = this.message.getParticipantList();
