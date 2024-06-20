@@ -84,9 +84,9 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
         if (!urlListPid.isEmpty()) {
             for (Participant participant : this.message.getParticipantList()) {
                 for (String pid : pidList) {
-                    if (pid.equals(participant.getDccPid().substring(1, participant.getDccPid().length() - 1)) ) {
+                    if (pid.equals(participant.getDccPid())) {
                         try {
-                            String result = restTemplate.getForObject(participant.getDccPid().substring(1, participant.getDccPid().length() - 1), String.class, 200);
+                            String result = restTemplate.getForObject(participant.getDccPid(), String.class, 200);
                             byte[] byteBase64 = Base64.getDecoder().decode(result);
                             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                             DocumentBuilder builder;
@@ -106,8 +106,7 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
                                 }
                             }
                             xPath = XPathFactory.newInstance().newXPath();
-//                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
-                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\"]/real";
+                            expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"mass_mass\"]/data/quantity[@refType=\"basic_measuredValue\"]/real";
 
                             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
                             for (int i = 0; i < nodeList.getLength(); i++) {

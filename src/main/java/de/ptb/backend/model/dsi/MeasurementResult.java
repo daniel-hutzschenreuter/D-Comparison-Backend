@@ -143,7 +143,7 @@ public class MeasurementResult {
             if (lastIndex != -1) {
             String extracted = urlPid.substring(lastIndex+1);
             if (extracted.length() > 1){
-            String pid= extracted.substring(0,extracted.length() -1);
+            String pid= extracted;
             System.out.println("pidNew: " + pid);
 //            System.out.println("pid: "+ this.pidParticipant.substring(this.pidParticipant.lastIndexOf("/")+1,this.pidParticipant.lastIndexOf(this.pidParticipant.length()+1)));
 

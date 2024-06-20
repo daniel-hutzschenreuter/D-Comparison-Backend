@@ -147,7 +147,7 @@ public class TempMeasurementResult {
         if (lastIndex != -1) {
             String extracted = urlPid.substring(lastIndex+1);
             if (extracted.length() > 1){
-                String pid= extracted.substring(0,extracted.length() -1);
+                String pid= extracted; //.substring(0,extracted.length() -1);
                 System.out.println("pidNew: " + pid);
 
                 this.result = "<dcc:measurementResult id=\"" + pid + "\">\n" + //TODO Hier klären ob refId oder id. refID gibt Fehler bei XML validierung
@@ -157,7 +157,7 @@ public class TempMeasurementResult {
                         "      <dcc:results>\n" +
                         "        <dcc:result refType=\"temperature_radianceTemperature\">\n" +
                         "          <dcc:name>\n" +
-                        "            <dcc:content lang=\"en\">Temperatur of .....</dcc:content>\n" +
+                        "            <dcc:content lang=\"en\">Deviation from reference temperature</dcc:content>\n" +
                         "          </dcc:name>\n" +
                         "          <dcc:data>\n" +
                         "            <dcc:quantity refType=\"basic_nominalValue\">\n" +
