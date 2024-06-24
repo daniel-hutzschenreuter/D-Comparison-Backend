@@ -20,6 +20,7 @@ import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.SiExpandedUnc;
 import de.ptb.backend.model.dsi.SiReal;
+import de.ptb.backend.model.dsi.SiRealListXMLList;
 import lombok.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -137,7 +138,6 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
 
     @Override
     public List<SiReal> readRadianceTemperature() {return null;}
-
     @Override
     public List<SiReal> readNominalTemperature() {return null;}
     @Override
@@ -146,5 +146,16 @@ public class PidDccFileSystemReaderService implements I_PidDccFileSystemReader {
     public List<SiReal> readValueSensor2() {return null;}
     @Override
     public List<SiReal> readIndicatedTemperature() {return null;}
+
+    @Override
+    public List<SiRealListXMLList> readNominalTemperatureList() {return null;}
+    @Override
+    public List<SiRealListXMLList> readIndicatedTemperatureList() {return null;}
+    @Override
+    public List<SiRealListXMLList> readRadianceTemperatureList() {return null;}
+    @Override
+    public List<SiRealListXMLList> readValueSensor1List() {return null;}
+    @Override
+    public List<SiRealListXMLList> readValueSensor2List() {return null;}
 
 }

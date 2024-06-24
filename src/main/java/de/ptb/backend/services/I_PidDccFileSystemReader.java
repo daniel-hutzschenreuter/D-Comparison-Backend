@@ -18,6 +18,7 @@ package de.ptb.backend.services;
 
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.dsi.SiReal;
+import de.ptb.backend.model.dsi.SiRealListXMLList;
 import org.json.JSONException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.List;
@@ -37,9 +38,15 @@ public interface I_PidDccFileSystemReader {
      */
     List<SiReal> readFiles() throws ParserConfigurationException, JSONException;
 
-    List<SiReal> readRadianceTemperature() throws ParserConfigurationException, JSONException;
-    List<SiReal> readNominalTemperature() throws ParserConfigurationException, JSONException;
-    List<SiReal> readValueSensor1() throws ParserConfigurationException, JSONException;
-    List<SiReal> readValueSensor2() throws ParserConfigurationException, JSONException;
-    List<SiReal> readIndicatedTemperature() throws ParserConfigurationException, JSONException;
+    List<SiReal> readRadianceTemperature() throws JSONException;
+    List<SiReal> readNominalTemperature() throws JSONException;
+    List<SiReal> readValueSensor1() throws JSONException;
+    List<SiReal> readValueSensor2() throws JSONException;
+    List<SiReal> readIndicatedTemperature() throws JSONException;
+
+    List<SiRealListXMLList> readRadianceTemperatureList() throws JSONException;
+    List<SiRealListXMLList> readNominalTemperatureList() throws JSONException;
+    List<SiRealListXMLList> readValueSensor1List() throws JSONException;
+    List<SiRealListXMLList> readValueSensor2List() throws JSONException;
+    List<SiRealListXMLList> readIndicatedTemperatureList() throws JSONException;
 }

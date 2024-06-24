@@ -240,73 +240,149 @@ public class BackendController {
             else if(smartStandard.equals("radiationTempComparison")) {
                 pidDccFileSystemTempReaderService.setMessage(request);
                 pidDccFileSystemTempReaderService.loadFiles();
-                List<SiReal> nominalTempSiReals =  pidDccFileSystemTempReaderService.readNominalTemperature();
-                List<SiReal> sensor1SiReals =  pidDccFileSystemTempReaderService.readValueSensor1();
-                List<SiReal> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2();
-                List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
-                List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
+//                List<SiReal> nominalTempSiReals =  pidDccFileSystemTempReaderService.readNominalTemperature();
+//                List<SiReal> sensor1SiReals =  pidDccFileSystemTempReaderService.readValueSensor1();
+//                List<SiReal> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2();
+//                List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
+//                List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
 
-                // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
-                List<SiReal> referenceTempSiReals = SiRealTemperaturFromResistanceCalculator.calculatePt100Temperature(sensor1SiReals);
-                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(referenceTempSiReals, radianceTempSiReals);
-
-                Vector<DIR> inputs = new Vector<DIR>();
-                for (SiReal SiReal : tempDifferenceSiReals) {
-                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
-                    inputs.add(sirealAsDIR);
-                }
-                Vector<RunResult> runResults = new Vector<RunResult>();
-                fDKCR fdkcr = new fDKCR();
-                fdkcr.setData("Temp comparison Title",
-                        "Report_pid",
-                        radianceTempSiReals.size(),
-                        "PTB",
-                        "temperatur",
-                        "Kelvin",
-                        radianceTempSiReals.size(),
-                        inputs,
-                        runResults);
-                fdkcr.processDKCR();
-//                RunfDKCR objRunfDKCR = new RunfDKCR();
-//                objRunfDKCR.ReadData();
-//                objRunfDKCR.ReadDKRCContributions();
-//                objRunfDKCR.setNr(fdkcr.processDKCR());
-//                Vector<RunResult> Results = objRunfDKCR.getRunResults();
-                int iterationNr= runResults.size();
-                RunResult enCriterionResult=  runResults.get(iterationNr-1);
-                SiReal enCriterionRefeVal = new SiReal(enCriterionResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(enCriterionResult.getURef(), 2, 0.95));
-
-                DKCR grubsTestDKCR = new DKCR(inputs);
-                double mean = grubsTestDKCR.CalcMean();
-                double stdDev = grubsTestDKCR.CalcStdDev(mean);
-                Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
-                iterationNr = gRunResults.size();
-                GRunResult grubbsTestResult = gRunResults.get(iterationNr-1);
-                SiReal grubbsTestRefValue = new SiReal(grubbsTestResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(grubbsTestResult.getURef(), 2, 0.95));
-                /*
-                 *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
-                 * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
-                 */
-                List<TempMeasurementResult> mResults = generateTempResults(
-                        participantList,
-                        radianceTempSiReals,
-                        enCriterionResult,
-                        grubbsTestResult,
-                        enCriterionRefeVal,
-                        grubbsTestRefValue,
-                        nominalTempSiReals,
-                        sensor1SiReals,
-                        sensor2SiReals,
-                        indicatedTempSiReals,
-                        referenceTempSiReals
-                );
-//                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
-                PidReportFileSystemTempWriterService dccWriter = new PidReportFileSystemTempWriterService();
-                dccWriter.setPid(pidReport);
-                dccWriter.setParticipants(participantList);
-                dccWriter.setTempMResults(mResults);
-                response = new DKCRResponseMessage(pidReport, dccWriter.writeTempDataIntoDCC());
+                List<SiRealListXMLList> nominalTempSiReals =  pidDccFileSystemTempReaderService.readNominalTemperatureList();
+                List<SiRealListXMLList> sensor1SiReals =  pidDccFileSystemTempReaderService.readValueSensor1List();
+                List<SiRealListXMLList> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2List();
+                List<SiRealListXMLList> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperatureList();
+                List<SiRealListXMLList> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperatureList();
+//
+//                // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
+//                List<SiReal> referenceTempSiReals = SiRealTemperaturFromResistanceCalculator.calculatePt100Temperature(sensor1SiReals);
+//                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(referenceTempSiReals, radianceTempSiReals);
+//
+//                Vector<DIR> inputs = new Vector<DIR>();
+//                for (SiReal SiReal : tempDifferenceSiReals) {
+//                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+//                    inputs.add(sirealAsDIR);
+//                }
+//                Vector<RunResult> runResults = new Vector<RunResult>();
+//                fDKCR fdkcr = new fDKCR();
+//                fdkcr.setData("Temp comparison Title",
+//                        "Report_pid",
+//                        radianceTempSiReals.size(),
+//                        "PTB",
+//                        "temperatur",
+//                        "Kelvin",
+//                        radianceTempSiReals.size(),
+//                        inputs,
+//                        runResults);
+//                fdkcr.processDKCR();
+////                RunfDKCR objRunfDKCR = new RunfDKCR();
+////                objRunfDKCR.ReadData();
+////                objRunfDKCR.ReadDKRCContributions();
+////                objRunfDKCR.setNr(fdkcr.processDKCR());
+////                Vector<RunResult> Results = objRunfDKCR.getRunResults();
+//                int iterationNr= runResults.size();
+//                RunResult enCriterionResult=  runResults.get(iterationNr-1);
+//                SiReal enCriterionRefeVal = new SiReal(enCriterionResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(enCriterionResult.getURef(), 2, 0.95));
+//
+//                DKCR grubsTestDKCR = new DKCR(inputs);
+//                double mean = grubsTestDKCR.CalcMean();
+//                double stdDev = grubsTestDKCR.CalcStdDev(mean);
+//                Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
+//                iterationNr = gRunResults.size();
+//                GRunResult grubbsTestResult = gRunResults.get(iterationNr-1);
+//                SiReal grubbsTestRefValue = new SiReal(grubbsTestResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(grubbsTestResult.getURef(), 2, 0.95));
+//                /*
+//                 *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
+//                 * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
+//                 */
+//                List<TempMeasurementResult> mResults = generateTempResults(
+//                        participantList,
+//                        radianceTempSiReals,
+//                        enCriterionResult,
+//                        grubbsTestResult,
+//                        enCriterionRefeVal,
+//                        grubbsTestRefValue,
+//                        nominalTempSiReals,
+//                        sensor1SiReals,
+//                        sensor2SiReals,
+//                        indicatedTempSiReals,
+//                        referenceTempSiReals
+//                );
+////                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
+//                PidReportFileSystemTempWriterService dccWriter = new PidReportFileSystemTempWriterService();
+//                dccWriter.setPid(pidReport);
+//                dccWriter.setParticipants(participantList);
+//                dccWriter.setTempMResults(mResults);
+//                response = new DKCRResponseMessage(pidReport, dccWriter.writeTempDataIntoDCC());
             }
+//            else if(smartStandard.equals("radiationTempComparison")) {
+//                pidDccFileSystemTempReaderService.setMessage(request);
+//                pidDccFileSystemTempReaderService.loadFiles();
+//                List<SiReal> nominalTempSiReals =  pidDccFileSystemTempReaderService.readNominalTemperature();
+//                List<SiReal> sensor1SiReals =  pidDccFileSystemTempReaderService.readValueSensor1();
+//                List<SiReal> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2();
+//                List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
+//                List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
+//
+//                // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
+//                List<SiReal> referenceTempSiReals = SiRealTemperaturFromResistanceCalculator.calculatePt100Temperature(sensor1SiReals);
+//                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(referenceTempSiReals, radianceTempSiReals);
+//
+//                Vector<DIR> inputs = new Vector<DIR>();
+//                for (SiReal SiReal : tempDifferenceSiReals) {
+//                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
+//                    inputs.add(sirealAsDIR);
+//                }
+//                Vector<RunResult> runResults = new Vector<RunResult>();
+//                fDKCR fdkcr = new fDKCR();
+//                fdkcr.setData("Temp comparison Title",
+//                        "Report_pid",
+//                        radianceTempSiReals.size(),
+//                        "PTB",
+//                        "temperatur",
+//                        "Kelvin",
+//                        radianceTempSiReals.size(),
+//                        inputs,
+//                        runResults);
+//                fdkcr.processDKCR();
+////                RunfDKCR objRunfDKCR = new RunfDKCR();
+////                objRunfDKCR.ReadData();
+////                objRunfDKCR.ReadDKRCContributions();
+////                objRunfDKCR.setNr(fdkcr.processDKCR());
+////                Vector<RunResult> Results = objRunfDKCR.getRunResults();
+//                int iterationNr= runResults.size();
+//                RunResult enCriterionResult=  runResults.get(iterationNr-1);
+//                SiReal enCriterionRefeVal = new SiReal(enCriterionResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(enCriterionResult.getURef(), 2, 0.95));
+//
+//                DKCR grubsTestDKCR = new DKCR(inputs);
+//                double mean = grubsTestDKCR.CalcMean();
+//                double stdDev = grubsTestDKCR.CalcStdDev(mean);
+//                Vector<GRunResult> gRunResults = grubsTestDKCR.ProcessGrubsDKCR(mean, stdDev);
+//                iterationNr = gRunResults.size();
+//                GRunResult grubbsTestResult = gRunResults.get(iterationNr-1);
+//                SiReal grubbsTestRefValue = new SiReal(grubbsTestResult.getxRef(), "\\kelvin", "", new SiExpandedUnc(grubbsTestResult.getURef(), 2, 0.95));
+//                /*
+//                 *Now after all values for the new DCC are determined, the values are transformed so that they fit in the structure of a MeasurementResult of a DCC xml file.
+//                 * These MeasurementResults are then introduced into a DCC template. Finally, the function returns a finished XML file.
+//                 */
+//                List<TempMeasurementResult> mResults = generateTempResults(
+//                        participantList,
+//                        radianceTempSiReals,
+//                        enCriterionResult,
+//                        grubbsTestResult,
+//                        enCriterionRefeVal,
+//                        grubbsTestRefValue,
+//                        nominalTempSiReals,
+//                        sensor1SiReals,
+//                        sensor2SiReals,
+//                        indicatedTempSiReals,
+//                        referenceTempSiReals
+//                );
+////                mResults.add(new MeasurementResult(SiReals.get(0).getMassDifference(), Results.get(0).getxRef(), kcVal, gRunResults.get(0).getxRef(), gRunResults.get(0).getURef()));
+//                PidReportFileSystemTempWriterService dccWriter = new PidReportFileSystemTempWriterService();
+//                dccWriter.setPid(pidReport);
+//                dccWriter.setParticipants(participantList);
+//                dccWriter.setTempMResults(mResults);
+//                response = new DKCRResponseMessage(pidReport, dccWriter.writeTempDataIntoDCC());
+//            }
             else if(smartStandard.equals("massLaboratoryIntercomparison")){
                 fDKCR fdkcr = new fDKCR();
                 RunfDKCR objRunfDKCR = new RunfDKCR();

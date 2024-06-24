@@ -19,11 +19,8 @@ package de.ptb.backend.services;
 
 import de.ptb.backend.model.DKCRRequestMessage;
 import de.ptb.backend.model.Participant;
-import de.ptb.backend.model.dsi.SiExpandedUnc;
-import de.ptb.backend.model.dsi.SiReal;
-import de.ptb.backend.model.dsi.TempMeasurementResult;
+import de.ptb.backend.model.dsi.*;
 import lombok.Data;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -99,7 +96,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
     }
 
     @Override
-    public List<SiReal> readRadianceTemperature() throws ParserConfigurationException, JSONException{
+    public List<SiReal> readRadianceTemperature() throws JSONException{
         List<SiReal> siReals = new ArrayList<>();
         for (Document document : this.documets) {
             try {
@@ -131,7 +128,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
     }
 
     @Override
-    public List<SiReal> readNominalTemperature() throws ParserConfigurationException, JSONException{
+    public List<SiReal> readNominalTemperature() throws JSONException{
         List<SiReal> siReals = new ArrayList<>();
         for (Document document : this.documets) {
             try {
@@ -157,7 +154,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
     }
 
     @Override
-    public List<SiReal> readValueSensor1() throws ParserConfigurationException, JSONException{
+    public List<SiReal> readValueSensor1() throws JSONException{
         List<SiReal> siReals = new ArrayList<>();
         for (Document document : this.documets) {
             try {
@@ -188,7 +185,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
     }
 
     @Override
-    public List<SiReal> readValueSensor2() throws ParserConfigurationException, JSONException{
+    public List<SiReal> readValueSensor2() throws JSONException{
 
         List<SiReal> siReals = new ArrayList<>();
         for (Document document : this.documets) {
@@ -220,7 +217,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
     }
 
     @Override
-    public List<SiReal> readIndicatedTemperature() throws ParserConfigurationException, JSONException{
+    public List<SiReal> readIndicatedTemperature() throws JSONException{
         List<SiReal> siReals = new ArrayList<>();
         for (Document document : this.documets) {
             try {
@@ -258,6 +255,182 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
             }
         }
         return name;
+    }
+
+    // Methods to read in XMLLists
+    @Override
+    public List<SiRealListXMLList> readNominalTemperatureList() throws JSONException {
+        List<SiRealListXMLList> siRealLists = new ArrayList<>();
+        for (Document document : this.documets) {
+            try {
+                String name = getNameFromDocument(document);
+
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_nominalValue\"]/realListXMLList";
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+
+                        SiRealListXMLList SiRealList = buildSiRealListWithoutUncertainty(eElement, name);
+                        siRealLists.add(SiRealList);
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return siRealLists;
+    }
+
+
+    @Override
+    public List<SiRealListXMLList> readRadianceTemperatureList() throws JSONException{
+        List<SiRealListXMLList> siRealLists = new ArrayList<>();
+        for (Document document : this.documets) {
+            try {
+                String name = getNameFromDocument(document);
+
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_measuredValue basic_arithmenticMean temperature_ITS-90\"]/realListXMLList";
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+
+                        SiRealListXMLList siRealList = buildSiRealListWithUncertainty(eElement, name);
+                        siRealLists.add(siRealList);
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return siRealLists;
+    }
+
+    @Override
+    public List<SiRealListXMLList> readValueSensor1List() throws JSONException{
+        List<SiRealListXMLList> siRealLists = new ArrayList<>();
+        for (Document document : this.documets) {
+            try {
+                String name = getNameFromDocument(document);
+
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_measuredValueSensor1\"]/realListXMLList";
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+
+                        SiRealListXMLList siRealList = buildSiRealListWithUncertainty(eElement, name);
+                        siRealLists.add(siRealList);
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return siRealLists;
+    }
+
+    @Override
+    public List<SiRealListXMLList> readValueSensor2List() throws JSONException{
+        List<SiRealListXMLList> siRealLists = new ArrayList<>();
+        for (Document document : this.documets) {
+            try {
+                String name = getNameFromDocument(document);
+
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_measuredValueSensor2\"]/realListXMLList";
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+
+                        SiRealListXMLList siRealList = buildSiRealListWithUncertainty(eElement, name);
+                        siRealLists.add(siRealList);
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return siRealLists;
+    }
+
+    @Override
+    public List<SiRealListXMLList> readIndicatedTemperatureList() throws JSONException {
+        List<SiRealListXMLList> siRealLists = new ArrayList<>();
+        for (Document document : this.documets) {
+            try {
+                String name = getNameFromDocument(document);
+
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_indicatedValue\"]/realListXMLList";
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+
+                        SiRealListXMLList SiRealList = buildSiRealListWithoutUncertainty(eElement, name);
+                        siRealLists.add(SiRealList);
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return siRealLists;
+    }
+
+
+    private static SiRealListXMLList buildSiRealListWithUncertainty(Element eElement, String name) {
+        String valueString = eElement.getElementsByTagName("si:valueXMLList").item(0).getTextContent();
+        List<Double> valueDoubleList = convertValueStringToDoubleList(valueString);
+
+        String unit = eElement.getElementsByTagName("si:unitXMLList").item(0).getTextContent();
+
+        String uncString = eElement.getElementsByTagName("si:uncertaintyXMLList").item(0).getTextContent();
+        List<Double> uncDoubleList = convertValueStringToDoubleList(uncString);
+
+        int coverageFactor = Integer.parseInt(eElement.getElementsByTagName("si:coverageFactorXMLList").item(0).getTextContent());
+
+        Double coverageProbability = Double.valueOf(eElement.getElementsByTagName("si:coverageProbabilityXMLList").item(0).getTextContent());
+
+        String distribution = eElement.getElementsByTagName("si:distributionXMLList").item(0).getTextContent();
+
+        SiExpandedUncXMLList expUncList = new SiExpandedUncXMLList(uncDoubleList, coverageFactor, coverageProbability, distribution);
+
+        return new SiRealListXMLList(name, valueDoubleList, unit, expUncList);
+    }
+
+
+    private static SiRealListXMLList buildSiRealListWithoutUncertainty(Element eElement, String name) {
+        String valueString = eElement.getElementsByTagName("si:valueXMLList").item(0).getTextContent();
+        List<Double> valueDoubleList = convertValueStringToDoubleList(valueString);
+
+        String unit = eElement.getElementsByTagName("si:unitXMLList").item(0).getTextContent();
+
+        return new SiRealListXMLList(name, valueDoubleList, unit);
+
+    }
+
+    private static List<Double> convertValueStringToDoubleList(String valueString) {
+        List<String> StringList = Arrays.asList(valueString.split("\\s+"));
+        List<Double> valueDoubleList = new ArrayList<>(StringList.size());
+        for (String s : StringList) {
+            valueDoubleList.add(Double.valueOf(s));
+        }
+        return valueDoubleList;
     }
 }
 
