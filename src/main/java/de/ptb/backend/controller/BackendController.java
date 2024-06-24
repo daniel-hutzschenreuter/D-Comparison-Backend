@@ -246,17 +246,17 @@ public class BackendController {
 //                List<SiReal> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperature();
 //                List<SiReal> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperature();
 
-                List<SiRealListXMLList> nominalTempSiReals =  pidDccFileSystemTempReaderService.readNominalTemperatureList();
-                List<SiRealListXMLList> sensor1SiReals =  pidDccFileSystemTempReaderService.readValueSensor1List();
-                List<SiRealListXMLList> sensor2SiReals =  pidDccFileSystemTempReaderService.readValueSensor2List();
-                List<SiRealListXMLList> indicatedTempSiReals =  pidDccFileSystemTempReaderService.readIndicatedTemperatureList();
-                List<SiRealListXMLList> radianceTempSiReals =  pidDccFileSystemTempReaderService.readRadianceTemperatureList();
+                List<SiRealListXMLList> nominalTempSiRealXMLLists =  pidDccFileSystemTempReaderService.readNominalTemperatureList();
+                List<SiRealListXMLList> sensor1SiRealXMLLists =  pidDccFileSystemTempReaderService.readValueSensor1List();
+                List<SiRealListXMLList> sensor2SiRealXMLLists =  pidDccFileSystemTempReaderService.readValueSensor2List();
+                List<SiRealListXMLList> indicatedTempSiRealXMLLists =  pidDccFileSystemTempReaderService.readIndicatedTemperatureList();
+                List<SiRealListXMLList> radianceTempSiRealXMLLists =  pidDccFileSystemTempReaderService.readRadianceTemperatureList();
 //
-//                // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
-//                List<SiReal> referenceTempSiReals = SiRealTemperaturFromResistanceCalculator.calculatePt100Temperature(sensor1SiReals);
-//                List<SiReal> tempDifferenceSiReals = SiRealDifferenceCalculator.calculateDifference(referenceTempSiReals, radianceTempSiReals);
+                // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
+                List<SiRealListXMLList> referenceTempSiRealXMLLists = SiRealTemperaturFromResistanceCalculator.calculatePt100TemperatureList(sensor1SiRealXMLLists);
+                List<SiRealListXMLList> tempDifferenceSiRealXMLLists = SiRealDifferenceCalculator.calculateDifferenceList(referenceTempSiRealXMLLists, radianceTempSiRealXMLLists);
 //
-//                Vector<DIR> inputs = new Vector<DIR>();
+                Vector<DIR> inputs = new Vector<DIR>();
 //                for (SiReal SiReal : tempDifferenceSiReals) {
 //                    DIR sirealAsDIR = new DIR(SiReal.getValue(), SiReal.getExpUnc().getUncertainty());
 //                    inputs.add(sirealAsDIR);

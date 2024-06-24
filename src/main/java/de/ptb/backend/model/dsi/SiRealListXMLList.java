@@ -11,37 +11,37 @@ import java.util.List;
 @NoArgsConstructor
 public class SiRealListXMLList {
     String name;
-    List<Double> value;
+    List<Double> values;
     String unit;
-    List<String> dateTime;
-    SiExpandedUncXMLList expUnc;
+    List<String> dateTimes;
+    SiExpandedUncXMLList expUncList;
 
     public SiRealListXMLList(String name, List<Double> valueList, String unit, List<String> dateTimeList,
                              SiExpandedUncXMLList expUncXMLList) {
         this.name = name;
-        this.value = valueList;
+        this.values = valueList;
         this.unit = unit;
-        this.dateTime = dateTimeList;
-        this.expUnc = expUncXMLList;
+        this.dateTimes = dateTimeList;
+        this.expUncList = expUncXMLList;
     }
 
     public SiRealListXMLList(String name, List<Double> valueList, String unit, SiExpandedUncXMLList expUncXMLList) {
         this.name = name;
-        this.value = valueList;
+        this.values = valueList;
         this.unit = unit;
-        this.expUnc = expUncXMLList;
+        this.expUncList = expUncXMLList;
     }
 
     public SiRealListXMLList(String name, List<Double> valueList, String unit) {
         this.name = name;
-        this.value = valueList;
+        this.values = valueList;
         this.unit = unit;
     }
 
     public SiRealListXMLList(List<Double> value, String unit, SiExpandedUncXMLList expUncXMLList) {
-        this.value = value;
+        this.values = value;
         this.unit = unit;
-        this.expUnc = expUncXMLList;
+        this.expUncList = expUncXMLList;
     }
 
 }
