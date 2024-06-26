@@ -44,4 +44,16 @@ public class SiRealListXMLList {
         this.expUncList = expUncXMLList;
     }
 
+    public String toXMLString(){
+        String valueString = values.toString().replaceAll("[,]","");
+        valueString = valueString.substring(1, valueString.length()-1);
+        String uncString = expUncList != null ? expUncList.toXMLString() : "";
+        String XMLstring =
+                "\t\t\t\t\t\t\t<si:realListXMLList>\n" +
+                "\t\t\t\t\t\t\t\t<si:valueXMLList>" + valueString + "</si:valueXMLList>\n" +
+                "\t\t\t\t\t\t\t\t<si:unitXMLList>"+ this.unit + "</si:unitXMLList>\n" +
+                                uncString +
+                "\t\t\t\t\t\t\t</si:realListXMLList>\n";
+        return XMLstring;
+    }
 }

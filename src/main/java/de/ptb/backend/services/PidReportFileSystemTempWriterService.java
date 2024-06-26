@@ -160,7 +160,7 @@ public class PidReportFileSystemTempWriterService implements I_PidReportFileSyst
             results.append(mResult);
         }
         assert content != null;
-        content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
+        content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"\t</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
         Document newDoc = convertStringToDocument(content);
         //write Participants and unique identifier
         XPath xpath = XPathFactory.newInstance().newXPath();

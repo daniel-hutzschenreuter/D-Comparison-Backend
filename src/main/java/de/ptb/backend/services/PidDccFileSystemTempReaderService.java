@@ -374,7 +374,7 @@ public class PidDccFileSystemTempReaderService implements I_PidDccFileSystemRead
                 String name = getNameFromDocument(document);
 
                 XPath xPath = XPathFactory.newInstance().newXPath();
-                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"basic_indicatedValue\"]/realListXMLList";
+                String expression = "/digitalCalibrationCertificate/measurementResults/measurementResult/results/result[@refType=\"temperature_radianceTemperature\"]/data/quantity[@refType=\"temperature_indicatedValue\"]/realListXMLList";
                 NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     Node nNode = nodeList.item(i);
