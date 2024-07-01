@@ -51,7 +51,7 @@ public class fDKCR {
         {
 
             // Set up Outflier flag count for the next Run
-            //OldNOutlierFlags = NOutlierFlags;		// NOutliferFlags maybe incremented in this Run
+            OldNOutlierFlags = NOutlierFlags;		// NOutliferFlags maybe incremented in this Run
 
             // Set up a new set of empty RunResults
             RunResult a = new RunResult(NTotalContributions);		// NTotalContributions is the total number of contributions
@@ -153,6 +153,7 @@ public class fDKCR {
 
             Double En95 = 0.0;
 
+            // calculate Equivalence Value
             for(int i = 0; i < DirInputs.size(); i++)
             {
                 // Get the contribution data
@@ -161,51 +162,44 @@ public class fDKCR {
                 // Process only if ResultPresent = true
                 if(o.ResultPresentFlag == true)
                 {
-                    // Check that its not already an outlier
-                    EO p = a.EOResults.get(i);
-                    if(p.OutlierFlag == false)
-                    {
+                    // Get the relevant EO object
+                    EO eo = a.EOResults.get(i);
+
+                    if(eo.OutlierFlag == false) {
                         // Calc. En95 for each of the contributions
-                        En95 = Math.abs((o.xi - a.xRef) / Math.sqrt(o.Ui*o.Ui - a.URef*a.URef));
-
-                        // Get the relevant EO object
-                        EO eo = a.EOResults.get(i);
+                        En95 = Math.abs((o.xi - a.xRef) / Math.sqrt(o.Ui * o.Ui - a.URef * a.URef));
 
                         // Store value in data structure
                         eo.EquivalenceValue = En95;
 
                         // Calculate the Rounded Value and store in EquivalenceValueRounded
                         eo.RoundEquivalenceValue();
-
-                        // Is it a (new) outlier?
-                        //TODO
-                        // Daniel: here is bug
-                        if(En95 > 1.0)
-                        {
-                            // Yes its an new Outlier
-                            eo.OutlierFlag = true;
-
-                            // Increment the Outlier Count NOutlierFlags
-                            NOutlierFlags++;
-                        }
-                    }
-                    // wafa  and Daniel
-                    else if (p.OutlierFlag== true){
-
+                    } else {
+                        // calculate uncorrelated En95 Value for old Outliers
                         En95 = Math.abs((o.xi - a.xRef) / Math.sqrt(o.Ui*o.Ui + a.URef*a.URef));
-
-                        // Get the relevant EO object
-                        EO eo = a.EOResults.get(i);
-
-                        // Store value in data structure
                         eo.EquivalenceValue = En95;
-
-                        // Calculate the Rounded Value and store in EquivalenceValueRounded
                         eo.RoundEquivalenceValue();
-
                     }
                 }
             }
+
+            // set largest equivalence value > 1 as Outlier and calculate uncorrelated equivalence value
+            Integer indexMaxEquivalenceValue = a.getIndexLargestEquivalenceValueInlier();
+            Double maxEquivalenceValue = a.EOResults.get(indexMaxEquivalenceValue).EquivalenceValue;
+            if(maxEquivalenceValue > 1) {
+                //set as Outlier
+                EO eo = a.EOResults.get(indexMaxEquivalenceValue);
+                eo.OutlierFlag =true;
+                NOutlierFlags++;
+
+                // calculate uncorrelated EN95 Value for new Outliers
+                DIR o = DirInputs.get(indexMaxEquivalenceValue);
+
+                En95 = Math.abs((o.xi - a.xRef) / Math.sqrt(o.Ui*o.Ui + a.URef*a.URef));
+                eo.EquivalenceValue = En95;
+                eo.RoundEquivalenceValue();
+            }
+
 
             // Increment the Run Number
             NRun++;

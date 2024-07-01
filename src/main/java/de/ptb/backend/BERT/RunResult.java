@@ -76,4 +76,16 @@ public class RunResult {
 	public Vector<EO> getEOResults() {
 		return EOResults;
 	}
+
+	public Integer getIndexLargestEquivalenceValueInlier(){
+		Double maxVal = EOResults.get(0).EquivalenceValue;
+		Integer IndexMaxVal = 0;
+		for (int i = 0; i< EOResults.size(); i++){
+			EO eo = EOResults.get(i);
+			if(eo.EquivalenceValue > maxVal & !eo.OutlierFlag){
+				IndexMaxVal = i;
+			}
+		}
+		return IndexMaxVal;
+	}
 }
