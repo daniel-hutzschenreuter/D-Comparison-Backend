@@ -13,7 +13,7 @@
             <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>
             <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
             <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>
-            <dcc:uniqueIdentifier>CCM.D-K1.PTB-1</dcc:uniqueIdentifier>
+            <dcc:uniqueIdentifier>CCT K11</dcc:uniqueIdentifier>
             <dcc:identifications>
                 <dcc:identification>
                     <dcc:issuer>calibrationLaboratory</dcc:issuer>
@@ -25,13 +25,10 @@
             <dcc:performanceLocation>laboratory</dcc:performanceLocation>
         </dcc:coreData>
         <dcc:items>
-            <dcc:name>
-                <dcc:content lang="en">Temperature of ...</dcc:content>
-            </dcc:name>
             <dcc:identifications>
                 <dcc:identification refType="basic_serialNo">
-                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
-                    <dcc:value>serialNo</dcc:value>
+                    <dcc:issuer>manufacturer</dcc:issuer>
+                    <dcc:value>20096653</dcc:value>
                     <dcc:name>
                         <dcc:content lang="en">Serial No.</dcc:content>
                     </dcc:name>
@@ -39,10 +36,10 @@
             </dcc:identifications>
             <dcc:item id="blackbody01">
                 <dcc:name>
-                    <dcc:content lang="en">blackbody transfer standard</dcc:content>
+                    <dcc:content lang="en">blackbody transfer standard: cavity 1</dcc:content>
                 </dcc:name>
                 <dcc:identifications>
-                    <dcc:identification refType="temperature_blackbodyCavity">
+                    <dcc:identification refType="temperature_blackbodyCavity temperature_blackbodyCavity_tympanic">
                         <dcc:issuer>manufacturer</dcc:issuer>
                         <dcc:value>cavity</dcc:value>
                         <dcc:name>
@@ -57,6 +54,31 @@
                         </dcc:name>
                         <si:real>
                             <si:value>0.02</si:value>
+                            <si:unit>\metre</si:unit>
+                        </si:real>
+                    </dcc:itemQuantity>
+                </dcc:itemQuantities>
+            </dcc:item>
+            <dcc:item id="blackbody02">
+                <dcc:name>
+                    <dcc:content lang="en">blackbody transfer standard: cavity 2</dcc:content>
+                </dcc:name>
+                <dcc:identifications>
+                    <dcc:identification refType="temperature_blackbodyCavity temperature_blackbodyCavity_forehead">
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>cavity</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="en">Shape of transfer standard</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                </dcc:identifications>
+                <dcc:itemQuantities>
+                    <dcc:itemQuantity refType="basic_nominalValue">
+                        <dcc:name>
+                            <dcc:content lang="en">Nominal diametre</dcc:content>
+                        </dcc:name>
+                        <si:real>
+                            <si:value>0.04</si:value>
                             <si:unit>\metre</si:unit>
                         </si:real>
                     </dcc:itemQuantity>
@@ -78,23 +100,23 @@
             <dcc:respPerson>
                 <dcc:person>
                     <dcc:name>
-                        <dcc:content lang="en">A Person</dcc:content>
+                        <dcc:content lang="en">Ingmar Mueller</dcc:content>
                     </dcc:name>
                 </dcc:person>
             </dcc:respPerson>
         </dcc:respPersons>
         <dcc:customer>
             <dcc:name>
-                <dcc:content lang="en">Virtual Temperature Comparison Pilot Study</dcc:content>
+                <dcc:content lang="en">EURAMET Pilot CCT K11 "Consultative Committee for Temperature" PTB Berlin</dcc:content>
             </dcc:name>
             <dcc:location>
-                <dcc:city>Brunswick</dcc:city>
+                <dcc:city>Berlin</dcc:city>
                 <dcc:countryCode>DE</dcc:countryCode>
-                <dcc:postCode>D-38116</dcc:postCode>
-                <dcc:street>Bundesalle</dcc:street>
-                <dcc:streetNo>100</dcc:streetNo>
+                <dcc:postCode>D-10587</dcc:postCode>
+                <dcc:street>Abbestr.</dcc:street>
+                <dcc:streetNo>12</dcc:streetNo>
                 <dcc:further>
-                    <dcc:content lang="en">Working Group 7.35  High temperature radiation thermomety</dcc:content>
+                    <dcc:content lang="en">Working Group 7.36 Low-Temperature Radiation Thermometry</dcc:content>
                 </dcc:further>
             </dcc:location>
         </dcc:customer>
