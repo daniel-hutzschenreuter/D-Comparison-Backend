@@ -67,8 +67,8 @@ import java.util.Vector;
 public class BackendController {
     private I_PidDccFileSystemReader pidDccFileSystemReaderService;
     private I_PidDccFileSystemReader pidDccFileSystemTempReaderService;
-    private I_SiRealDifferenceCalculator SiRealDifferenceCalculator;
-    private I_SiRealTemperaturFromResistanceCalculator SiRealTemperaturFromResistanceCalculator;
+    private I_SiRealDifferenceCalculator siRealDifferenceCalculator;
+    private I_SiRealTemperaturFromResistanceCalculator siRealTemperaturFromResistanceCalculator;
 
     /**
      * This is a test function to check if the DKCR backend is running on the server.
@@ -246,8 +246,8 @@ public class BackendController {
                 List<SiRealListXMLList> radianceTempSiRealXMLLists = pidDccFileSystemTempReaderService.readRadianceTemperatureList();
 
                 // calculate reference Temperature from SensorValue1 and Difference T_reference - T_radiance
-                List<SiRealListXMLList> referenceTempSiRealXMLLists = SiRealTemperaturFromResistanceCalculator.calculatePt100TemperatureList(sensor1SiRealXMLLists);
-                List<SiRealListXMLList> tempDifferenceSiRealXMLLists = SiRealDifferenceCalculator.calculateDifferenceList(referenceTempSiRealXMLLists, radianceTempSiRealXMLLists);
+                List<SiRealListXMLList> referenceTempSiRealXMLLists = siRealTemperaturFromResistanceCalculator.calculatePt100TemperatureList(sensor1SiRealXMLLists);
+                List<SiRealListXMLList> tempDifferenceSiRealXMLLists = siRealDifferenceCalculator.calculateDifferenceList(referenceTempSiRealXMLLists, radianceTempSiRealXMLLists);
 
                 //get Participant dccpids
                 List<String> dccPids = new ArrayList<>();
