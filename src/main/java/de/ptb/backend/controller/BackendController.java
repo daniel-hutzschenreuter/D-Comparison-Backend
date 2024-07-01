@@ -280,11 +280,11 @@ public class BackendController {
                     fDKCR fdkcr = new fDKCR();
                     fdkcr.setData("Temp comparison Title",
                             "Report_pid",
-                            lengthValueList,
+                            participantList.size(),
                             "PTB",
                             "temperature",
                             "Kelvin",
-                            lengthValueList,
+                            participantList.size(),
                             inputs,
                             runResults);
                     fdkcr.processDKCR();
