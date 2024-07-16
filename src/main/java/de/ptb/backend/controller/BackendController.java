@@ -313,7 +313,7 @@ public class BackendController {
                     DccResult bilateralEnValueDccResult = new DccResult(
                             "comparison_bilateralEquivalenceValue",
                             new DccName(
-                                    "Bilateral equivalence values for nominal temperature of" + nominalTempSiRealXMLLists.get(0).getValues().get(i)+ "°C",
+                                    "Bilateral equivalence values for nominal temperature of " + nominalTempSiRealXMLLists.get(0).getValues().get(i)+ "°C",
                                     "en"
                             ),
                             new DccData(bilateralEnValuesDccList)
@@ -329,7 +329,7 @@ public class BackendController {
 //                    String nominalTemperature = Double.toString(nominalTempSiRealXMLLists.get(0).getValues().get(i));
 //                    TempMeasurementResult EnValueResult = generateRefValueResult(enCriterionRefeVal);
                     comparisonMeasurementResult.addEnReferenceValue(enCriterionRefeVal);
-                    comparisonMeasurementResult.setBilateralEnValuesDccResult(bilateralEnValueDccResult);
+                    comparisonMeasurementResult.addbilateralEnValuesDccResult(bilateralEnValueDccResult);
                 }
                 // Prepare XML Strings for Measurement results
                 participantMeasurementResults.generateEnCriterionSiRealXMLList();

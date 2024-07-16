@@ -21,6 +21,9 @@ import de.ptb.backend.model.Participant;
 import de.ptb.backend.model.dsi.MeasurementResult;
 import de.ptb.backend.model.dsi.TempMeasurementResult;
 import lombok.Data;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -31,11 +34,13 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -161,6 +166,8 @@ public class PidReportFileSystemTempWriterService implements I_PidReportFileSyst
         }
         assert content != null;
         content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"\t</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
+        content = prettyPrintByDom4j(content, 2, true);
+
         Document newDoc = convertStringToDocument(content);
         //write Participants and unique identifier
         XPath xpath = XPathFactory.newInstance().newXPath();
@@ -239,5 +246,22 @@ public class PidReportFileSystemTempWriterService implements I_PidReportFileSyst
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String prettyPrintByDom4j(String xmlString, int indent, boolean skipDeclaration) {
+        try {
+            OutputFormat format = OutputFormat.createPrettyPrint();
+            format.setIndentSize(indent);
+            format.setSuppressDeclaration(skipDeclaration);
+            format.setEncoding("UTF-8");
+
+            org.dom4j.Document document = DocumentHelper.parseText(xmlString);
+            StringWriter sw = new StringWriter();
+            XMLWriter writer = new XMLWriter(sw, format);
+            writer.write(document);
+            return sw.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurs when pretty-printing xml:\n" + xmlString, e);
+        }
     }
 }
