@@ -1,834 +1,323 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><dcc:digitalCalibrationCertificate xmlns:dcc="https://ptb.de/dcc" xmlns:si="https://ptb.de/si" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="3.2.1" xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.2.1/dcc.xsd">  
-    <dcc:administrativeData> 
-        <dcc:dccSoftware> 
-            <dcc:software> 
-                <dcc:name> 
-                    <dcc:content>D-Comparison Temperature</dcc:content> 
-                </dcc:name>  
-                <dcc:release>v0.3</dcc:release> 
-            </dcc:software> 
-        </dcc:dccSoftware>  
-        <dcc:coreData> 
-            <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>  
-            <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>  
-            <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>  
-            <dcc:uniqueIdentifier>fial</dcc:uniqueIdentifier>  
-            <dcc:identifications> 
-                <dcc:identification> 
-                    <dcc:issuer>calibrationLaboratory</dcc:issuer>  
-                    <dcc:value>International Temperature Comparison</dcc:value> 
-                </dcc:identification> 
-            </dcc:identifications>  
-            <dcc:beginPerformanceDate>2024-07-16</dcc:beginPerformanceDate>  
-            <dcc:endPerformanceDate>2024-07-16</dcc:endPerformanceDate>  
-            <dcc:performanceLocation>laboratory</dcc:performanceLocation> 
-        </dcc:coreData>  
-        <dcc:items> 
-            <dcc:identifications> 
-                <dcc:identification refType="basic_serialNo"> 
-                    <dcc:issuer>manufacturer</dcc:issuer>  
-                    <dcc:value>20096653</dcc:value>  
-                    <dcc:name> 
-                        <dcc:content lang="en">Serial No.</dcc:content> 
-                    </dcc:name> 
-                </dcc:identification> 
-            </dcc:identifications>  
-            <dcc:item id="blackbody01"> 
-                <dcc:name> 
-                    <dcc:content lang="en">blackbody transfer standard: cavity 1</dcc:content> 
-                </dcc:name>  
-                <dcc:identifications> 
-                    <dcc:identification refType="temperature_blackbodyCavity temperature_blackbodyCavity_tympanic"> 
-                        <dcc:issuer>manufacturer</dcc:issuer>  
-                        <dcc:value>cavity</dcc:value>  
-                        <dcc:name> 
-                            <dcc:content lang="en">Shape of transfer standard</dcc:content> 
-                        </dcc:name> 
-                    </dcc:identification> 
-                </dcc:identifications>  
-                <dcc:itemQuantities> 
-                    <dcc:itemQuantity refType="basic_nominalValue"> 
-                        <dcc:name> 
-                            <dcc:content lang="en">Nominal diametre</dcc:content> 
-                        </dcc:name>  
-                        <si:real> 
-                            <si:value>0.02</si:value>  
-                            <si:unit>\metre</si:unit> 
-                        </si:real> 
-                    </dcc:itemQuantity> 
-                </dcc:itemQuantities> 
-            </dcc:item>  
-            <dcc:item id="blackbody02"> 
-                <dcc:name> 
-                    <dcc:content lang="en">blackbody transfer standard: cavity 2</dcc:content> 
-                </dcc:name>  
-                <dcc:identifications> 
-                    <dcc:identification refType="temperature_blackbodyCavity temperature_blackbodyCavity_forehead"> 
-                        <dcc:issuer>manufacturer</dcc:issuer>  
-                        <dcc:value>cavity</dcc:value>  
-                        <dcc:name> 
-                            <dcc:content lang="en">Shape of transfer standard</dcc:content> 
-                        </dcc:name> 
-                    </dcc:identification> 
-                </dcc:identifications>  
-                <dcc:itemQuantities> 
-                    <dcc:itemQuantity refType="basic_nominalValue"> 
-                        <dcc:name> 
-                            <dcc:content lang="en">Nominal diametre</dcc:content> 
-                        </dcc:name>  
-                        <si:real> 
-                            <si:value>0.04</si:value>  
-                            <si:unit>\metre</si:unit> 
-                        </si:real> 
-                    </dcc:itemQuantity> 
-                </dcc:itemQuantities> 
-            </dcc:item> 
-        </dcc:items>  
-        <dcc:calibrationLaboratory> 
-            <dcc:contact> 
-                <dcc:name> 
-                    <dcc:content lang="en">Pilot Laboratory</dcc:content> 
-                </dcc:name>  
-                <dcc:eMail>info@ptb.de</dcc:eMail>  
-                <dcc:location> 
-                    <dcc:city>Brunswick</dcc:city> 
-                </dcc:location> 
-            </dcc:contact> 
-        </dcc:calibrationLaboratory>  
-        <dcc:respPersons> 
-            <dcc:respPerson> 
-                <dcc:person> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Ingmar Mueller</dcc:content> 
-                    </dcc:name> 
-                </dcc:person> 
-            </dcc:respPerson> 
-        </dcc:respPersons>  
-        <dcc:customer> 
-            <dcc:name> 
-                <dcc:content lang="en">EURAMET Pilot CCT K11 "Consultative Committee for Temperature" PTB Berlin</dcc:content> 
-            </dcc:name>  
-            <dcc:location> 
-                <dcc:city>Berlin</dcc:city>  
-                <dcc:countryCode>DE</dcc:countryCode>  
-                <dcc:postCode>D-10587</dcc:postCode>  
-                <dcc:street>Abbestr.</dcc:street>  
-                <dcc:streetNo>12</dcc:streetNo>  
-                <dcc:further> 
-                    <dcc:content lang="en">Working Group 7.36 Low-Temperature Radiation Thermometry</dcc:content> 
-                </dcc:further> 
-            </dcc:location> 
-        </dcc:customer> 
-    </dcc:administrativeData>  
-    <dcc:measurementResults> 
-        <dcc:measurementResult id="Temp_Comparison_PTB_1"> 
-            <dcc:name> 
-                <dcc:content lang="en">Comparison data of participant laboratory: Physikalisch-Technische Bundesanstalt</dcc:content> 
-            </dcc:name>  
-            <dcc:results> 
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Measurement data and derived values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="basic_nominalValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Set temperature</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor1"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor PRT</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>113.5086 114.4805 116.2279</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>5.0E-4 5.0E-4 5.0E-4</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor2"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor NTC Thermistor</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>19965.42 18031.47 15061.2</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.02 0.02 0.02</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_indicatedValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Indicated temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValue basic_arithmenticMean temperature_ITS-90"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.621 37.136 41.655</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.009 0.009 0.009</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_referenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature reference calculated from pt-100 resistance</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.579580956519365 37.089547613471 41.60752591549999</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.001290731643891263 0.0012918044416494467 0.0012937399952477335</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_differenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature differences between reference temperatures and radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>-0.041419043480637185 -0.04645238652900474 -0.047474084500009894</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.0090920838192651 0.009092236177941334 0.00909251137889327</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_equivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Equivalence values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">En criterion values for temperature differences</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>0.6286211368159538 0.2129031862804884 0.2345435014133675</si:valueXMLList>  
-                                <si:unitXMLList>\one</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result> 
-            </dcc:results> 
-        </dcc:measurementResult>  
-        <dcc:measurementResult id="Temp_Comparison_PTB_2"> 
-            <dcc:name> 
-                <dcc:content lang="en">Comparison data of participant laboratory: Physikalisch-Technische Bundesanstalt</dcc:content> 
-            </dcc:name>  
-            <dcc:results> 
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Measurement data and derived values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="basic_nominalValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Set temperature</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor1"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor PRT</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>113.5086 114.4804 116.2278</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>5.0E-4 5.0E-4 5.0E-4</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor2"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor NTC Thermistor</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>19965.47 18031.7 15061.2</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.02 0.02 0.02</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_indicatedValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Indicated temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValue basic_arithmenticMean temperature_ITS-90"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.628 37.135 41.657</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.009 0.009 0.009</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_referenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature reference calculated from pt-100 resistance</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.579580956519365 37.08928925256578 41.60726716748448</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.001290731643891263 0.0012918043307763583 0.0012937398852415072</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_differenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature differences between reference temperatures and radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>-0.04841904348063508 -0.04571074743422088 -0.049732832515516634</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.0090920838192651 0.009092236162188735 0.00909251136324089</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_equivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Equivalence values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">En criterion values for temperature differences</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>0.3143105684079769 0.11300271547757446 0.538792783348387</si:valueXMLList>  
-                                <si:unitXMLList>\one</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result> 
-            </dcc:results> 
-        </dcc:measurementResult>  
-        <dcc:measurementResult id="Temp_Comparison_PTB_3"> 
-            <dcc:name> 
-                <dcc:content lang="en">Comparison data of participant laboratory: Physikalisch-Technische Bundesanstalt</dcc:content> 
-            </dcc:name>  
-            <dcc:results> 
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Measurement data and derived values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="basic_nominalValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Set temperature</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor1"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor PRT</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>113.5086 114.4805 116.2277</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>5.0E-4 5.0E-4 5.0E-4</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor2"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor NTC Thermistor</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>19965.46 18031.57 15061.63</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.02 0.02 0.03</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_indicatedValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Indicated temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValue basic_arithmenticMean temperature_ITS-90"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.628 37.132 41.647</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.009 0.009 0.009</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_referenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature reference calculated from pt-100 resistance</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.579580956519365 37.089547613471 41.607008419490626</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.001290731643891263 0.0012918044416494467 0.0012937397735015566</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_differenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature differences between reference temperatures and radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>-0.04841904348063508 -0.04245238652899985 -0.03999158050937268</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.0090920838192651 0.009092236177941334 0.009092511347341825</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_equivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Equivalence values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">En criterion values for temperature differences</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>0.3143105684079769 0.32590590185595336 0.7733362838837498</si:valueXMLList>  
-                                <si:unitXMLList>\one</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result> 
-            </dcc:results> 
-        </dcc:measurementResult>  
-        <dcc:measurementResult id="Temp_Comparison_PTB_4_Ausreisser"> 
-            <dcc:name> 
-                <dcc:content lang="en">Comparison data of participant laboratory: Physikalisch-Technische Bundesanstalt</dcc:content> 
-            </dcc:name>  
-            <dcc:results> 
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Measurement data and derived values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="basic_nominalValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Set temperature</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor1"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor PRT</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>113.5386 114.4505 116.2477</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>5.0E-4 5.0E-4 5.0E-4</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValueSensor2"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Resistance values of monitor NTC Thermistor</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>19965.46 18031.57 15061.63</si:valueXMLList>  
-                                <si:unitXMLList>\ohm</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.02 0.02 0.03</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_indicatedValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Indicated temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.5 37.0 41.5</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="basic_measuredValue basic_arithmenticMean temperature_ITS-90"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.638 37.122 41.667</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.009 0.009 0.009</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_referenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature reference calculated from pt-100 resistance</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>34.65702585564594 37.01204033331236 41.658758460055786</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.0012907647183766358 0.0012917712883506738 0.0012937619770525544</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity>  
-                        <dcc:quantity refType="temperature_differenceValue"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Temperature differences between reference temperatures and radiance temperatures</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>0.019025855645942613 -0.10995966668763657 -0.008241539944215504</si:valueXMLList>  
-                                <si:unitXMLList>\degreecelsius</si:unitXMLList>  
-                                <si:expandedUncXMLList> 
-                                    <si:uncertaintyXMLList>0.009092088514648652 0.009092231467654524 0.009092514506629446</si:uncertaintyXMLList>  
-                                    <si:coverageFactorXMLList>2</si:coverageFactorXMLList>  
-                                    <si:coverageProbabilityXMLList>0.95</si:coverageProbabilityXMLList>  
-                                    <si:distributionXMLList>normal</si:distributionXMLList> 
-                                </si:expandedUncXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_equivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Equivalence values</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">En criterion values for temperature differences</dcc:content> 
-                            </dcc:name>  
-                            <si:realListXMLList> 
-                                <si:valueXMLList>6.201905892838907 6.199545640026236 3.570894998986528</si:valueXMLList>  
-                                <si:unitXMLList>\one</si:unitXMLList> 
-                            </si:realListXMLList> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result> 
-            </dcc:results> 
-        </dcc:measurementResult>  
-        <dcc:measurementResult id="comparison_referenceValues"> 
-            <dcc:name> 
-                <dcc:content lang="en">Comparison reference values for each nominal temperature</dcc:content> 
-            </dcc:name>  
-            <dcc:results> 
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Temperature reference value at nominal temperature of 34.5 °C</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_referenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Comparison Reference Value (En Criterion)</dcc:content> 
-                            </dcc:name>  
-                            <si:real> 
-                                <si:value>-0.04608571014730245</si:value>  
-                                <si:unit>\kelvin</si:unit>  
-                                <si:expandedUnc> 
-                                    <si:uncertainty>0.005249317040547346</si:uncertainty>  
-                                    <si:coverageFactor>2</si:coverageFactor>  
-                                    <si:coverageProbability>0.95</si:coverageProbability> 
-                                </si:expandedUnc> 
-                            </si:real> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_bilateralEquivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Bilateral equivalence values for nominal temperature of 34.5°C</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:list> 
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 0: ptb1</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.0 0.5444018738384692 0.5444018738384692 4.7009011216669325</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 1: ptb2</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.5444018738384692 0.0 0.0 5.245302854933926</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 2: ptb3</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.5444018738384692 0.0 0.0 5.245302854933926</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 3: ptb4</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>4.7009011216669325 5.245302854933926 5.245302854933926 0.0</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity> 
-                        </dcc:list> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Temperature reference value at nominal temperature of 37.0 °C</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_referenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Comparison Reference Value (En Criterion)</dcc:content> 
-                            </dcc:name>  
-                            <si:real> 
-                                <si:value>-0.04487184016504411</si:value>  
-                                <si:unit>\kelvin</si:unit>  
-                                <si:expandedUnc> 
-                                    <si:uncertainty>0.005249405001838493</si:uncertainty>  
-                                    <si:coverageFactor>2</si:coverageFactor>  
-                                    <si:coverageProbability>0.95</si:coverageProbability> 
-                                </si:expandedUnc> 
-                            </si:real> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_bilateralEquivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Bilateral equivalence values for nominal temperature of 37.0°C</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:list> 
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 0: ptb1</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.0 0.05767756394640281 0.31108157216721793 4.938987418282432</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 1: ptb2</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.05767756394640281 0.0 0.25340400849029465 4.996665001447419</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 2: ptb3</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.31108157216721793 0.25340400849029465 0.0 5.250069071028485</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 3: ptb4</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>4.938987418282432 4.996665001447419 5.250069071028485 0.0</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity> 
-                        </dcc:list> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="temperature_radianceTemperature"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Temperature reference value at nominal temperature of 41.5 °C</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:quantity refType="comparison_referenceValueEnCriterion"> 
-                            <dcc:name> 
-                                <dcc:content lang="en">Comparison Reference Value (En Criterion)</dcc:content> 
-                            </dcc:name>  
-                            <si:real> 
-                                <si:value>-0.045732832499608675</si:value>  
-                                <si:unit>\kelvin</si:unit>  
-                                <si:expandedUnc> 
-                                    <si:uncertainty>0.005249563883129384</si:uncertainty>  
-                                    <si:coverageFactor>2</si:coverageFactor>  
-                                    <si:coverageProbability>0.95</si:coverageProbability> 
-                                </si:expandedUnc> 
-                            </si:real> 
-                        </dcc:quantity> 
-                    </dcc:data> 
-                </dcc:result>  
-                <dcc:result refType="comparison_bilateralEquivalenceValue"> 
-                    <dcc:name> 
-                        <dcc:content lang="en">Bilateral equivalence values for nominal temperature of 41.5°C</dcc:content> 
-                    </dcc:name>  
-                    <dcc:data> 
-                        <dcc:list> 
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 0: ptb1</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.0 0.1756584043258701 0.5818996645411809 3.0510375375039236</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 1: ptb2</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.1756584043258701 0.0 0.7575580696726806 3.226695914243515</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 2: ptb3</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>0.5818996645411809 0.7575580696726806 0.0 2.46913797834029</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity>  
-                            <dcc:quantity refType="comparison_equivalenceValueEnCriterion"> 
-                                <dcc:name> 
-                                    <dcc:content lang="en">Bilateral en Matrix row 3: ptb4</dcc:content> 
-                                </dcc:name>  
-                                <si:realListXMLList> 
-                                    <si:labelXMLList>ptb1 ptb2 ptb3 ptb4</si:labelXMLList>  
-                                    <si:valueXMLList>3.0510375375039236 3.226695914243515 2.46913797834029 0.0</si:valueXMLList>  
-                                    <si:unitXMLList>\one</si:unitXMLList> 
-                                </si:realListXMLList> 
-                            </dcc:quantity> 
-                        </dcc:list> 
-                    </dcc:data> 
-                </dcc:result> 
-            </dcc:results> 
-        </dcc:measurementResult> 
-    </dcc:measurementResults> 
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><dcc:digitalCalibrationCertificate xmlns:dcc="https://ptb.de/dcc" xmlns:si="https://ptb.de/si" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="3.2.1" xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.2.1/dcc.xsd">
+    <dcc:administrativeData>
+        <dcc:dccSoftware>
+            <dcc:software>
+                <dcc:name>
+                    <dcc:content>D-Comparison</dcc:content>
+                </dcc:name>
+                <dcc:release>v0.3</dcc:release>
+            </dcc:software>
+        </dcc:dccSoftware>
+        <dcc:coreData>
+            <dcc:countryCodeISO3166_1>DE</dcc:countryCodeISO3166_1>
+            <dcc:usedLangCodeISO639_1>en</dcc:usedLangCodeISO639_1>
+            <dcc:mandatoryLangCodeISO639_1>en</dcc:mandatoryLangCodeISO639_1>
+            <dcc:uniqueIdentifier>massreport</dcc:uniqueIdentifier>
+            <dcc:identifications>
+                <dcc:identification>
+                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
+                    <dcc:value>International Mass Comparison</dcc:value>
+                </dcc:identification>
+            </dcc:identifications>
+            <dcc:beginPerformanceDate>2024-07-16</dcc:beginPerformanceDate>
+            <dcc:endPerformanceDate>2024-07-16</dcc:endPerformanceDate>
+            <dcc:performanceLocation>laboratory</dcc:performanceLocation>
+        </dcc:coreData>
+        <dcc:items>
+            <dcc:name>
+                <dcc:content lang="en">1 kg stainless steel cylinder</dcc:content>
+            </dcc:name>
+            <dcc:identifications>
+                <dcc:identification>
+                    <dcc:issuer>calibrationLaboratory</dcc:issuer>
+                    <dcc:value>serialNo</dcc:value>
+                    <dcc:name>
+                        <dcc:content lang="en">serialNo</dcc:content>
+                    </dcc:name>
+                </dcc:identification>
+            </dcc:identifications>
+            <dcc:item>
+                <dcc:name>
+                    <dcc:content lang="en">Mass transfer standard</dcc:content>
+                </dcc:name>
+                <dcc:identifications>
+                    <dcc:identification>
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>material stainless steal</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="en">Material of transfer normal</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                    <dcc:identification>
+                        <dcc:issuer>manufacturer</dcc:issuer>
+                        <dcc:value>cylinder</dcc:value>
+                        <dcc:name>
+                            <dcc:content lang="en">Shape of transfer normal</dcc:content>
+                        </dcc:name>
+                    </dcc:identification>
+                </dcc:identifications>
+                <dcc:itemQuantities>
+                    <dcc:itemQuantity refType="basic_nominalValue">
+                        <dcc:name>
+                            <dcc:content lang="en">Nominal mass</dcc:content>
+                        </dcc:name>
+                        <si:real>
+                            <si:value>1</si:value>
+                            <si:unit>\kilogram</si:unit>
+                        </si:real>
+                    </dcc:itemQuantity>
+                </dcc:itemQuantities>
+            </dcc:item>
+        </dcc:items>
+        <dcc:calibrationLaboratory>
+            <dcc:contact>
+                <dcc:name>
+                    <dcc:content lang="en">Pilot Laboratory</dcc:content>
+                </dcc:name>
+                <dcc:eMail>info@ptb.de</dcc:eMail>
+                <dcc:location>
+                    <dcc:city>Brunswick</dcc:city>
+                </dcc:location>
+            </dcc:contact>
+        </dcc:calibrationLaboratory>
+        <dcc:respPersons>
+            <dcc:respPerson>
+                <dcc:person>
+                    <dcc:name>
+                        <dcc:content lang="en">A Person</dcc:content>
+                    </dcc:name>
+                </dcc:person>
+            </dcc:respPerson>
+        </dcc:respPersons>
+        <dcc:customer>
+            <dcc:name>
+                <dcc:content lang="en">Virtual Mass Comparison Pilot Study</dcc:content>
+            </dcc:name>
+            <dcc:location>
+                <dcc:city>Brunswick</dcc:city>
+                <dcc:countryCode>DE</dcc:countryCode>
+                <dcc:postCode>D-38116</dcc:postCode>
+                <dcc:street>Bundesalle</dcc:street>
+                <dcc:streetNo>100</dcc:streetNo>
+                <dcc:further>
+                    <dcc:content lang="en">Working Group 1.11 Mass</dcc:content>
+                </dcc:further>
+            </dcc:location>
+        </dcc:customer>
+    </dcc:administrativeData>
+    <dcc:measurementResults>
+<dcc:measurementResult refId="Mass_Comparison_KRISS">
+      <dcc:name>
+        <dcc:content lang="en">Comparison results of participant laboratory: Korea Research Institute of Standards and Science (KRISS)</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="mass_mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="basic_measuredValue">
+              <dcc:name>
+                <dcc:content lang="en">Measured value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1.000000259</si:value>
+                <si:unit>\kilogram</si:unit>
+                <si:expandedUnc>
+                   <si:uncertainty>4.5E-8</si:uncertainty>
+                   <si:coverageFactor>2</si:coverageFactor>
+                   <si:coverageProbability>0.95</si:coverageProbability>
+                   <si:distribution>normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+        <dcc:result refType="comparison_equivalenceValue">
+          <dcc:name>
+            <dcc:content lang="en">Equivalence value</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
+              <dcc:name>
+                <dcc:content lang="en">En criterion value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.0324175871363939</si:value>
+                <si:unit>\one</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+ <dcc:measurementResult refId="Mass_Comparison_NPL">
+      <dcc:name>
+        <dcc:content lang="en">Comparison results of participant laboratory: National Physical Laboratory (NPL)</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="mass_mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="basic_measuredValue">
+              <dcc:name>
+                <dcc:content lang="en">Measured value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1.000000283</si:value>
+                <si:unit>\kilogram</si:unit>
+                <si:expandedUnc>
+                   <si:uncertainty>4.6E-8</si:uncertainty>
+                   <si:coverageFactor>2</si:coverageFactor>
+                   <si:coverageProbability>0.95</si:coverageProbability>
+                   <si:distribution>normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+        <dcc:result refType="comparison_equivalenceValue">
+          <dcc:name>
+            <dcc:content lang="en">Equivalence value</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
+              <dcc:name>
+                <dcc:content lang="en">En criterion value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.6023905776323178</si:value>
+                <si:unit>\one</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+ <dcc:measurementResult refId="Mass_Comparison_UME">
+      <dcc:name>
+        <dcc:content lang="en">Comparison results of participant laboratory: TÜBİTAK Ulusal Metroloji Enstitüsü (UME)</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="mass_mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="basic_measuredValue">
+              <dcc:name>
+                <dcc:content lang="en">Measured value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1.000000271</si:value>
+                <si:unit>\kilogram</si:unit>
+                <si:expandedUnc>
+                   <si:uncertainty>1.0E-7</si:uncertainty>
+                   <si:coverageFactor>2</si:coverageFactor>
+                   <si:coverageProbability>0.95</si:coverageProbability>
+                   <si:distribution>normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+        <dcc:result refType="comparison_equivalenceValue">
+          <dcc:name>
+            <dcc:content lang="en">Equivalence value</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
+              <dcc:name>
+                <dcc:content lang="en">En criterion value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.11200611710142092</si:value>
+                <si:unit>\one</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+ <dcc:measurementResult refId="Mass_Comparison_CENAM">
+      <dcc:name>
+        <dcc:content lang="en">Comparison results of participant laboratory: Centro Nacional de Metrología (CENAM)</dcc:content>
+      </dcc:name>
+      <dcc:results>
+        <dcc:result refType="mass_mass">
+          <dcc:name>
+            <dcc:content lang="en">Mass of stainless steel cylinder</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="basic_measuredValue">
+              <dcc:name>
+                <dcc:content lang="en">Measured value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:label>Mass</si:label>
+                <si:value>1.000000232</si:value>
+                <si:unit>\kilogram</si:unit>
+                <si:expandedUnc>
+                   <si:uncertainty>5.0E-8</si:uncertainty>
+                   <si:coverageFactor>2</si:coverageFactor>
+                   <si:coverageProbability>0.95</si:coverageProbability>
+                   <si:distribution>normal</si:distribution>
+                </si:expandedUnc>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+        <dcc:result refType="comparison_equivalenceValue">
+          <dcc:name>
+            <dcc:content lang="en">Equivalence value</dcc:content>
+          </dcc:name>
+          <dcc:data>
+            <dcc:quantity refType="comparison_equivalenceValueEnCriterion">
+              <dcc:name>
+                <dcc:content lang="en">En criterion value</dcc:content>
+              </dcc:name>
+              <si:real>
+                <si:value>0.6610891267448451</si:value>
+                <si:unit>\one</si:unit>
+              </si:real>
+            </dcc:quantity>
+          </dcc:data>
+        </dcc:result>
+      </dcc:results>
+    </dcc:measurementResult>
+ <dcc:measurementResult refId="comparison_referenceValues">
+			<dcc:name>
+				<dcc:content lang="en">Mass of stainless steel cylinder Output Reference Values</dcc:content>
+			</dcc:name>
+			<dcc:results>
+				<dcc:result refType="mass_mass">
+					<dcc:name>
+						<dcc:content lang="en">Mass Reference Value</dcc:content>
+					</dcc:name>
+					<dcc:data>
+						<dcc:quantity refType="comparison_referenceValueEnCriterion">
+							<dcc:name>
+								<dcc:content lang="en">Comparison Reference Value En Criterion</dcc:content>
+							</dcc:name>
+							<si:real>
+								<si:label>Mass Reference Value</si:label>
+								<si:value>1.0000002601880351</si:value>
+								<si:unit>\kilogram</si:unit>
+								<si:expandedUnc>
+									<si:uncertainty>2.6113871556938294E-8</si:uncertainty>
+									<si:coverageFactor>2</si:coverageFactor>
+									<si:coverageProbability>0.95</si:coverageProbability>
+									<si:distribution>normal</si:distribution>
+								</si:expandedUnc>
+							</si:real>
+						</dcc:quantity>
+					</dcc:data>
+				</dcc:result>
+			</dcc:results>
+		</dcc:measurementResult></dcc:measurementResults>
 </dcc:digitalCalibrationCertificate>
