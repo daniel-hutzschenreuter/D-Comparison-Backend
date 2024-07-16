@@ -310,13 +310,13 @@ public class MeasurementResult {
                         "              <si:real>\n" +
                         "                <si:label>Energy</si:label>\n" +
                         //TODO
-                        "                <si:value> this.energyValue.getValue()</si:value>\n" +
-                        "                <si:unit> this.energyValue.getUnit()</si:unit>\n" +
+                        "                <si:value> " + this.energyValue.getValue()+ "</si:value>\n" +
+                        "                <si:unit> " +this.energyValue.getUnit()+ "</si:unit>\n" +
                         "                <si:expandedUnc>\n" +
 //                        TODO brechnung
-                        "                   <si:uncertainty> this.energyValue.getExpUnc().getUncertainty()</si:uncertainty>\n" +
-                        "                   <si:coverageFactor>this.energyValue.getExpUnc().getCoverageFactor() </si:coverageFactor>\n" +
-                        "                   <si:coverageProbability> this.energyValue.getExpUnc().getCoverageProbability()</si:coverageProbability>\n" +
+                        "                   <si:uncertainty>" + this.energyValue.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                        "                   <si:coverageFactor>" +this.energyValue.getExpUnc().getCoverageFactor() + " </si:coverageFactor>\n" +
+                        "                   <si:coverageProbability> " +this.energyValue.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
                         "                   <si:distribution>normal</si:distribution>\n" +
                         "                </si:expandedUnc>\n" +
                         "              </si:real>\n" +
