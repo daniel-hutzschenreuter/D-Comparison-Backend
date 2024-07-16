@@ -18,12 +18,12 @@ public class DccList {
     }
 
     public String toXMLString(){
-        String XMLString = "";
+        StringBuilder XMLString = new StringBuilder();
 
         for (DccQuantity quantity : quantities){
-            XMLString = XMLString + quantity.toXMLString();
+            XMLString.append(quantity.toXMLString());
         }
 
-        return XMLString;
+        return "<dcc:list>\n" + XMLString.toString() + "</dcc:list>\n";
     }
 }

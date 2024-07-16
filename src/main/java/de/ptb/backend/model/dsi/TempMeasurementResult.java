@@ -83,7 +83,6 @@ public class TempMeasurementResult {
             newEnCriterionValueLists.add(new ArrayList<>());
         }
 
-
         for (int i = 0; i < enCriterionLists.size(); i++){
             // one temperature per runResult
             RunResult runResult = enCriterionLists.get(i);

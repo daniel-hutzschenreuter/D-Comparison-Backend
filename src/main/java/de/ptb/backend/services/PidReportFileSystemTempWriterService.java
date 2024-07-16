@@ -18,6 +18,7 @@
 package de.ptb.backend.services;
 
 import de.ptb.backend.model.Participant;
+import de.ptb.backend.model.dsi.DccMeasurementResults;
 import de.ptb.backend.model.dsi.MeasurementResult;
 import de.ptb.backend.model.dsi.TempMeasurementResult;
 import lombok.Data;
@@ -87,6 +88,15 @@ public class PidReportFileSystemTempWriterService implements I_PidReportFileSyst
             this.dccTemplatePath = "DCCTemperaturTemplate.xml";
         }
     }
+
+    public void setTemplate(){
+        if(System.getProperty("os.name").contains("Windows")) {
+            this.dccTemplatePath = "src\\main\\resources\\TestFiles\\DCCTemperaturTemplate.xml";
+        }else{
+            this.dccTemplatePath = "DCCTemperaturTemplate.xml";
+        }
+    }
+
     /**
      * This function creates a new DCC file out of the measurement results and a template dcc file.
      * @return File which contains the newly generated Dcc file
@@ -166,7 +176,7 @@ public class PidReportFileSystemTempWriterService implements I_PidReportFileSyst
         }
         assert content != null;
         content = content.substring(0, content.indexOf("<dcc:measurementResults"))+"<dcc:measurementResults>\n"+results+"\t</dcc:measurementResults>\n"+content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
-        content = prettyPrintByDom4j(content, 2, true);
+        content = prettyPrintByDom4j(content, 4, true);
 
         Document newDoc = convertStringToDocument(content);
         //write Participants and unique identifier
@@ -210,6 +220,63 @@ public class PidReportFileSystemTempWriterService implements I_PidReportFileSyst
         transformer.transform(source, result);
         return new File(tmpPath);
     }
+
+    public File writeDccMeasurementResultsIntoDCC(DccMeasurementResults dccMeasurementResults) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, TransformerException {
+        File dccFile = new File(this.dccTemplatePath);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(dccFile);
+        doc.getDocumentElement().normalize();
+        String content = convertDocumentToString(doc);
+
+        assert content != null;
+        content = content.substring(0, content.indexOf("<dcc:measurementResults")) + dccMeasurementResults.toXMLString() + content.substring(content.indexOf("</dcc:digitalCalibrationCertificate>"));
+        content = prettyPrintByDom4j(content, 4, true);
+
+        Document newDoc = convertStringToDocument(content);
+        //write Participants and unique identifier
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        String expression = "/digitalCalibrationCertificate/administrativeData/coreData/uniqueIdentifier";
+        NodeList nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(pid);
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/coreData/beginPerformanceDate";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(String.valueOf(LocalDate.now()));
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/coreData/endPerformanceDate";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent(String.valueOf(LocalDate.now()));
+        }
+        expression = "/digitalCalibrationCertificate/administrativeData/calibrationLaboratory/contact/name/content";
+        nodeList = (NodeList) xpath.compile(expression).evaluate(newDoc, XPathConstants.NODESET);
+        for (int idx = 0; idx < nodeList.getLength(); idx++) {
+            Node value = nodeList.item(idx);
+            value.setTextContent("Pilot Laboratory");
+
+        }
+        DOMSource source = new DOMSource(newDoc);
+        String tmpPath;
+        if(System.getProperty("os.name").contains("Windows")) {
+            tmpPath = "src\\main\\resources\\tmp\\output.xml";
+        }else{
+            tmpPath = "src/main/resources/tmp/output.xml";
+        }
+        FileWriter writer = new FileWriter(tmpPath);
+        StreamResult result = new StreamResult(writer);
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.transform(source, result);
+        return new File(tmpPath);
+    }
+
     /** This is an auxiliary function to create a xml document from the rewritten string.
      * @param xmlStr String
      * @return Document containing all the information from the string

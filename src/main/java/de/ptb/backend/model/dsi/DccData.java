@@ -13,10 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 public class DccData {
     DccQuantity quantity;
-    DccList list;
+    DccList dccList;
+    List<DccQuantity> quantityList = new ArrayList<>();
+
 
     public void addQuantity(DccQuantity quantity){
-        this.list.quantities.add(quantity);
+        this.quantityList.add(quantity);
     }
 
     public DccData(DccQuantity quantity){
@@ -24,15 +26,23 @@ public class DccData {
     }
 
     public DccData(DccList list){
-        this.list = list;
+        this.dccList = list;
     }
 
     public String toXMLString(){
         String quantityString = this.quantity != null ? this.quantity.toXMLString() : "";
-        String listString = this.list != null ? this.list.toXMLString() : "";
+        String listString = this.dccList != null ? this.dccList.toXMLString() : "";
+
+        StringBuilder quantitiesString = new StringBuilder();
+        if(this.quantityList != null){
+            for (DccQuantity quantity : this.quantityList){
+                quantitiesString.append(quantity.toXMLString());
+            }
+        }
 
         String XMLString = "<dcc:data>\n" +
                 quantityString +
+                quantitiesString +
                 listString +
                 "</dcc:data>\n";
 

@@ -61,7 +61,7 @@ public class SiRealListXMLList {
 
     public String toXMLString(){
         // Check if Label List ist available
-        String labelListString = labelList != null ? "\t\t\t\t\t\t\t\t<si:labelXMLList>" + labelList + "</si:labelXMLList>\n" : "";
+        String labelListString = labelList != null ? "<si:labelXMLList>" + labelList + "</si:labelXMLList>\n" : "";
 
         // Format the Value String
         String valueString = values.toString().replaceAll("[,]","");
@@ -72,12 +72,12 @@ public class SiRealListXMLList {
 
         // Printout XML String
         String XMLstring =
-                "\t\t\t\t\t\t\t<si:realListXMLList>\n" +
+                "<si:realListXMLList>\n" +
                 labelListString +
-                "\t\t\t\t\t\t\t\t<si:valueXMLList>" + valueString + "</si:valueXMLList>\n" +
-                "\t\t\t\t\t\t\t\t<si:unitXMLList>"+ this.unit + "</si:unitXMLList>\n" +
+                "<si:valueXMLList>" + valueString + "</si:valueXMLList>\n" +
+                "<si:unitXMLList>"+ this.unit + "</si:unitXMLList>\n" +
                 uncString +
-                "\t\t\t\t\t\t\t</si:realListXMLList>\n";
+                "</si:realListXMLList>\n";
         return XMLstring;
     }
 }

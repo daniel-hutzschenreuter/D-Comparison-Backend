@@ -19,23 +19,42 @@ package de.ptb.backend.model.dsi;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SiExpandedUnc {
     Double uncertainty;
     int coverageFactor;
     Double coverageProbability;
+    String distribution;
 
-    public void setUncertainty(Double uncertainty) {
-        this.uncertainty = uncertainty;
-    }
+    public String toXMLString(){
+        // check if values are available
+        String uncValueString = this.uncertainty != null ? "<si:uncertainty>" + this.uncertainty + "</si:uncertainty>\n" : "";
+        String covFactorString = this.coverageFactor != -1 ? "<si:coverageFactor>" + this.coverageFactor + "</si:coverageFactor>\n" : "";
+        String covProbabilityString = this.coverageProbability != null ? "<si:coverageProbability>" + this.coverageProbability + "</si:coverageProbability>\n" : "";
+        String distributionString = this.distribution != null ? "<si:distribution>" + this.distribution + "</si:distribution>\n" : "";
 
-    public void setCoverageFactor(int coverageFactor) {
-        this.coverageFactor = coverageFactor;
+        String XMLstring =
+                "<si:expandedUnc>\n" +
+                uncValueString +
+                covFactorString +
+                covProbabilityString +
+                distributionString +
+                "</si:expandedUnc>\n";
+        return XMLstring;
     }
-
-    public void setCoverageProbability(Double coverageProbability) {
-        this.coverageProbability = coverageProbability;
-    }
+//    public void setUncertainty(Double uncertainty) {
+//        this.uncertainty = uncertainty;
+//    }
+//
+//    public void setCoverageFactor(int coverageFactor) {
+//        this.coverageFactor = coverageFactor;
+//    }
+//
+//    public void setCoverageProbability(Double coverageProbability) {
+//        this.coverageProbability = coverageProbability;
+//    }
 
     /**
      * A SiExpandedUnc is a part of an SiReal containing its uncertainty, coverageFactor and coveragePossibility
@@ -58,15 +77,15 @@ public class SiExpandedUnc {
                 '}';
     }
 
-    public Double getUncertainty() {
-        return uncertainty;
-    }
-
-    public int getCoverageFactor() {
-        return coverageFactor;
-    }
-
-    public Double getCoverageProbability() {
-        return coverageProbability;
-    }
+//    public Double getUncertainty() {
+//        return uncertainty;
+//    }
+//
+//    public int getCoverageFactor() {
+//        return coverageFactor;
+//    }
+//
+//    public Double getCoverageProbability() {
+//        return coverageProbability;
+//    }
 }

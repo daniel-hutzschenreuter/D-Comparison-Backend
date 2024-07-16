@@ -59,17 +59,17 @@ public class SiReal {
         this.unit = unit;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
+//    public void setValue(Double value) {
+//        this.value = value;
+//    }
+//
+//    public void setUnit(String unit) {
+//        this.unit = unit;
+//    }
+//
+//    public void setDateTime(String dateTime) {
+//        this.dateTime = dateTime;
+//    }
 
     /**
      * This functio is used to increase/decrease the values of the SiReals
@@ -91,16 +91,12 @@ public class SiReal {
                 '}';
     }
     public String toXMLString(){
+        String uncString = this.expUnc != null ? this.expUnc.toXMLString() : "";
         String XMLstring ="<si:real>\n" +
                 "<si:value>" + this.value + "</si:value>\n" +
                 "<si:unit>" + this.unit + "</si:unit>\n" +
-                "<si:expandedUnc>\n" +
-                "<si:uncertainty>" + this.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
-                "<si:coverageFactor>" +  this.getExpUnc().getCoverageFactor() +  "</si:coverageFactor>\n" +
-                "<si:coverageProbability>"+  this.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
-                "<si:distribution>"+  "normal" +"</si:distribution>\n" +
-                "</si:expandedUnc>\n" +
-                "</si:real>";
+                uncString +
+                "</si:real>\n";
             return XMLstring;
     }
 }
