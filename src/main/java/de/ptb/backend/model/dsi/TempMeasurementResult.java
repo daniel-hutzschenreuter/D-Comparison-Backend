@@ -42,6 +42,7 @@ public class TempMeasurementResult {
     List<RunResult> enCriterionLists = new ArrayList<>();
     List<SiRealListXMLList> enCriterionSiRealXMLLists = new ArrayList<>();
     List<SiReal> enRefValues = new ArrayList<>();
+    DccResult bilateralEnValuesDccResult;
 //    String participantResultsXMLString;
 //    String comparisonResultsXMLString;
 //    List<String> measurementResultXMLStrings;
@@ -234,7 +235,8 @@ public class TempMeasurementResult {
                 "\t\t\t\t\t\t\t</si:real>\n" +
                 "\t\t\t\t\t\t</dcc:quantity>\n" +
                 "\t\t\t\t\t</dcc:data>\n" +
-                "\t\t\t\t</dcc:result>\n";
+                "\t\t\t\t</dcc:result>\n" +
+                this.bilateralEnValuesDccResult.toXMLString();
         }
         this.result +=
                 "\t\t\t</dcc:results>\n" +

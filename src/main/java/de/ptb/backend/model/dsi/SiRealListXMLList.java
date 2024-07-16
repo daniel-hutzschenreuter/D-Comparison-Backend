@@ -15,6 +15,7 @@ public class SiRealListXMLList {
     String unit;
     List<String> dateTimes;
     SiExpandedUncXMLList expUncList;
+    String labelList;
 
     public SiRealListXMLList(String name, List<Double> valueList, String unit, List<String> dateTimeList,
                              SiExpandedUncXMLList expUncXMLList) {
@@ -38,6 +39,20 @@ public class SiRealListXMLList {
         this.unit = unit;
     }
 
+    public SiRealListXMLList(String name, String labelList, List<Double> valueList, String unit) {
+        this.name = name;
+        this.labelList = labelList;
+        this.values = valueList;
+        this.unit = unit;
+    }
+
+    public SiRealListXMLList(List<Double> valueList, String labelList,  String unit) {
+        this.labelList = labelList;
+        this.values = valueList;
+        this.unit = unit;
+    }
+
+
     public SiRealListXMLList(List<Double> value, String unit, SiExpandedUncXMLList expUncXMLList) {
         this.values = value;
         this.unit = unit;
@@ -45,14 +60,23 @@ public class SiRealListXMLList {
     }
 
     public String toXMLString(){
+        // Check if Label List ist available
+        String labelListString = labelList != null ? "\t\t\t\t\t\t\t\t<si:labelXMLList>" + labelList + "</si:labelXMLList>\n" : "";
+
+        // Format the Value String
         String valueString = values.toString().replaceAll("[,]","");
         valueString = valueString.substring(1, valueString.length()-1);
+
+        // Check if Uncertainty is available
         String uncString = expUncList != null ? expUncList.toXMLString() : "";
+
+        // Printout XML String
         String XMLstring =
                 "\t\t\t\t\t\t\t<si:realListXMLList>\n" +
+                labelListString +
                 "\t\t\t\t\t\t\t\t<si:valueXMLList>" + valueString + "</si:valueXMLList>\n" +
                 "\t\t\t\t\t\t\t\t<si:unitXMLList>"+ this.unit + "</si:unitXMLList>\n" +
-                                uncString +
+                uncString +
                 "\t\t\t\t\t\t\t</si:realListXMLList>\n";
         return XMLstring;
     }

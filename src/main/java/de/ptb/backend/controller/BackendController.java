@@ -36,11 +36,13 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -288,6 +290,34 @@ public class BackendController {
                             inputs,
                             runResults);
                     fdkcr.processDKCR();
+                    double [][] bilateralEnValues = fdkcr.ProcessBilateralEn();
+
+                    // get labelListString
+                    String labelString = "";
+                    for (Participant participant : participantList) {
+                        labelString += participant.getName() + " ";
+                    }
+
+                    DccList bilateralEnValuesDccList = new DccList();
+                    for(int j=0; j < bilateralEnValues.length; j++){
+                        String name = "Bilateral en Matrix row " + (j+1) + ": " + participantList.get(j).getName();
+                        Double[] valuesArray = ArrayUtils.toObject(bilateralEnValues[j]);
+                        List<Double> values = Arrays.asList(valuesArray);
+                        String unit = "\\one";
+                        DccQuantity bilateralEnRow = new DccQuantity(
+                                "comparison_equivalenceValueEnCriterion",
+                                new DccName(name, "en"),
+                                new SiRealListXMLList(values,labelString,  unit));
+                        bilateralEnValuesDccList.addQuantity(bilateralEnRow);
+                    }
+                    DccResult bilateralEnValueDccResult = new DccResult(
+                            "comparison_bilateralEquivalenceValue",
+                            new DccName(
+                                    "Bilateral equivalence values for nominal temperature of" + nominalTempSiRealXMLLists.get(0).getValues().get(i)+ "°C",
+                                    "en"
+                            ),
+                            new DccData(bilateralEnValuesDccList)
+                    );
 
                     // save individual En Values for later to put in XML output
                     int iterationNr = runResults.size();
@@ -299,6 +329,7 @@ public class BackendController {
 //                    String nominalTemperature = Double.toString(nominalTempSiRealXMLLists.get(0).getValues().get(i));
 //                    TempMeasurementResult EnValueResult = generateRefValueResult(enCriterionRefeVal);
                     comparisonMeasurementResult.addEnReferenceValue(enCriterionRefeVal);
+                    comparisonMeasurementResult.setBilateralEnValuesDccResult(bilateralEnValueDccResult);
                 }
                 // Prepare XML Strings for Measurement results
                 participantMeasurementResults.generateEnCriterionSiRealXMLList();

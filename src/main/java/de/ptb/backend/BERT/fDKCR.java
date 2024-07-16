@@ -210,5 +210,42 @@ public class fDKCR {
         return Nr;  // Because NRun - 1 is the number of active Runs
 
     }
+
+    		// 2D array of doubles to hold Bilateral En values		NOTE! Max NTotalCOntributions 30!!!
+
+    public double[][] ProcessBilateralEn() {
+
+        double[][] bilateralEn = new double[NTotalContributions][NTotalContributions];
+
+        // Calculate the Bilateral En values
+        for(int i=0; i < NTotalContributions; i++ ) {
+
+            // Get the ith object
+            DIR ithResult = DirInputs.get(i);
+
+            // Check to see that the ith result is present, if not then do not process
+            if(ithResult.ResultPresentFlag == true) {
+
+                // ith result is present continue to process
+                for(int j=0; j < NTotalContributions; j++ ) {
+
+                    // Get the jth object
+                    DIR jthResult = DirInputs.get(j);
+
+                    // Check to see that the jth result is present, if not do not process
+                    if(jthResult.ResultPresentFlag == true) {
+                        // jth result is present continue to process
+                        bilateralEn[i][j] = Math.abs( (ithResult.xi - jthResult.xi) / Math.sqrt( ithResult.Ui * ithResult.Ui + jthResult.Ui * jthResult.Ui) );;
+                        //TODO Value needs to be rounded
+                    }
+                    else {
+                        bilateralEn[i][j] = -1;
+                        // DO not process ith result as data not present
+                    }
+                }
+            }
+        }
+        return bilateralEn;
+    }
 }
 

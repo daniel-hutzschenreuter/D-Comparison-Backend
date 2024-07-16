@@ -90,4 +90,17 @@ public class SiReal {
                 ", expUnc=" + expUnc.toString() +
                 '}';
     }
+    public String toXMLString(){
+        String XMLstring ="<si:real>\n" +
+                "<si:value>" + this.value + "</si:value>\n" +
+                "<si:unit>" + this.unit + "</si:unit>\n" +
+                "<si:expandedUnc>\n" +
+                "<si:uncertainty>" + this.getExpUnc().getUncertainty() + "</si:uncertainty>\n" +
+                "<si:coverageFactor>" +  this.getExpUnc().getCoverageFactor() +  "</si:coverageFactor>\n" +
+                "<si:coverageProbability>"+  this.getExpUnc().getCoverageProbability() + "</si:coverageProbability>\n" +
+                "<si:distribution>"+  "normal" +"</si:distribution>\n" +
+                "</si:expandedUnc>\n" +
+                "</si:real>";
+            return XMLstring;
+    }
 }
