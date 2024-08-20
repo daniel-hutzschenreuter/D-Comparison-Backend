@@ -59,6 +59,11 @@ public class SiReal {
         this.unit = unit;
     }
 
+    public SiReal(Double value, String unit) {
+        this.value = value;
+        this.unit = unit;
+    }
+
 //    public void setValue(Double value) {
 //        this.value = value;
 //    }

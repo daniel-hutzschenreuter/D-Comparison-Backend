@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DccList {
     List<DccQuantity> quantities = new ArrayList<>();
+    DccMeasurementMetaData measurementMetaData;
 
     public void addQuantity(DccQuantity quantity){
         this.quantities.add(quantity);
@@ -24,6 +25,11 @@ public class DccList {
             XMLString.append(quantity.toXMLString());
         }
 
-        return "<dcc:list>\n" + XMLString.toString() + "</dcc:list>\n";
+        String measurementMetaDataString = this.measurementMetaData != null ? measurementMetaData.toXMLString() : "";
+
+        return "<dcc:list>\n" +
+                XMLString +
+                measurementMetaDataString +
+                "</dcc:list>\n";
     }
 }

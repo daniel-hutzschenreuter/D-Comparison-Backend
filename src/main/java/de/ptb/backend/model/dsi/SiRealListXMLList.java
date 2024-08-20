@@ -59,6 +59,12 @@ public class SiRealListXMLList {
         this.expUncList = expUncXMLList;
     }
 
+
+    public void addLabellist(String labelList){
+        this.labelList = labelList;
+    }
+
+
     public String toXMLString(){
         // Check if Label List ist available
         String labelListString = labelList != null ? "<si:labelXMLList>" + labelList + "</si:labelXMLList>\n" : "";

@@ -128,9 +128,11 @@ public class BackendController {
             String smartStandard = data.get("smartStandardEvaluationMethod").asText();
             String pidReport = data.get("pidReport").asText();
             List<Participant> participantList = new ArrayList<>();
-            for (JsonNode participant : data.get("participantList")) {
-                participant = participant.get("participant");
-                participantList.add(new Participant(participant.get("name").asText(), participant.get("pidDCC").asText()));
+            for (JsonNode participant_node : data.get("participantList")) {
+                participant_node = participant_node.get("participant");
+                Participant participant = new Participant(participant_node.get("name").asText(), participant_node.get("pidDCC").asText());
+                participant.extractNameFromDccpid();
+                participantList.add(participant);
             }
             DKCRRequestMessage request = new DKCRRequestMessage(pidReport, participantList);
 //            PidDccFileSystemReaderService reader = new PidDccFileSystemReaderService();
@@ -255,7 +257,13 @@ public class BackendController {
                 // aggregate comparison and en values over runs
                 DccResults comparisonResults = new DccResults();
                 List<RunResult> enCriterionResults = new ArrayList<>();
+                List<String> setpoints = new ArrayList<>();
                 for (int i = 0; i < tempDifferenceSiRealXMLLists.get(0).getValues().size(); i++) {
+
+                    // additional info: Setpoint for refIDs
+                    String setpoint = "Setpoint_" + (i+1);
+                    setpoints.add(setpoint);
+
                     Vector<DIR> inputs = new Vector<>();
                     for (SiRealListXMLList SiRealList : tempDifferenceSiRealXMLLists) {
                         double val = SiRealList.getValues().get(i);
@@ -291,12 +299,13 @@ public class BackendController {
                     // Create DccResults for En Value Reference and bilateral En Values
                     Double nominalTemperature = nominalTempSiRealXMLLists.get(i).getValues().get(i);
                     DccResult enRefValueDccResult = dsiConverter.enRefValToDccResult(
-                            nominalTemperature, enCriterionRefeVal);
+                            nominalTemperature, enCriterionRefeVal, setpoint);
 
                     DccResult bilateralEnValueDccResult = dsiConverter.bilateralEnValuesToDccResult(
                             participantList,
                             bilateralEnValues,
-                            nominalTemperature
+                            nominalTemperature,
+                            setpoint
                     );
 
                     comparisonResults.addresult(enRefValueDccResult);
@@ -311,6 +320,15 @@ public class BackendController {
 
                 // re-order En Values for different Participant and nominal Temperature and create XMLLists
                 List<SiRealListXMLList> enCriterionSiRealXMLLists = dsiConverter.EnCriterionsToSiRealXMLLists(enCriterionResults);
+
+                //Add setpoint temperatures to nominal temperatures si XMLList
+                StringBuilder setpointLabellist = new StringBuilder();
+                for(String setpoint : setpoints){
+                    setpointLabellist.append(setpoint).append(" ");
+                }
+                for(SiRealListXMLList nomTempSiRealList : nominalTempSiRealXMLLists){
+                    nomTempSiRealList.addLabellist(setpointLabellist.toString());
+                }
 
                 // create DccMeasurementresults
                 DccMeasurementResults dccMeasurementResults = dsiConverter.readValuesToDccMeasurementResults(

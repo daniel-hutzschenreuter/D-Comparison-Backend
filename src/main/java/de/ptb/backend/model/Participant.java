@@ -30,6 +30,7 @@ public class Participant implements Serializable {
     private  int id=0;
     private  String name;
     private String  dccPid;
+    private String dccPidName;
 
     /**
      * This class is a part of the participantList which is given in BackendController as part of its parameter
@@ -37,5 +38,10 @@ public class Participant implements Serializable {
     public Participant(String name, String dccPid) {
         this.name = name;
         this.dccPid = dccPid;
+    }
+
+    public void extractNameFromDccpid(){
+        int lastIndex = this.dccPid.lastIndexOf("/");
+        this.dccPidName = lastIndex != -1 ? this.dccPid.substring(lastIndex+1) : this.dccPid;
     }
 }

@@ -13,23 +13,41 @@ import java.util.List;
 @Service
 public class DsiConverter {
 
-    public DccResult bilateralEnValuesToDccResult(List<Participant> participantList, double[][] bilateralEnValues, Double nominalTemeprature) {
+    public DccResult bilateralEnValuesToDccResult(List<Participant> participantList, double[][] bilateralEnValues, Double nominalTemeprature, String setpoint) {
         // get labelListString
         StringBuilder labelString = new StringBuilder();
         for (Participant participant : participantList) {
-            labelString.append(participant.getName()).append(" ");
+            labelString.append(participant.getDccPidName()).append(" ");
         }
+
+        //Metadata for setpoint temperature
+        DccMeasurementMetaData measurementMetaData =
+                new DccMeasurementMetaData(
+                        new DccMetaData(
+                                new DccData(
+                                        new DccQuantity(
+                                                "basic_nominalValue",
+                                                new DccName(
+                                                        "Nominal temperature, for which bilateral En values are reported",
+                                                        "en"),
+                                                new SiReal(
+                                                        nominalTemeprature,
+                                                        "\\kelvin"
+                                                        )))));
 
         // get rows of bilateral En matrix as individual DccQuantity
         DccList bilateralEnValuesDccList = new DccList();
+        bilateralEnValuesDccList.setMeasurementMetaData(measurementMetaData);
+
         for (int j = 0; j < bilateralEnValues.length; j++) {
-            String name = "Bilateral en Matrix row " + j + ": " + participantList.get(j).getName();
+            String name = "Bilateral en Matrix row " + j + ": " + participantList.get(j).getDccPidName();
             Double[] valuesArray = ArrayUtils.toObject(bilateralEnValues[j]);
             List<Double> values = Arrays.asList(valuesArray);
             String unit = "\\one";
 
             DccQuantity bilateralEnRow = new DccQuantity(
-                    "comparison_equivalenceValueEnCriterion",
+                    "comparison_equivalenceValueBilateral",
+                    participantList.get(j).getDccPidName(),
                     new DccName(name, "en"),
                     new SiRealListXMLList(values, labelString.toString(), unit));
 
@@ -37,7 +55,8 @@ public class DsiConverter {
         }
 
         return new DccResult(
-                "comparison_bilateralEquivalenceValue",
+                "comparison_EquivalenceValue",
+                setpoint,
                 new DccName(
                         "Bilateral equivalence values for nominal temperature of " + nominalTemeprature + "°C",
                         "en"
@@ -45,6 +64,7 @@ public class DsiConverter {
                 new DccData(bilateralEnValuesDccList)
         );
     }
+
 
     public DccMeasurementResults readValuesToDccMeasurementResults(List<Participant> participantList,
                                                                    List<SiRealListXMLList> nominalTempSiRealXMLLists,
@@ -169,12 +189,12 @@ public class DsiConverter {
             dccResults.addresult(enValueDccResult);
 
             // get pid without http reference
-            String urlPid = participantList.get(i).getDccPid();
-            int lastIndex = urlPid.lastIndexOf("/");
-            String pid = lastIndex != -1 ? urlPid.substring(lastIndex+1) : urlPid;
+//            String urlPid = participantList.get(i).getDccPid();
+//            int lastIndex = urlPid.lastIndexOf("/");
+//            String pid = lastIndex != -1 ? urlPid.substring(lastIndex+1) : urlPid;
 
             DccMeasurementResult dccMeasurementResult = new DccMeasurementResult(
-                    pid,
+                    participantList.get(i).getDccPidName(),
                     new DccName(
                             "Comparison data of participant laboratory: " + nominalTempSiRealXMLLists.get(i).getName(),
                             "en"
@@ -187,9 +207,11 @@ public class DsiConverter {
         return measurementResults;
     }
 
-    public DccResult enRefValToDccResult(Double nominalTemperature, SiReal enCriterionRefeVal){
+
+    public DccResult enRefValToDccResult(Double nominalTemperature, SiReal enCriterionRefeVal, String setpoint){
         return new DccResult(
                 "temperature_radianceTemperature",
+                setpoint,
                 new DccName("Temperature reference value at nominal temperature of "
                         + nominalTemperature + " °C", "en"),
                 new DccData(new DccQuantity(
@@ -198,6 +220,7 @@ public class DsiConverter {
                         enCriterionRefeVal
                 )));
     }
+
 
     public List<SiRealListXMLList> EnCriterionsToSiRealXMLLists(List<RunResult> enCriterionResults){
 
